@@ -1,0 +1,48 @@
+\documentclass[bibliography=totoc,listof=totoc,BCOR=5mm,DIV=12]{scrbook}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{natbib}
+\usepackage{amsmath}
+\usepackage[printonlyused]{acronym}
+
+\graphicspath{{./Images/}}
+
+\input{hyphenation}
+
+\begin{document}
+\sloppy
+
+% ---------------------------------------------------------------
+\frontmatter
+    \input{./Title/title-unibw}
+    \thispagestyle{empty}
+    \cleardoublepage
+    \thispagestyle{empty}
+    \cleardoublepage
+    \include{abstract}
+    \thispagestyle{empty}
+    \tableofcontents
+
+% ---------------------------------------------------------------
+\mainmatter
+
+    \input{chapter1}
+    \input{chapter2}
+    \input{chapter3}
+    \input{chapter4}
+    \input{chapter5}
+    \input{chapter6}
+
+% ---------------------------------------------------------------
+\backmatter
+    \input{acronyms}
+    \listoffigures
+    \bibliographystyle{apa}
+    \bibliography{./Bibliography/bibliography.bib}
+    \input{./Title/affirmation-unibw}
+
+\end{document}
