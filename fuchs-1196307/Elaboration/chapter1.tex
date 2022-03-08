@@ -13,7 +13,7 @@ rund um die Steigerung der Aufmerksamkeit bei der Nutzung von großen, interakti
 sogenannten \emph{Ambient Displays}.
 Dieser Bereich weist noch einen grundsätzlichen Forschungsbedarf auf.
 Im Projekt wird unter anderem der \emph{Honeypot-Effekt} erforscht \citep{unibw_honeypot-effekt_2021}.
-Dieser beschreibt in der \ac{HCI} wie Menschen die mit einem System interagieren
+Dieser beschreibt in der \ac{HCI} wie Menschen, die mit einem System interagieren,
 weitere Passanten anregen die Interaktion zu beobachten oder sogar an ihr teilzuhaben \citep{wouters_uncovering_2016}.
 Der \emph{Honeypot-Effekt} soll bei der Nutzung von \emph{Ambient Displays} im öffentlichen
 und halb-öffentlichen Raum in Langzeit-Feldstudien analysiert werden.
@@ -21,31 +21,35 @@ Dabei soll auch der Aspekt der Datenerhebung und -analyse weiter ausgebaut werde
 Hierzu muss ein methodisches Rahmenwerk entwickelt werden, welches eine auf Sensordaten-basierende,
 automatische und zeitlich uneingeschränkte Evaluation von \emph{Ambient Displays} ermöglicht \citep{unibw_honeypot-effekt_2021}.
 Die Sensordaten werden von Body-Tracking-Kameras bereitgestellt.
-Konkret wurden im die Wandbildschirme im vorliegenden Datensatz mit Kinect v2 Kameras ausgestattet.
+Konkret wurden die Wandbildschirme im vorliegenden Datensatz mit Microsoft Kinect v2 Kameras ausgestattet.
 Diese zeichnen die Interaktion von Nutzern mit den Displays auf,
 wodurch das Nutzerverhalten zu einem späteren Zeitpunkt ausgewertet werden kann.
-Besonders interessant ist, welche Muster sich in den Daten erkennen lassen.
+Die Daten liegen als \ac{TSD} vor.
+Bei diesem Datentyp handelt es sich um geordnete Sequenzen von Datenpunkten,
+die über eine gewisse Zeit hinweg aufgenommen werden \citep{ali_clustering_2019}.
+\ac{TSD} enthalten oft wichtige Informationen die durch Mustererkennung entdeckt werden können.
+Eine gängige Methode zur Analyse sind hierbei \emph{Clustering}-Verfahren \citep{aghabozorgi_time-series_2015}.
 Lässt sich eine Menge von Kategorien identifizieren, die etwas über das Verhalten von Menschen vor Wandbildschirmen aussagt?
 Ist die Einteilung in diese Kategorien automatisierbar?
-Aufgrund der Größe des vorliegenden Datensatzes ist eine manuelle Durchsicht zur Beantwortung der Fragen nicht möglich.
-In dieser Bachelorarbeit wird versucht, dieses Problem mithilfe von deterministischen Algorithmen zu lösen.
+Aufgrund der Größe des vorliegenden Datensatzes ist eine manuelle Evaluation zur Beantwortung der Fragen nicht möglich.
+In dieser Bachelorarbeit wird daher versucht, dieses Problem mithilfe von deterministischen Algorithmen zu lösen.
 Wesentliches Ziel ist die Implementierung eines Systems zur Kategorisierung der vorliegenden Kinect-Bewegungsdaten.
 Dieses System wird detailiert beschrieben und anschließend evaluiert.
-Dabei soll geklärt werden, welches Verfahren sich am Besten für den genannten Sachverhalt eignet.
+Dabei soll \emph{hierarchisches Clustering} mithilfe des \emph{\ac{DTW}}-Algorithmus eingesetzt werden.
 Außerdem wird die Frage beantwortet, welches Vorwissen benötigt wird,
-um das Verfahren einsetzen zu können (z.B. die Vorgabe von konkreten Templates)
-und welche Datenpunkte zur Analyse interessant sind (z.B. Laufpfade oder Engaged-Werte).
+um das Verfahren einsetzen zu können und welche Attribute zur Analyse interessant sind (z.B. Laufpfade oder Engaged-Werte).
+
 
 \section{Kategorien der Interaktion mit Wandbildschirmen}
 \label{chapter1-KategorienInteraktion-Wandbildschirme}
 Interaktive digitale Medien sind in der Öffentlichkeit immer präsenter.
-Deshalb wird es für Wandbildschirme immer schwieriger die Aufmerksamkeit von vorbeigehenden Menschen zu erregen
+Deshalb wird es für Wandbildschirme immer schwieriger die Aufmerksamkeit von Passanten zu erregen
 und sie zur Interaktion zu animieren.
 Diese Herausforderungen können nicht einfach durch verbesserte Hardware oder attraktivere Displays gelöst werden.
-Stattdessen muss ein besseres Verständnis zwischen Menschen und deren Nutzung von Technologie geschaffen werden \citep{wouters_uncovering_2016}.
+Stattdessen muss ein besseres Verständnis von Menschen und deren Technologienutzung geschaffen werden \citep{wouters_uncovering_2016}.
 \emph{Ambient Displays} sind große, interaktive Bildschirme im (halb-) öffentlichen Raum, mit denen Nutzer interagieren können.
 Es handelt sich meist um ästhetisch ansprechende Displays die Personen mit Informationen versorgen \citep{mankoff_heuristic_2003}.
-Für ein verbessertes Verständnis der Interaktion von Personen mit solchen Wandbildschirmen kann eine Kategorisierung erfolgen.
+Eine Kategorisierung der Interaktionen von Personen mit solchen Wandbildschirmen kann das Verständnis des Verhaltens verbessern.
 Dazu existieren verschiedenste \emph{Audience Behaviour-Interaktionsmodelle}, wovon im Folgenden zwei näher beschrieben werden.
 
 Das \emph{Audience Funnel Modell} beschreibt, wie Menschen sich um ein großes öffentliches Display versammeln
@@ -53,10 +57,10 @@ und von Beobachtern zu Interagierenden mit dem System, und anschließend wieder 
 Menschen neigen dazu verschiedene Phasen der Interaktivität zu durchlaufen,
 bevor sie direkt mit dem System interagieren \citep{wouters_uncovering_2016, mai_audience_2018}.
 Die einzelnen Phasen des \emph{Audience Funnel} werden in \autoref{fig:AudienceFunnelModel} gezeigt.
-Eine der Aufgaben eines Wandbildschirms ist also Aufmerksamkeit auf sich zu ziehen
+Eine der Aufgaben eines Wandbildschirms ist es also Aufmerksamkeit auf sich zu ziehen
 und den Nutzer zu motivieren mit dem System zu interagieren \citep{mai_audience_2018}.
 \citet{mai_audience_2018} verweisen darauf, dass \emph{Ambient Displays} in der Öffentlichkeit
-nicht undbedingt der zentrale Punkt der Aufmerksamkeit sind, da sie eigene intrinsische Ziele verfolgen.
+nicht undbedingt der zentrale Punkt der Aufmerksamkeit sind, da vorbeigehende Personen eigene intrinsische Ziele verfolgen.
 Die Herausforderung für Entwickler ist es die Systeme so zu gestalten,
 dass sie Aufmerksamkeit erregen, sich aber gleichzeitig nicht gezwungen in den Mittelpunkt stellen.
 
@@ -69,19 +73,18 @@ dass sie Aufmerksamkeit erregen, sich aber gleichzeitig nicht gezwungen in den M
   \end{figure}
 
 Ein zweites Modell wird durch den bereits erwähnten \emph{Honeypot-Effekt} beschrieben.
-Dieser Effekt ist ein Einfluss des sozialen Lernens.
 Er zeigt, dass Individuen undabhängig von Belohnungen, Bestrafungen oder sozialem Wettbewerb
 von der reinen Präsenz oder den Aktivitäten anderer beeinflusst werden.
 In der \ac{HCI} wird dies meist erkennbar, indem Passanten sich einem System nähern
 und überlegen, ob sie mit ihm interagieren sollen,
 nachdem sie anderen Menschen dabei zugesehen haben \citep{wouters_uncovering_2016}.
 
-Eine Einordnung der Bewegungsdaten in solche Kategorien
+Eine Einordnung der Bewegungsdaten in die Kategorien solcher Modelle
 und eine weiterführende Analyse der Bewegungen kann Aufschluss über das Verhalten von Menschen
 vor interaktiven Bildschirmen geben.
-Wie bereits erwähnt ist eine Kategorisierung bei einer großen Datenmenge nicht manuell realisierbar.
-Im Folgenden werden die Grundlagen der verwendeten Sensorik
-und die Struktur des Datensatzes beschrieben.
+Wie bereits erwähnt ist eine Kategorisierung des vorliegenden Kinect-Datensatzes
+aufgrund der großen Datenmenge nicht manuell realisierbar.
+Im Folgenden werden die Struktur des Datensatzes und die Grundlagen der verwendeten Sensorik beschrieben.
 Aufbauend darauf werden Überlegungen angestellt,
 wie eine Implementierung zur Automatisierung der Kategorisierung aussehen kann.
 
@@ -90,11 +93,11 @@ wie eine Implementierung zur Automatisierung der Kategorisierung aussehen kann.
 \label{chapter1-SpezifikationKinect}
 Der Xbox 360 Kinect Sensor war eine Revolution im Bereich der erschwinglichen 3D-Erkennungssensorik.
 Ursprünglich war er für die Videospiel-Industrie gedacht.
-Er wurde aber schon bald von Wissenschaftlern verwendet.
-Später folgten weitere Iterationen der Kinect \citep{tolgyessy_evaluation_2021}.
+Schon bald wurde er aber auch für wissenschaftliche Experimente genutzt.
+In späteren Jahren folgten weitere Iterationen der Kinect \citep{tolgyessy_evaluation_2021}.
 Im vorliegenden Datensatz des \emph{HoPE-Projekts} kam die Kinect v2 für Xbox One zum Einsatz.
 Diese Sensorik stellt Farbbilder einer \ac{RGB} Kamera, Tiefenbilder einer Tiefenkamera
-und Audiodateien von verschiedenen Mikrofonen zur Verfügung \citep{windows-developer-center_microsoft_corporation_human_2014}.
+und Audiodateien verschiedener Mikrofone zur Verfügung \citep{windows-developer-center_microsoft_corporation_human_2014}.
 Besonders die Tiefenkamera hilft zuverlässige Ergebnisse bei der Erkennung von Menschen vor \emph{Ambient Displays} zu erzielen.
 \citet{li_time-flight_2014} fassen es wie folgt zusammen.
 Die kompakte Größe, die Benutzungsfreundlichkeit,
@@ -125,59 +128,98 @@ Dabei wird die Lage von 25 Skelettpunkten, sowie verschiedene Gesichtsattribute 
 Zur Evaluation des implementierten System dient der Kinect-Datensatz des \emph{HoPE-Projekts}.
 Hierfür wurden im Jahr 2017 für 18 Wochen zwei Kinect v2 Systeme an einem \emph{Ambient Display} angebracht.
 Der Versuchsaufbau kann \autoref{fig:KinectSetup} entnommen werden.
+
+\begin{figure}[h]
+  \begin{center}
+  \includegraphics[width=0.8\textwidth]{kinect-setup.png}
+  \end{center}
+  \caption{Kinect-Setup des Datensatzes. Abbildung von Jan Schwarzer ToDo} % todo
+  \label{fig:KinectSetup}
+\end{figure}
+
 Eine Auswertung des Datensatzes ergab, dass dieser 97.626 Datenpunkte beinhaltet \citep{temiz_konzeption_2022}.
 Jeder Datenpunkt enthält mehrere sogenannte Frames.
 Dabei handelt es sich um Momentaufnahmen der Kinect-Sensorik.
+In einem Frame befindet sich immer nur eine Person.
+Falls sich bei einem Datenpunkt mehrere Menschen gleichzeitig im Sensorbereich befinden,
+erhält jede Person eine eindeutige Identifikationsnummer
+und der Datenpunkt wird in mehrere Frames unterteilt.
+Dabei entspricht jeder Frame der Momentaufnahme einer Person.
 Zu jedem Datenpunkt liegen verschiedene Dateien vor,
 die jeweils den Zeitstempel in Kombination mit einem geeigneten Postfix als Dateinamen tragen:
-
 \begin{itemize}
   \item timestamp.txt
   \item timestamp$\_$bodies.txt
   \item timestamp$\_$summary.txt
   \item timestamp.xef
 \end{itemize}
-
 Die Datei \emph{timestamp.txt} enthält folgende Attributwerte:
-
-\begin{enumerate}
-  \item Zeitstempel: Zeitpunkt der Aufnahme
-  \item KinectId
-  \item RecordId: Identifikationsnummer des Records
-  \item BodyIndex: Identifikationsnummer der Person
-  \item BodyCount: Anzahl der erfassten Personen
-  \item Happy: Person ist glücklich
-  \item Engaged: Person zeigt Interesse
-  \item WearingGlasses: Person trägt eine Brille
-  \item LeftEyeClosed: Person hat das linke Auge geschlossen
-  \item RightEyeClosed: Person hat das rechte Auge geschlossen
-  \item MouthOpen: Person hat den Mund geöffnet
-  \item MouthMoved: Person bewegt den Mund
-  \item LookingAway: Person schaut nicht zum Kinect-Sensor
-  \item Body.HandLeftState: Zustand der linken Hand
-  \item Body.HandRightState: Zusand der rechten Hand
-  \item X: x-Koordinate des Skelettpunkts SpineShoulder
-  \item Y: y-Koordinate des Skelettpunkts SpineShoulder
-  \item Z: z-Koordinate des Skelettpunkts SpineShoulder
-  \item Distance: Distanz zwischen Kinect-Sensor und Skelettpunkt SpineShoulder
-\end{enumerate}
-
+\begin{center}
+  \begin{tabular}{ |c|c| } 
+   \hline
+   Attributname & Beschreibung \\
+   \hline \hline
+   Zeitstempel & Zeitpunkt der Aufnahme \\
+   \hline
+   KinectId & (Frage an Julian und Jan: Was genau ist die KinectId?) \\
+   \hline
+   RecordId & Identifikationsnummer des Records \\
+   \hline
+   BodyIndex & Identifikationsnummer der Person \\
+   \hline
+   BodyCount & Anzahl der erfassten Personen \\
+   \hline
+   Happy & Person ist glücklich \\
+   \hline
+   Engaged & Person zeigt Interesse \\
+   \hline
+   WearingGlasses & Person trägt eine Brille \\
+   \hline
+   LeftEyeClosed & Person hat das linke Auge geschlossen \\
+   \hline
+   RightEyeClosed & Person hat das rechte Auge geschlossen \\
+   \hline
+   MouthOpen & Person hat den Mund geöffnet \\
+   \hline
+   MouthMoved & Person bewegt den Mund\\
+   \hline
+   LookingAway & Person schaut nicht zum Kinect-Sensor \\
+   \hline
+   Body.HandLeftState & Zustand der linken Hand \\
+   \hline
+   Body.HandRightState & Zusand der rechten Hand \\
+   \hline
+   X & x-Koordinate des Skelettpunkts SpineShoulder \\
+   \hline
+   Y & y-Koordinate des Skelettpunkts SpineShoulder \\
+   \hline
+   Z & z-Koordinate des Skelettpunkts SpineShoulder \\
+   \hline
+   Distance & Distanz zwischen Kinect-Sensor und Skelettpunkt SpineShoulder \\
+   \hline
+  \end{tabular}
+\end{center}
 Diese Attribute werden in der Textdatei durch drei Rauten ('\#\#\#') voneinander abgegrenzt.
+Ein konkreter Frame aus dem Datensatz kann \autoref{fig:FrameExample} entnommen werden.
+
+\begin{figure}[ht]
+  \begin{center}
+    2017-04-10 07:41:53.943 +02:00 \#\#\# 72057594038063128 \#\#\# 1341053376 \#\#\# 
+    \newline \#\#\# 1 \#\#\# No \#\#\# Maybe \#\#\# Unknown \#\#\# No \#\#\# No \#\#\#
+    \newline No \#\#\# Yes \#\#\# Maybe \#\#\# Unknown \#\#\# Closed \#\#\# 0,1074784
+    \newline \#\#\# 0,2451882 \#\#\# 4,18441 \#\#\# 4,19296454679429
+  \end{center}
+  \caption{Frame aus dem Datensatz.}
+  \label{fig:FrameExample}
+\end{figure}
+
 Die Datei \emph{timestamp$\_$bodies.txt} enthält für jeden Frame die Position aller 25 Skelettpunkte.
-\emph{timestamp$\_$summary.txt} zeigt eine kurze Zusammenfassung des Datenpunkts, welche gut von Menschen lesbar ist
-und \emph{timestamp.xef} kann genutzt werden, um den Datenpunkt in der Anwendung Kinect Studio zu visualisieren.
-Letzlich sind die Einträge sogenannte \emph{Time Series Data}.
+\emph{timestamp$\_$summary.txt} zeigt eine kurze Zusammenfassung des Datenpunkts, welche gut menschenlesbar ist.
+\emph{timestamp.xef} kann genutzt werden, um den Datenpunkt in der Anwendung Kinect Studio zu visualisieren.
+Letzlich sind die Einträge sogenannte \emph{\ac{TSD}}.
 Bei diesem Datentyp handelt es sich um geordnete Sequenzen von Datenpunkten,
 die über eine gewisse Zeit hinweg aufgenommen werden.
 Oft in regelmäßigen Abständen \citep{ali_clustering_2019}.
 Jeder Datenpunkt beinhaltet durchschnittlich 355 Frames,
 wodurch eine Gesamt-Frameanzahl von 34.687.630 entsteht \citep{temiz_konzeption_2022}.
-An der Größe zeigt sich erneut die Notwendigkeit eines Software-Tools zur Auswertung.
-
-\begin{figure}[ht]
-  \begin{center}
-  \includegraphics[width=0.8\textwidth]{kinect-setup.png}
-  \end{center}
-  \caption{Kinect-Setup des Datensatzes. Abbildung von Jan Schwarzer ToDo} %%todo
-  \label{fig:KinectSetup}
-\end{figure}
+Die Größe bestätigt erneut die Notwendigkeit eines Software-Tools zur Auswertung.
