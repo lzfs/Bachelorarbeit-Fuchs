@@ -1,5 +1,14 @@
 \chapter{Kategorisierung von Bewegungsdaten mittels deterministischer Algorithmen}
 \label{chapter2}
+Es gibt verschiedene Möglichkeiten sich der Kategorisierung von Bewegungsdaten zu nähern.
+So kann beispielsweise \emph{Maschine Learning} eingesetzt werden.
+Dieser Ansatz wird derzeit ebenfalls im Rahmen des HoPE-Projekts erforscht \citep{plischke_master_2022}.
+In dieser Arbeit werden hingegen \emph{deterministische Algorithmen} genutzt.
+Durch sie kann die Implementierung eines Kategorisierungssystems verhältnismäßig einfach gehalten werden.
+\citet{aghabozorgi_time-series_2015} verweisen zudem darauf, dass es die Verwendung von Methoden
+wie Maschine Learning (\emph{supervised}), im Falle von großen Datensätzen zu Problemen führen kann.
+Deterministische Cluster-Algorithmen sollten bei großen Datenmengen weniger Probleme bereiten (\emph{unsupervised}).
+
 Nach den einführenden Bemerkungen in \autoref{chapter1} werden nun die grundliegenden Punkte beschrieben,
 die bei der Umsetzung eines Kategorisierungssystems für \ac{TSD} zu beachten sind.
 Anschließend wird das eingesetzte Vorgehen erläutert und an einem Beispiel veranschaulicht.
@@ -41,12 +50,22 @@ die besser mit zeitlichen Verschiebungen umgehen kann \citep{aghabozorgi_time-se
     \label{fig:MetricComparison}
 \end{figure}
 
-Das Clustering soll mithilfe von \emph{hierarchischem Clustern} durchgeführt werden,
+Das Clustering soll mithilfe von \emph{hierarchischem Clustering} durchgeführt werden,
 welches in \autoref{chapter2-Clustering} beschrieben wird.
+Das Verfahren ist für die vorliegenden Daten gut geeignet,
+da es erlaubt \ac{TSD} unterschiedlicher Länge zu clustern.
+Zudem muss die Anzahl der zu bildenden Cluster nicht im Voraus definiert werden,
+wie dies etwa bei \emph{K-Means} der Fall ist \citep{aghabozorgi_time-series_2015}.
+Es ist in diesem Kontext nicht zielführend die Clusteranzahl zuvor zu definieren.
+Die Arbeit zielt darauf mehr Erkenntnis über mögliche sinnvolle Cluster zu gewinnen.
+Statt die Anzahl vorzugeben, wird ein Threshold definiert der angibt,
+ab wann zwei Cluster nicht mehr zusammengeführt werden soll,
+weil die Differenz zwischen ihnen zu groß ist.
 Als geeignete Distanz-Metrik wird dabei \emph{\ac{DTW}} verwendet (\autoref{chapter2-DTW}).
 Hier ist eine Mehrfachzuordnung von Punkten möglich.
 Diese können so verbunden werden, dass die Kosten minimal sind.
-Dies erlaubt eine Zuordnung ähnlicher Muster in den Daten auch wenn sie zeitlich verschoben sind.
+Dies erlaubt eine Zuordnung ähnlicher Muster in den Daten auch wenn sie zeitlich verschoben sind
+und ist daher gut für unsere Problemstellung geeignet.
 
 \section{Hierarchisches Time-Series Clustering}
 \label{chapter2-Clustering}
