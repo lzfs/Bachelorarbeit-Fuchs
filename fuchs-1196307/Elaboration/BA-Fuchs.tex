@@ -1,17 +1,37 @@
 \documentclass[bibliography=totoc,listof=totoc,BCOR=5mm,DIV=12,oneside]{scrbook}
-\usepackage[ngerman]{babel}
+
+\usepackage[english,main=ngerman]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{url}
 \usepackage[hidelinks]{hyperref}
-\usepackage[onehalfspacing]{setspace}
-\usepackage{natbib}
+\usepackage[natbib,style=apa,backend=biber]{biblatex}
+\usepackage{csquotes}
 \usepackage{amsmath}
+\usepackage{lmodern}
+\usepackage{inconsolata}
 \usepackage[printonlyused]{acronym}
 
 \graphicspath{{./Images/}}
-
 \input{hyphenation}
+\addbibresource{./Bibliography/bibliography.bib}
+
+\urlstyle{tt}
+
+\renewbibmacro*{doi+url}{
+  \printfield{isbn}
+  \newunit\newblock
+  \iftoggle{bbx:doi}
+    {\printfield{doi}
+     \iffieldundef{doi}{}{\renewcommand*{\finentrypunct}{\relax}}}
+    {}
+  \newunit\newblock
+  \iftoggle{bbx:url}
+    {\usebibmacro{url+urldate}
+     \iffieldundef{url}{}{\renewcommand*{\finentrypunct}{\relax}}}
+    {}}
+
+\linespread{1.4}
 
 \begin{document}
 \sloppy
@@ -41,8 +61,16 @@
 \backmatter
     \input{acronyms}
     \listoffigures
-    \bibliographystyle{apa}
-    \bibliography{./Bibliography/bibliography.bib}
-    \input{./Title/affirmation-unibw}
+    \begingroup
+        \hbadness 10000
+        \linespread{1.2}
+        \renewcommand*{\bibfont}{\small}
+        \setlength\bibhang{2em}
+        \printbibliography
+    \endgroup
+    \begingroup
+        \hbadness 10000
+        \input{./Title/affirmation-unibw}
+    \endgroup
 
 \end{document}
