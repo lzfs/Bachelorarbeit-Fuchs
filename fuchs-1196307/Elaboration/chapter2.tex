@@ -1,25 +1,208 @@
-\chapter{Kategorisierung von Bewegungsdaten mittels deterministischer Algorithmen}
+\chapter{Grundlagen und Problembeschreibung}
 \label{chapter2}
+Bevor näher auf die verwendeten Algorithmen eingegangen wird,
+werden grundlegende Aspekte erläutert.
+Dabei werden neben einigen Interaktionsmodellen vor Wandbildschirmen
+auch die eingesetzte Sensorik und die Struktur des Datensatzes beschrieben.
+Zudem erfolgt abschließend eine ausführliche Problembeschreibung.
+
+
+\section{Kategorien der Interaktion mit Wandbildschirmen}
+\label{2-KategorienInteraktion-Wandbildschirme}
+Interaktive digitale Medien sind in der Öffentlichkeit immer präsenter.
+Deshalb wird es für Wandbildschirme immer schwieriger die Aufmerksamkeit von Passanten zu erregen
+und sie zur Interaktion zu animieren.
+Diese Herausforderungen können nicht einfach durch verbesserte Hardware oder attraktivere Displays gelöst werden.
+Stattdessen muss ein besseres Verständnis von Menschen und deren Technologienutzung geschaffen werden \citep{wouters_uncovering_2016}.
+\emph{Ambient Displays} sind große, interaktive Bildschirme im (halb-) öffentlichen Raum, mit denen Nutzer interagieren können.
+Es handelt sich meist um ästhetisch ansprechende Displays die Personen mit Informationen versorgen \citep{mankoff_heuristic_2003}.
+Eine Kategorisierung der Interaktionen von Personen mit solchen Wandbildschirmen kann das Verständnis des Verhaltens verbessern.
+Dazu existieren verschiedenste \emph{Audience Behaviour-Interaktionsmodelle}, wovon im Folgenden zwei näher beschrieben werden.
+
+Das \emph{Audience Funnel Modell} beschreibt, wie Menschen sich um ein großes öffentliches Display versammeln
+und von Beobachtern zu Interagierenden mit dem System, und anschließend wieder zu Beobachtern werden.
+Menschen neigen dazu verschiedene Phasen der Interaktivität zu durchlaufen,
+bevor sie direkt mit dem System interagieren \citep{wouters_uncovering_2016, mai_audience_2018}.
+Die einzelnen Phasen des \emph{Audience Funnel} werden in \autoref{fig:AudienceFunnelModel} gezeigt.
+Eine der Aufgaben eines Wandbildschirms ist es also Aufmerksamkeit auf sich zu ziehen
+und den Nutzer zu motivieren mit dem System zu interagieren \citep{mai_audience_2018}.
+\citet{mai_audience_2018} verweisen darauf, dass \emph{Ambient Displays} in der Öffentlichkeit
+nicht undbedingt der zentrale Punkt der Aufmerksamkeit sind, da vorbeigehende Personen eigene intrinsische Ziele verfolgen.
+Die Herausforderung für Entwickler ist es die Systeme so zu gestalten,
+dass sie Aufmerksamkeit erregen, sich aber gleichzeitig nicht gezwungen in den Mittelpunkt stellen.
+
+\begin{figure}[ht]
+    \begin{center}
+    \includegraphics[width=0.9\textwidth]{audience-funnel-model.png}
+    \end{center}
+    \caption{Audience Funnel Framework. Abbildung aus \citet{mai_audience_2018}.}
+    \label{fig:AudienceFunnelModel}
+  \end{figure}
+
+Ein zweites Modell wird durch den bereits erwähnten \emph{Honeypot-Effekt} beschrieben.
+Er zeigt, dass Individuen undabhängig von Belohnungen, Bestrafungen oder sozialem Wettbewerb
+von der reinen Präsenz oder den Aktivitäten anderer beeinflusst werden.
+In der \ac{HCI} wird dies meist erkennbar, indem Passanten sich einem System nähern
+und überlegen, ob sie mit ihm interagieren sollen,
+nachdem sie anderen Menschen dabei zugesehen haben \citep{wouters_uncovering_2016}.
+
+Eine Einordnung der Bewegungsdaten in die Kategorien solcher Modelle
+und eine weiterführende Analyse der Bewegungen kann Aufschluss über das Verhalten von Menschen
+vor interaktiven Bildschirmen geben.
+Wie bereits erwähnt ist eine Kategorisierung des vorliegenden Kinect-Datensatzes
+aufgrund der großen Datenmenge nicht manuell realisierbar.
+Im Folgenden werden die Struktur des Datensatzes und die Grundlagen der verwendeten Sensorik beschrieben.
+Aufbauend darauf werden Überlegungen angestellt,
+wie eine Implementierung zur Automatisierung der Kategorisierung aussehen kann.
+
+
+\section{Spezifikation der Kinect}
+\label{2-SpezifikationKinect}
+Der Xbox 360 Kinect Sensor war eine Revolution im Bereich der erschwinglichen 3D-Erkennungssensorik.
+Ursprünglich war er für die Videospiel-Industrie gedacht.
+Schon bald wurde er aber auch für wissenschaftliche Experimente genutzt.
+In späteren Jahren folgten weitere Iterationen der Kinect \citep{tolgyessy_evaluation_2021}.
+Im vorliegenden Datensatz des \emph{HoPE-Projekts} kam die Kinect v2 für Xbox One zum Einsatz.
+Diese Sensorik stellt Farbbilder einer \ac{RGB} Kamera, Tiefenbilder einer Tiefenkamera
+und Audiodateien verschiedener Mikrofone zur Verfügung \citep{windows-developer-center_microsoft_corporation_human_2014}.
+Besonders die Tiefenkamera hilft zuverlässige Ergebnisse bei der Erkennung von Menschen vor \emph{Ambient Displays} zu erzielen.
+\citet{li_time-flight_2014} fassen es wie folgt zusammen.
+Die kompakte Größe, die Benutzungsfreundlichkeit,
+die stark vereinfachte Hintergrund-Subtraktion im Vergleich zu anderer Sensorik, sowie die hohe Genauigkeit
+und die hohe Bildrate machen Tiefenkameras zu einer attraktiven Lösung für ein breites Spektrum an Anwendungen.
+Die Kinect v2 verwendet dabei den Ansatz der kontinuierlichen Wellenintensitätsmodulation,
+der häufig bei \ac{ToF}-Tiefenkameras zum Einsatz kommt.
+Dabei wird das Licht einer Lichtquelle von Objekten im Sichfeld der Kamera zurückgestreut
+und die Phasenverzögerung zwischen dem emittierten und dem reflektierten Licht gemessen.
+Diese Phasendifferenz wird für jedes Pixel im Bildfeld in einen Entfernungswert umgerechnet \citep{tolgyessy_evaluation_2021}.
+Der Sensor kann Tiefenbilder mit einer Auflösung von 512 x 424 Pixeln
+und gewöhnliche Farbbilder mit 1920 x 1080 Pixeln aufnehmen \citep{marin_multi-camera_2019}.
+Bei der Kinect v2 können bis zu sechs Personen erfasst werden.
+Dabei wird die Lage von 25 Skelettpunkten, sowie verschiedene Gesichtsattribute erfasst \citep{windows-developer-center_microsoft_corporation_human_2014}.
+\autoref{fig:KinectBodyJoints} zeigt eine Übersicht dieser Punkte. 
+
+\begin{figure}[ht]
+  \begin{center}
+  \includegraphics[width=0.1\textwidth]{kinect-body-joints.png}
+  \end{center}
+  \caption{Skelettpunkte der Kinect v2. Abbildung aus \citet{windows-developer-center_microsoft_corporation_human_2014}.}
+  \label{fig:KinectBodyJoints}
+\end{figure}
+
+
+\section{Struktur des vorliegenden Datensatzes}
+\label{2-StrukturDatensatz}
+Zur Evaluation des implementierten System dient der Kinect-Datensatz des \emph{HoPE-Projekts}.
+Hierfür wurden im Jahr 2017 für 18 Wochen zwei Kinect v2 Systeme an einem \emph{Ambient Display} angebracht.
+Der Versuchsaufbau kann \autoref{fig:KinectSetup} entnommen werden.
+
+\begin{figure}[ht]
+  \begin{center}
+  \includegraphics[width=0.8\textwidth]{kinect-setup.png}
+  \end{center}
+  \caption{Kinect-Setup des Datensatzes. Abbildung von Jan Schwarzer ToDo} % todo
+  \label{fig:KinectSetup}
+\end{figure}
+
+Eine Auswertung des Datensatzes ergab, dass dieser 97.626 Datenpunkte beinhaltet \citep{temiz_konzeption_2022}.
+Jeder Datenpunkt enthält mehrere sogenannte Frames.
+Dabei handelt es sich um Momentaufnahmen der Kinect-Sensorik.
+In einem Frame befindet sich immer nur eine Person.
+Falls sich bei einem Datenpunkt mehrere Menschen gleichzeitig im Sensorbereich befinden,
+erhält jede Person eine eindeutige Identifikationsnummer
+und der Datenpunkt wird in mehrere Frames unterteilt.
+Dabei entspricht jeder Frame der Momentaufnahme einer Person.
+Zu jedem Datenpunkt liegen verschiedene Dateien vor,
+die jeweils den Zeitstempel in Kombination mit einem geeigneten Postfix als Dateinamen tragen:
+\begin{itemize}
+  \item timestamp.txt
+  \item timestamp$\_$bodies.txt
+  \item timestamp$\_$summary.txt
+  \item timestamp.xef
+\end{itemize}
+Die Datei \emph{timestamp.txt} enthält folgende Attributwerte:
+\begin{center}
+  \begin{tabular}{ |c|c| } 
+   \hline
+   Attributname & Beschreibung \\
+   \hline \hline
+   Zeitstempel & Zeitpunkt der Aufnahme \\
+   \hline
+   KinectId & (Frage an Julian und Jan: Was genau ist die KinectId?) \\
+   \hline
+   RecordId & Identifikationsnummer des Records \\
+   \hline
+   BodyIndex & Identifikationsnummer der Person \\
+   \hline
+   BodyCount & Anzahl der erfassten Personen \\
+   \hline
+   Happy & Person ist glücklich \\
+   \hline
+   Engaged & Person zeigt Interesse \\
+   \hline
+   WearingGlasses & Person trägt eine Brille \\
+   \hline
+   LeftEyeClosed & Person hat das linke Auge geschlossen \\
+   \hline
+   RightEyeClosed & Person hat das rechte Auge geschlossen \\
+   \hline
+   MouthOpen & Person hat den Mund geöffnet \\
+   \hline
+   MouthMoved & Person bewegt den Mund\\
+   \hline
+   LookingAway & Person schaut nicht zur Kinect \\
+   \hline
+   Body.HandLeftState & Zustand der linken Hand \\
+   \hline
+   Body.HandRightState & Zusand der rechten Hand \\
+   \hline
+   X & x-Koordinate des Skelettpunkts SpineShoulder \\
+   \hline
+   Y & y-Koordinate des Skelettpunkts SpineShoulder \\
+   \hline
+   Z & z-Koordinate des Skelettpunkts SpineShoulder \\
+   \hline
+   Distance & Distanz zwischen Kinect und Skelettpunkt SpineShoulder \\
+   \hline
+  \end{tabular}
+\end{center}
+Diese Attribute werden in der Textdatei durch drei Rauten ('\#\#\#') voneinander abgegrenzt.
+Ein konkreter Frame aus dem Datensatz kann \autoref{fig:FrameExample} entnommen werden.
+
+\begin{figure}[ht]
+  \begin{center}
+    2017-04-10 07:41:53.943 +02:00 \#\#\# 72057594038063128 \#\#\# 1341053376 \#\#\# 
+    \newline \#\#\# 1 \#\#\# No \#\#\# Maybe \#\#\# Unknown \#\#\# No \#\#\# No \#\#\#
+    \newline No \#\#\# Yes \#\#\# Maybe \#\#\# Unknown \#\#\# Closed \#\#\# 0,1074784
+    \newline \#\#\# 0,2451882 \#\#\# 4,18441 \#\#\# 4,19296454679429
+  \end{center}
+  \caption{Frame aus dem Datensatz.}
+  \label{fig:FrameExample}
+\end{figure}
+
+Die Datei \emph{timestamp$\_$bodies.txt} enthält für jeden Frame die Position aller 25 Skelettpunkte.
+\emph{timestamp$\_$summary.txt} zeigt eine kurze Zusammenfassung des Datenpunkts, welche gut menschenlesbar ist.
+\emph{timestamp.xef} kann genutzt werden, um den Datenpunkt in der Anwendung Kinect Studio zu visualisieren.
+Letztlich sind die Einträge sogenannte \emph{\ac{TSD}}.
+Bei diesem Datentyp handelt es sich um geordnete Sequenzen von Datenpunkten,
+die über eine gewisse Zeit hinweg aufgenommen werden.
+Oft in regelmäßigen Abständen \citep{ali_clustering_2019}.
+Jeder Datenpunkt beinhaltet durchschnittlich 355 Frames,
+wodurch eine Gesamt-Frameanzahl von 34.687.630 entsteht \citep{temiz_konzeption_2022}.
+Die Größe bestätigt erneut die Notwendigkeit eines Software-Tools zur Auswertung.
+
+\section{Problembeschreibung}
+\label{2-Problembeschreibung}
 Es gibt verschiedene Möglichkeiten sich der Kategorisierung von Bewegungsdaten zu nähern.
 So kann beispielsweise \emph{Maschine Learning} eingesetzt werden.
 Dieser Ansatz wird derzeit ebenfalls im Rahmen des HoPE-Projekts erforscht \citep{plischke_master_2022}.
 In dieser Arbeit werden hingegen \emph{deterministische Algorithmen} genutzt.
 Durch sie kann die Implementierung eines Kategorisierungssystems verhältnismäßig einfach gehalten werden.
-\citet{aghabozorgi_time-series_2015} verweisen zudem darauf, dass es die Verwendung von Methoden
+\citet{aghabozorgi_time-series_2015} verweisen zudem darauf, dass die Verwendung von Methoden
 wie Maschine Learning (\emph{supervised}), im Falle von großen Datensätzen zu Problemen führen kann.
 Deterministische Cluster-Algorithmen sollten bei großen Datenmengen weniger Probleme bereiten (\emph{unsupervised}).
 
-Nach den einführenden Bemerkungen in \autoref{chapter1} werden nun die grundliegenden Punkte beschrieben,
-die bei der Umsetzung eines Kategorisierungssystems für \ac{TSD} zu beachten sind.
-Anschließend wird das eingesetzte Vorgehen erläutert und an einem Beispiel veranschaulicht.
-Ein Einlick in verwandte Arbeiten (\autoref{chapter2-RelatedWork}) vertieft das Verständnis weiter.
-Abschließend wird auf zu beachtende Besonderheiten des Kinect-Datensatzes eingegangen.
-
-
-\section{Problembeschreibung}
-\label{chapter2-Problembeschreibung}
-Beim vorliegenden Kinect-Datensatz sind zwei wesentliche Punkte zu beachten.
-Zum einen handelt es sich um einen eine große Datenmenge.
+Beim vorliegenden Kinect-Datensatz handelt es sich ebenfalls um eine große Datenmenge.
 Die einzelnen Datenpunkte müssen daher automatisiert bearbeitet werden.
 Ziel der Verarbeitung ist es möglichst sinnvolle \emph{Cluster} zu erhalten.
 Um die Gemeinsamkeiten zweier Datenpunkte zu berechnen,
@@ -51,7 +234,7 @@ die besser mit zeitlichen Verschiebungen umgehen kann \citep{aghabozorgi_time-se
 \end{figure}
 
 Das Clustering soll mithilfe von \emph{hierarchischem Clustering} durchgeführt werden,
-welches in \autoref{chapter2-Clustering} beschrieben wird.
+welches in \autoref{3-Clustering} beschrieben wird.
 Das Verfahren ist für die vorliegenden Daten gut geeignet,
 da es erlaubt \ac{TSD} unterschiedlicher Länge zu clustern.
 Zudem muss die Anzahl der zu bildenden Cluster nicht im Voraus definiert werden,
@@ -61,215 +244,8 @@ Die Arbeit zielt darauf mehr Erkenntnis über mögliche sinnvolle Cluster zu gew
 Statt die Anzahl vorzugeben, wird ein Threshold definiert der angibt,
 ab wann zwei Cluster nicht mehr zusammengeführt werden soll,
 weil die Differenz zwischen ihnen zu groß ist.
-Als geeignete Distanz-Metrik wird dabei \emph{\ac{DTW}} verwendet (\autoref{chapter2-DTW}).
+Als geeignete Distanz-Metrik wird dabei \emph{\ac{DTW}} verwendet (\autoref{3-DTW}).
 Hier ist eine Mehrfachzuordnung von Punkten möglich.
 Diese können so verbunden werden, dass die Kosten minimal sind.
 Dies erlaubt eine Zuordnung ähnlicher Muster in den Daten auch wenn sie zeitlich verschoben sind
 und ist daher gut für unsere Problemstellung geeignet.
-
-\section{Hierarchisches Time-Series Clustering}
-\label{chapter2-Clustering}
-\emph{Clustering} kann genutzt werden, um große Datensätze zu kategorisieren,
-wenn keine Informationen zu den Kategorien vorliegen \citep{aghabozorgi_time-series_2015}.
-Ziel ist es, eine Struktur in den vorliegenden Daten zu finden,
-indem Elemente anhand eines festgelegten Vorgehens in homogene Gruppen einsortiert werden.
-Dabei sollen die Unterschiede bei Elementen der gleichen Gruppe möglichst gering
-und bei Elementen verschiedener Gruppen möglichst groß sein \citep{aghabozorgi_time-series_2015, warren_liao_clustering_2005}.
-Bei \emph{n} Datenpunkten erzeugt ein \emph{Clustering} \emph{k} Partitionen des Datensatzes.
-Jede Partition entspricht dabei einem \emph{Cluster}, dass mindestens ein Objekt enthält.
-Zum \emph{Clustering} sind besonders die Wahl des Clustering-Algorithmus
-und der Methode zur Bestimmung der Ähnlichkeit von zwei Datenreihen von Bedeutung \citep{warren_liao_clustering_2005}.
-Letzteres wird \ac{DTW} gelöst und in \autoref{chapter2-DTW} beschrieben.
-Als Clustering-Vorgehen kann das sogenannte \emph{hierarchical Clustering} genutzt werden.
-Dieses funktioniert, indem Datenobjekte in einen Baum von Clustern eingeteilt werden.
-Bei agglomerativen Vorgehen wird ein \emph{bottom-up} Ansatz verfolgt.
-Jedes Objekt ist daher zunächst ein eigenes Cluster.
-Dann werden schrittweise Cluster zusammengeführt,
-bis alle Objekte im selben Cluster sind, oder eine Terminierungsbedingung erfüllt ist \citep{warren_liao_clustering_2005}.
-
-Im Fall des Kinect-Datensatzes liegen die Daten als \ac{TSD} vor.
-\ac{TSD} zu kategorisieren findet in vielen wissenschaftlichen Gebieten Anwendung, um Muster zu finden.
-Sie erlauben es wichtige Informationen aus großen Datensätzen zu extrahieren.
-\ac{TSD} sind dynamische Daten, weil sich die Attributwerte mit der Zeit verändern.
-Diese Sammlungen von Werten können aber auch als ein einziges Objekt betrachtet werden.
-Das Kategorisieren von derartigen Objekten kann bei der Detektion relevanter Muster helfen \citep{aghabozorgi_time-series_2015}.
-Die meisten bestehenden Cluster-Algorithmen können auf diesen Datentypen zugeschnitten werden.
-So auch das hierarchische Clustering.
-Der größte Unterschied ist wie bereits erwähnt, dass die Distanz-/ Ähnlichkeitsmetrik angepasst werden muss,
-um sinnvoll bei \ac{TSD} genutzt werden zu können.
-Ein Vorteil ist, dass hierarchisches Clustern bei der Verwendung von \ac{DTW}
-nicht auf Datenreihen der gleichen Länge beschränkt ist \citep{warren_liao_clustering_2005}.
-
-
-\section{Dynamic Time Warping Algorithmus}
-\label{chapter2-DTW}
-Der \emph{\ac{DTW} Algorithmus} kann als Distanz-Metrik beim hierarchischen Clustern genutzt werden.
-Hier sind \emph{one-to-many} oder \emph{one-to-none} Beziehungen zwischen Datenpunkten möglich.
-Man bezeichnet das Vorgehen daher auch als eine \emph{elastische Metrik}.
-Sie kann gut mit zeitlichen Verschiebungen und unterschiedlich langen Datenreihen umgehen \citep{aghabozorgi_time-series_2015}.
-
-In der Literatur findet man viele Erläuterungen des \ac{DTW}-Algorithmus.
-Beispielsweise in \citet{mohammadzade_dynamic_2021}, \citet{warren_liao_clustering_2005},
-\citet{aghabozorgi_time-series_2015} oder \citet{yu_dynamic_2019}.
-Im Folgenden soll der Algorithmus ebenfalls erläutert werden.
-Das Ziel ist die Zuordnung verschiedener Signale,
-die im Verlauf der Zeit ähnliche Muster aufweisen.
-Diese Muster treten zu unterschiedlichen Zeiten oder in unterschiedlichen Raten auf.
-Um die Zuweisung zueinander zu erreichen muss jedes Signal gegebenenfalls lokal gestreckt oder gestaucht werden.
-Durch \emph{dynamisches Programmieren} kann eine Korrespondenz zwischen den Zeitindizes zweier Signale gefunden werden,
-sodass die Summe der Distanzen zwischen den beiden Signalen minimal ist \citep{mohammadzade_dynamic_2021}.
-
-Seien \emph{Q = $q_{1}, q_{2}, ... , q_{i}, ... , q_{n}$} und \emph{R = $r_{1}, r_{2}, ... , r_{j}, ... , r_{n}$}
-zwei Signale die durch \ac{DTW} ausgerichtet werden sollen, sodass die Differenz zwischen ihnen minimal ist.
-Dafür wird eine \emph{n x m} Matrix \emph{M} gebildet, wobei das Element \emph{(i, j)} die Distanz \emph{$d(q_{i}, r_{j})$}
-zwischen zwei Punkten \emph{$q_{i}$} und \emph{$r_{j}$} enthält.
-Hierfür wird im Normalfall die euklidische Distanz genutzt \citep{warren_liao_clustering_2005}.
-In der Zelle \emph{(0, 0)} enthält die Matrix den Wert 0
-und für die übrigen Zellen der Spalte und Zeile 0 wird jeweils der Wert unendlich angenommen.
-Das Verfahren kann auf einfache Weise auf mehrdimensionale \ac{TSD} angepasst werden.
-In diesem Fall sind die zu minimierenden Kosten die Summe
-der Distanzen zwischen den korrespondierenden Werten der beiden Datenreihen \citep{mohammadzade_dynamic_2021}.
-Ein \emph{Warping Pfad} \emph{W = $w_{1}, w_{2}, ... , w_{k}, ... , w_{K}$} in dem \emph{$max(m, n) \le K \le m + n - 1$} gilt,
-ist eine Reihe von Matrixelementen die drei Bedingungen erfüllen:
-\begin{itemize}
-    \item Grenzbedingungen
-    \item Kontinuität
-    \item Monotonität
-\end{itemize}
-Die Grenzbedingungen fordern, dass die Startzelle des Warping Pfads in der Matrix eine andere ist als die Zielzelle.
-Dabei gilt: \emph{$w_{1}$ = (m, n)} und \emph{$w_{k}$ = (0, 0)}.
-Aufgrund der Kontinuität sind nur Schritte in angrenzende Zellen erlaubt.
-Die Monotonitätsbedingung zwingt den Warping Pfad dazu, sich monoton in der Zeit zu bewegen.
-
-Mit Hilfe von dynamischer Programmierung können die Matrixeinträge von \emph{$M_{(0, 0)}$} ausgehend berechnet werden,
-indem wiederholt die folgende Gleichung ausgewertet wird.
-\emph{$ M_{(i, j)} = d(q_{i}, r_{j}) + min $ \{$M_{(i - 1, j - 1)}, M_{(i - 1, j)}, M_{(i, j - 1)} $\}}
-Sie definiert den kumulativen Abstand als die Summe aus dem Abstand des aktuellen Elementes
-und dem Minimum der kumulativen Abstände der benachbarten Elemente \citep{warren_liao_clustering_2005}.
-Der Pfad mit der minimalen Distanz ist von Bedeutung.
-Er kann mit \emph{$d_{DTW} = min(\frac{\sum_{k = 1}^{K}w_{k}}{K})$} berechnet werden.
-
-
-\section{Veranschaulichendes Beispiel}
-\label{chapter2-Example}
-Zur Veranschaulichung soll nun das Vorgehen anhand von vier Datenreihen durchgeführt werden.
-Seien \emph{$R_{1}$ = (0, 1, 1, 2, 2, 1, 1)}, \emph{$R_{2}$ = (0, 1, 1, 1, 2, 2, 1, 1)}, \emph{$R_{3}$ = (1, 1, 0, 1, 2, 2, 1, 1)}
-und \emph{$R_{4}$ = (2, 2, 1, 2, 2, 2)} gegeben.
-Die Kosten können berechnet werden, indem die Kostenmatrix aufgestellt und der Warping Pfad berechnet wird (\autoref{chapter2-DTW}).
-Für die Berechnung der Kosten zwischen \emph{$R_{1}$} und \emph{$R_{2}$} ergibt sich beispielsweise folgende Matrix
-mit hervorgehobenem Warping Pfad.
-\begin{center}
-    \begin{tabular}{ |c|c|c|c|c|c|c|c|c| } 
-     \hline
-     \textbf{0} & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ \\
-     \hline
-     $\infty$ &\textbf{0} & 1 & 2 & 3 & 5 & 7 & 8 & 9 \\
-     \hline
-     $\infty$ & 1 & \textbf{0} & \textbf{0} & 0 & 1 & 2 & 2 & 2 \\
-     \hline
-     $\infty$ & 2 & 0 & 0 & \textbf{0} & 1 & 2 & 2 & 2 \\
-     \hline
-     $\infty$ & 4 & 1 & 1 & 1 & \textbf{0} & 0 & 1 & 2 \\
-     \hline
-     $\infty$ & 6 & 2 & 2 & 2 & 0 & \textbf{0} & 1 & 2 \\
-     \hline
-     $\infty$ & 7 & 2 & 2 & 2 & 1 & 1 & \textbf{0} & 0 \\
-     \hline
-     $\infty$ & 8 & 2 & 2 & 2 & 2 & 2 & 0 & \textbf{0} \\
-     \hline
-    \end{tabular}
-\end{center}
-Außerdem ergeben sich folgende gerundete Kosten zwischen den einzelnen Reihen: 
-\begin{center}
-    \begin{tabular}{ |c|c|c| } 
-     \hline
-     Reihen & Kosten \\
-     \hline \hline
-     $R_{1}$, $R_{2}$ & \textbf{0} \\
-     \hline
-     $R_{1}$, $R_{3}$ & 1.56 \\
-     \hline
-     $R_{1}$, $R_{4}$ & 2.88 \\
-     \hline
-     $R_{2}$, $R_{3}$ & 2.89 \\
-     \hline
-     $R_{3}$, $R_{4}$ & 2.67 \\
-     \hline
-    \end{tabular}
-\end{center}
-Da \emph{$R_{1}$} und \emph{$R_{2}$} zusammen die geringsten Kosten haben bilden sie das erste Cluster \emph{$C_{1}$}.
-Um dessen Wertreihe zu erhalten werden die Attributwerte paarweise addiert und die Summe anschließend halbiert.
-Dabei kann anhand des Warping Pfads abgelesen werden, welche Werte zusammengehören.
-So ergibt sich \emph{$C_{1}$ = (0, 1, 1, 1, 2, 2, 1, 1)}.
-Es sollte ein \emph{Threshold} definiert werden,
-der angibt, ab wann die Kosten zu groß sind, um die beiden Datenreihen zu einem Cluster zusammenzuführen.
-Ein sinnvoller Wert hängt dabei vom vorliegenden Datensatz ab.
-Sei dieser Threshold im Folgenden \emph{t = 2}.
-Nun werden die Schritte wiederholt, wobei \emph{$C_{1}$} als eine einzelne neue Datenreihe betrachtet wird.
-Dabei ergeben sich folgende Kosten:
-\begin{center}
-    \begin{tabular}{ |c|c|c| } 
-     \hline
-     Reihen & Kosten \\
-     \hline \hline
-     $C_{1}$, $R_{3}$ & \textbf{1.56} \\
-     \hline
-     $C_{1}$, $R_{4}$ & 2.89 \\
-     \hline
-     $R_{3}$, $R_{4}$ & 2.67 \\
-     \hline
-    \end{tabular}
-\end{center}
-Nun haben \emph{$C_{1}$} und \emph{$R_{3}$} die geringsten Kombinationskosten.
-Da die Kosten geringer sind als der Threshold kann ein neues Cluster gebildet werden.
-Es ergibt sich \emph{$C_{2}$ = (0.5, 1, 0.5, 1, 2, 2, 1, 1)}.
-Damit können die neuen Kosten berechnet werden:
-\begin{center}
-    \begin{tabular}{ |c|c|c| } 
-     \hline
-     Reihen & Kosten \\
-     \hline \hline
-     $C_{2}$, $R_{4}$ & \textbf{2.78} \\
-     \hline
-    \end{tabular}
-\end{center}
-Da die berechneten Kosten den zuvor definierten Threshold übersteigen wird kein neues Cluster mehr gebildet
-und wir sind am Ende unserer Berechnungen angekommen.
-\autoref{fig:Dendrogram} veranschaulicht die gebildeten Cluster.
-
-\begin{figure}[ht]
-    \begin{center}
-    \includegraphics[width=0.25\textwidth]{dendrogram.png}
-    \end{center}
-    \caption{Graphische Veranschaulichung der gebildeten Cluster.}
-    \label{fig:Dendrogram}
-\end{figure}
-
-
-\section{Related Work Analyse}
-\label{chapter2-RelatedWork}
-ToDo
-
-
-\section{Einsatz im Kontext von Kinect-Bewegungsdaten}
-\label{chapter2-Einsatz}
-Wie bereits erwähnt handelt es sich bei den vorliegenden Daten um \ac{TSD}.
-\citet{warren_liao_clustering_2005} und \citet{aghabozorgi_time-series_2015} weisen darauf hin,
-dass besonders die verwendete Distanz-/ Ähnlichkeitsmetrik entscheidend ist,
-um diesen Datentyp sinnvoll in Kategorien einteilen zu können.
-Hierarchisches Clustering in Kombination mit \ac{DTW} scheint ein vielversprechender Ansatz zu sein.
-Da die Daten in Textdateien vorliegen ist eine Komponente im System nötig,
-die diese Informationen ausliest und in geeigneten Objekten der genutzten Programmiersprache abspeichert.
-Besonders von Bedeutung ist zudem die Wahl geeigneter Attribute.
-Die Daten enthalten viele Werte die mehr oder weniger interessant für die Kategorisierung sein können.
-Die Laufwege oder Engagement-Werte sind beispielsweise relevanter als die Tatsache,
-ob eine Person Brillenträger ist oder nicht.
-Idealerweise sollte die Wahl der genutzten Attribute vom Nutzer der Anwendung definiert werden können.
-So kann das Tool effektiv genutzt werden, um nach wiederkehrenden Abläufen in den Daten zu suchen.
-Des weiteren stellt sich die Frage, ab wann keine weitere Clusterbildung mehr stattfinden soll.
-Dazu muss ein geeigneter Threshold definiert werden.
-Zudem ist die große Menge der Daten zu erwähnen.
-\citet{aghabozorgi_time-series_2015} weist darauf hin,
-dass \ac{DTW} weniger performant ist als herkömmliche Metriken wie die euklidische Distanz.
-Gegebenenfalls müssen die Daten vor der Nutzung geeignet gefilter werden.
-Diese Filterung soll allerdings nicht Bestandteil dieser Bachelorarbeit sein.
