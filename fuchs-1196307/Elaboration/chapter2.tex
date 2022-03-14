@@ -58,7 +58,8 @@ wie eine Implementierung zur Automatisierung der Kategorisierung aussehen kann.
 
 \section{Spezifikation der Kinect}
 \label{2-SpezifikationKinect}
-Der Xbox 360 Kinect Sensor war eine Revolution im Bereich der erschwinglichen 3D-Erkennungssensorik.
+\citep{tolgyessy_evaluation_2021} verweisen darauf,
+dass der Xbox 360 Kinect Sensor eine \glqq Revolution\grqq\ im Bereich der erschwinglichen 3D-Erkennungssensorik war.
 Ursprünglich war er für die Videospiel-Industrie gedacht.
 Schon bald wurde er aber auch für wissenschaftliche Experimente genutzt.
 In späteren Jahren folgten weitere Iterationen der Kinect \citep{tolgyessy_evaluation_2021}.
@@ -104,22 +105,15 @@ Der Versuchsaufbau kann \autoref{fig:KinectSetup} entnommen werden.
   \label{fig:KinectSetup}
 \end{figure}
 
-Eine Auswertung des Datensatzes ergab, dass dieser 97.626 Datenpunkte beinhaltet \citep{temiz_konzeption_2022}.
-Jeder Datenpunkt enthält mehrere sogenannte Frames.
+Eine Auswertung des Datensatzes ergab, dass dieser 97.626 Records beinhaltet \citep{temiz_konzeption_2022}.
+Dabei enthält jeder mehrere sogenannte Frames.
 Dabei handelt es sich um Momentaufnahmen der Kinect-Sensorik.
-In einem Frame befindet sich immer nur eine Person.
-Falls sich bei einem Datenpunkt mehrere Menschen gleichzeitig im Sensorbereich befinden,
+Falls sich mehrere Menschen gleichzeitig im Sensorbereich befinden,
 erhält jede Person eine eindeutige Identifikationsnummer
-und der Datenpunkt wird in mehrere Frames unterteilt.
-Dabei entspricht jeder Frame der Momentaufnahme einer Person.
-Zu jedem Datenpunkt liegen verschiedene Dateien vor,
-die jeweils den Zeitstempel in Kombination mit einem geeigneten Postfix als Dateinamen tragen:
-\begin{itemize}
-  \item timestamp.txt
-  \item timestamp$\_$bodies.txt
-  \item timestamp$\_$summary.txt
-  \item timestamp.xef
-\end{itemize}
+und der Record wird in mehrere Frames unterteilt.
+Dabei entspricht ein Frame der Momentaufnahme einer Person.
+Zu jedem Record liegen verschiedene Dateien vor,
+die jeweils den Zeitstempel in Kombination mit einem geeigneten Postfix als Dateinamen tragen.
 Die Datei \emph{timestamp.txt} enthält folgende Attributwerte:
 \begin{center}
   \begin{tabular}{ |c|c| } 
@@ -128,7 +122,7 @@ Die Datei \emph{timestamp.txt} enthält folgende Attributwerte:
    \hline \hline
    Zeitstempel & Zeitpunkt der Aufnahme \\
    \hline
-   KinectId & (Frage an Julian und Jan: Was genau ist die KinectId?) \\
+   KinectId & Skelett-Identifikationsnummer des Framework  \\
    \hline
    RecordId & Identifikationsnummer des Records \\
    \hline
@@ -181,14 +175,13 @@ Ein konkreter Frame aus dem Datensatz kann \autoref{fig:FrameExample} entnommen 
 \end{figure}
 
 Die Datei \emph{timestamp$\_$bodies.txt} enthält für jeden Frame die Position aller 25 Skelettpunkte.
-\emph{timestamp$\_$summary.txt} zeigt eine kurze Zusammenfassung des Datenpunkts, welche gut menschenlesbar ist.
-\emph{timestamp.xef} kann genutzt werden, um den Datenpunkt in der Anwendung Kinect Studio zu visualisieren.
+\emph{timestamp$\_$summary.txt} zeigt eine kurze Zusammenfassung des Records, welche gut menschenlesbar ist.
+\emph{timestamp.xef} kann genutzt werden, um die Aufnahme in der Anwendung Kinect Studio zu visualisieren.
 Letztlich sind die Einträge sogenannte \emph{\ac{TSD}}.
 Bei diesem Datentyp handelt es sich um geordnete Sequenzen von Datenpunkten,
 die über eine gewisse Zeit hinweg aufgenommen werden.
 Oft in regelmäßigen Abständen \citep{ali_clustering_2019}.
-Jeder Datenpunkt beinhaltet durchschnittlich 355 Frames,
-wodurch eine Gesamt-Frameanzahl von 34.687.630 entsteht \citep{temiz_konzeption_2022}.
+Insgesamt befinden sich im Datensatz 34.687.630 Frames \citep{temiz_konzeption_2022}.
 Die Größe bestätigt erneut die Notwendigkeit eines Software-Tools zur Auswertung.
 
 \section{Problembeschreibung}
@@ -203,15 +196,12 @@ wie Maschine Learning (\emph{supervised}), im Falle von großen Datensätzen zu 
 Deterministische Cluster-Algorithmen sollten bei großen Datenmengen weniger Probleme bereiten (\emph{unsupervised}).
 
 Beim vorliegenden Kinect-Datensatz handelt es sich ebenfalls um eine große Datenmenge.
-Die einzelnen Datenpunkte müssen daher automatisiert bearbeitet werden.
+Die einzelnen Records müssen daher automatisiert bearbeitet werden.
 Ziel der Verarbeitung ist es möglichst sinnvolle \emph{Cluster} zu erhalten.
-Um die Gemeinsamkeiten zweier Datenpunkte zu berechnen,
+Um die Gemeinsamkeiten zweier Aufnahmen zu berechnen,
 wird eine geeignete Vergleichsfunktion benötigt.
 Die Wahl dieser Funktion ist wichtig für den Erfolg des \emph{Clusterings} \citep{warren_liao_clustering_2005}.
 Zu beachten ist zudem, dass die Bewegungsaufnahmen durch \emph{\ac{TSD}} beschrieben werden.
-Bei diesem Datentyp handelt es sich um geordnete Sequenzen von Datenpunkten,
-die über eine gewisse Zeit hinweg aufgenommen werden.
-Oft in regelmäßigen Abständen \citep{ali_clustering_2019}.
 Werden hier herkömmliche Distanzmetriken, wie die Euklidische-Distanz verwendet
 kann dies zu Problemen führen und die Aussagekraft des Vergleichs verringern.
 Es kann vorkommen, dass verschiedene Personen die gleiche Bewegung unterschiedlich schnell ausführen.
