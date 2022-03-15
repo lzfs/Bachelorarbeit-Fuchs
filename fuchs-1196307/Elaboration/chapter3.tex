@@ -196,17 +196,18 @@ Im Folgenden wird eine Auswahl dieser Veröffentlichungen beschrieben.
 Dabei wird eine Kinect-Kamera genutzt, um die Bewegungen aufzuzeichnen.
 Zudem kommt eine Form des \ac{DTW}-Algorithmus zum Einsatz, um die Gesten zu erkennen.
 Für den Vergleich werden die x- und y-Koordinaten von sechs Körperpunkten genutzt.
-Dabei liegen zu jeder bekannten Bewegung jeweils Referenzwerte für den Vergleich mit der aktuellen Werten vor.
-Für die Entscheidung, ob eine Bewegung erkannt wird oder nicht sind die Kosten entscheidend.
+Dabei liegen zu jeder bekannten Bewegung jeweils Referenzwerte für den Vergleich mit den aktuellen Werten vor.
+Für die Entscheidung, ob eine betrachtete Bewegung zu einer Kategorie gehört oder nicht sind die Kosten entscheidend.
 Es wird ein Threshold definiert.
-Liegen die aktuellen Kosten über ihm wird die Bewegung verworfen.
-Falls sie geringer sind wird der Ablauf akzeptiert.
-Die Definition von geeigneten Threshold-Werten wird auch im späteren Verlauf dieser Arbeit relevant.
+Liegen die aktuellen Kosten über diesem wird die Bewegung verworfen.
+Falls sie geringer sind wird der Ablauf in die Kategorie einsortiert.
+Die Definition von geeigneten Threshold-Werten für die Differenz zwischen Datenreihen
+wird auch im späteren Verlauf dieser Arbeit relevant.
 So kann entschieden werden, ob Cluster weiter zusammengeführt werden sollten oder nicht.
 \citet{yu_dynamic_2019} nuzten \ac{DTW}, um physische Rehabilitationsübungen mithilfe eines Kinect-Sensors zu bewerten.
-Dabei wurde zunächst die Ähnlichkeit zwischen den \ac{TSD} des Nutzers und des Trainers berechnet.
-Als Eingabeattribute wurden hier acht sogenannte Knochenvektoren des menschlichen Skeletts und die Körperorientierung verwendet.
-Ein Knochen der zwischen zwei Gelenkpunkten liegt wird hier als 3D-Vektor im Raum interpretiert.
+Dabei wird zunächst die Ähnlichkeit zwischen den \ac{TSD} des Nutzers und des Trainers berechnet.
+Als Eingabeattribute werden hier acht sogenannte Knochenvektoren des menschlichen Skeletts und dessen Körperorientierung verwendet.
+Ein Knochen der zwischen zwei Gelenkpunkten liegt wird als 3D-Vektor im Raum interpretiert.
 Die Summe der Winkeldifferenzen zwischen allen korrespondierenden Knochenvektoren der beiden Bewegungsreihen dient
 als Distanz-Metrik.
 Die Ergebnisse zeigen, dass \ac{DTW} effektiv eingesetzt werden kann,
@@ -215,7 +216,7 @@ Im Kontext der Interaktion mit Wandbildschirmen werden andere Eingabewerte inter
 Deshalb müssen geeignete Werte für unsere Szenarien elaboriert werden.
 \citet{mohammadzade_dynamic_2021} nutzen \ac{TSD}-Informationen für eine Überwachung von alltäglichen menschlichen Aktivitäten.
 Jede Aktion wird durch eine mehrdimensionale Time-Series repräsentiert.
-Dabei entspricht eine Dimension jeweils der Postion eines Skelettpunkts dem Verlauf der Zeit.
+Dabei entspricht eine Dimension jeweils der Postion eines Skelettpunkts im Verlauf der Zeit.
 Im vorliegenden Ansatz wird jeder Bewegungsklasse genau eine Referenzbewegung zugeordnet.
 Die Daten werden entsprechend mit diesen Referenzen verglichen.
 Dadurch sind viel weniger Vergleiche nötig als bei anderen \ac{DTW}-Methoden,
@@ -223,7 +224,7 @@ wodurch die Rechenkomplexität abnimmt.
 Allerdings sind dafür vordefinierte Klassen mit teils künstlich erzeugten Beispielbewegungen nötig.
 Wesentliches Ziel dieser Bachelorarbeit ist es allerdings dazu beizutragen neue Informationen
 über mögliche Interaktionsverhalten mit interaktiven Wandbildschirmen zu gewinnen.
-Eine Definition im Voraus ist für unser Szenario nicht zielführend.
+Eine Definition im Voraus ist für dieses Szenario nicht zielführend.
 \citet{hautamaki_time-series_2008} vergleichen experimentell einige Time-Series Clustering-Verfahren
 mit \ac{DTW} als Distanzmetrik.
 Hierarchisches Clustering wird hier agglomerativ implementiert.
