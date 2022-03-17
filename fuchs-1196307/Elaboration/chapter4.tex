@@ -1,7 +1,7 @@
 \chapter{Konzeption}
 \label{chapter4}
-Vor der eigentlichen Implementierung erfolgt nun eine ausführliche Konzeption.
-Diese dient dazu genau zu elaborieren, welche Anforderungen an die Software gestellt werden
+Vor der eigentlichen Implementierung erfolgt nun eine Konzeption.
+Damit wird elaboriert, welche Anforderungen an die Software gestellt werden
 und wie die Implementierung erfolgen soll.
 Etwaige Ungereimtheiten und Probleme können so frühzeitig erkannt werden.
 
@@ -14,14 +14,14 @@ und \ac{DTW} als Distanzmetrik gruppiert.
 Dieses Tool kann im Rahmen des HoPE-Projekts genutzt werden,
 um große Datensätze auf wiederkehrende Bewegungsabläufe bei der Interaktion mit Wandbildschirmen
 zu untersuchen.
-Dabei gibt es sogenannte \emph{funktionale Anforderungen} und \emph{nicht-funktionale Anforderungen},
+Es gibt sogenannte \emph{funktionale Anforderungen} und \emph{nicht-funktionale Anforderungen},
 die das System erfüllen muss.
 Letztere beinhalten beispielsweise Anforderungen zu Benutzbarkeit, Effizienz oder Portierbarkeit.
 Funktionale Anforderungen beschreiben hingegen die primären Features des Systems.
 
 \subsection{Nicht-funktionale Anforderungen}
 \label{4-NichtFunktionaleAnforderungen}
-Bei der Wahl der genutzten Programmiersprache und möglicherweise verwendeten Frameworks
+Bei der Wahl der Programmiersprache und verwendeten Frameworks
 existieren keine speziellen Vorgaben.
 Das Tool sollte allerdings ohne großen Installationsaufwand nutzbar sein
 und daher nach Möglichkeit eine stark verbreitete Programmiersprache nutzen.
@@ -33,8 +33,8 @@ Um dieses Ziel zu erreichen, wird die Software von Beginn an möglichst generisc
 
 \subsection{Funktionale Anforderungen}
 \label{4-FunktionaleAnforderungen}
-Die Software bietet Input-Funktionalitäten,
-mit der ein Datensatz aus Textdateien eingelesen und in passenden Datenobjekten abgespeichert werden kann.
+Die Software kümmert sich um den Input.
+Ein Datensatz kann aus Textdateien eingelesen und in passenden Datenobjekten abgespeichert werden.
 Das Tool soll ein Clustering mittels hierarchischem Clustering wie in \autoref{3-Clustering} beschrieben anbieten.
 Dabei ist der Threshold für das Mergen von zwei Clustern vom Nutzer konfigurierbar.
 Als Distanzmetrik wird \ac{DTW} (\autoref{3-DTW}) genutzt.
@@ -44,16 +44,17 @@ Die gefundenen Cluster werden in einer Textdatei aufgelistet.
 Jedes Cluster erhält einen eindeutigen Namen und eine Liste aller Records die zusammengeführt wurden.
 Die starke Konfigurierbarkeit wird durch eine \emph{config-file} erreicht,
 die der Nutzer beim Start der Anwendung übergeben kann.
-Sie enthält unter anderem ein \emph{keywort} welcher Datensatz verwendet wird (z.B. \glqq kinect\grqq),
+Sie enthält unter anderem ein \emph{keywort} welcher Datensatz verwendet wird (Standardwert: \glqq kinect\grqq),
 den Pfad zum Datensatz, die zu nutzendem Attribute für den Vergleich des \ac{DTW}-Algorithmus,
 den Threshold für das Clustering und den Pfad zur Output-Datei.
 
 \section{Programmablauf}
 \label{4-Programmablauf}
-Im Folgenden wird ein typischer Programmablauf beschrieben.
+Im Folgenden wird der Programmablauf beschrieben.
 \begin{enumerate}
-    \item Der Nutzer startet den \emph{Clustering-Processor} und gibt als Startparameter den Pfad der config-Datei an.
-    \item Der \emph{Processor} nutzt den \emph{Config-Reader}, um die Werte der Konfigurationdatei auszulesen
+    \item Der Nutzer startet den \emph{Clustering-Processor}
+    und gibt als Startparameter den Pfad der \emph{config-Datei} an.
+    \item Der \emph{Processor} nutzt den \emph{Config-Reader}, um die Werte der \emph{Konfigurationdatei} auszulesen
     und speichert diese ab.
     \item Der \emph{Processor} nutzt den \emph{TS-Reader}, um den Datensatz einzulesen
     und legt die Informationen in geeigneten Objekten ab.
@@ -63,13 +64,14 @@ Im Folgenden wird ein typischer Programmablauf beschrieben.
     Zu beginn entspricht jeder Record einem eigenen Cluster.
     Die \emph{recordToCluster-Methode} ermöglicht eine Transformation.
     \item Das Clustering nutzt die \emph{\ac{DTW}-Implementierung},
-    um paarweise die Kosten zwischen zwei Clustern zu berechnen.
+    um paarweise die Kosten zweier Cluster zu berechnen.
     \item Die beiden Cluster mit den geringsten Kosten werden zusammengeführt.
     Dazu wird ein neues \emph{Cluster-Objekt} angelegt, dass durch Kombination der beiden Cluster entsteht.
-    In diesem Cluster werden die Bestandteile (Records, Cluster) abgespeichert.
+    Dabei wird jeweils das Mittel der Attributwerte berechnet und abgelegt.
+    Zudem werden die Cluster-Bestandteile abgespeichert.
     Bei allen Komponenten wird ein \emph{consider-flag} auf \emph{false} gesetzt,
     damit sie bei zukünftigen Vergleichen nicht mehr berücksichtigt werden.
-    \item Schritte 5 und 6 so lange wiederholen, bis die geringsten Kosten den vom Nutzer definierten Threshold übersteigen.
+    \item Schritte 5 und 6 werden so lange wiederholt, bis die geringsten Kosten den vom Nutzer definierten Threshold übersteigen.
     \item Der \emph{Processor} nutzt den \emph{Cluster-Writer}, um alle Cluster der \emph{clusters-Liste}
     in eine Ausgabedatei zu schreiben.
     \item Die Anwendung terminiert. 
