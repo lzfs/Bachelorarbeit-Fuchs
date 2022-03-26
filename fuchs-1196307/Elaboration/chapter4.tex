@@ -25,11 +25,19 @@ Bei der Wahl der Programmiersprache und verwendeten Frameworks
 existieren keine speziellen Vorgaben.
 Das Tool sollte allerdings ohne großen Installationsaufwand nutzbar sein
 und daher nach Möglichkeit eine stark verbreitete Programmiersprache nutzen.
+Bei der Implementierung fällt daher die Wahl auf Java in der Version 14.
+Dabei sollen auch keine externen Bibliotheken genutzt werden.
 An die Effizienz gibt es ebenfalls keine besonderen Anforderungen,
 da die Auswertung der Daten nur einmalig zu einem späteren Zeitpunkt erfolgt.
 Eine Echtzeitauswertung ist nicht geplant.
+Da zu lange Wartezeiten, aber die Nutzbarkeit des Tools einschränken,
+sollen berechnete Kosten in einer geeigneten Datenstruktur zwischengespeichert werden.
+So können im darauffolgenden Iterationsschritt viele Berechnungsschritte eingespart werden.
 Das Tool sollte durch wenige Anpassungen auch auf Datensätze anderer Tiefenkameras angewandt werden können.
 Um dieses Ziel zu erreichen, wird die Software von Beginn an möglichst generisch entwickelt.
+Zu allen Bestandteilen des Tools existiert daher ein Interface.
+Bei Bedarf können so einfach neue Implementierungen,
+die den Anforderungen anderer Datensätze entsprechen, ergänzt werden.
 
 \subsection{Funktionale Anforderungen}
 \label{4-FunktionaleAnforderungen}
@@ -39,14 +47,46 @@ Das Tool soll ein Clustering mittels hierarchischem Clustering wie in \autoref{3
 Dabei ist der Threshold für das Mergen von zwei Clustern vom Nutzer konfigurierbar.
 Als Distanzmetrik wird \ac{DTW} (\autoref{3-DTW}) genutzt.
 Dabei ist konfigurierbar, welche Attribute des Datensatzes für den Vergleich genutzt werden.
-Zudem besitzt die Implementierung Output-Funktionalitäten.
+Zur Berechnung der Distanz zwischen zwei Punkten wird die euklidische Distanz verwendet.
+Allerdings können auch hier einfach weitere Funktionen ergänzt werden.
+Per Startparameter kann entschieden werden, welche dieser Funktionen für die Berechnung verwendet wird.
+Zudem besitzt das Output-Funktionalitäten.
 Die gefundenen Cluster werden in einer Textdatei aufgelistet.
 Jedes Cluster erhält einen eindeutigen Namen und eine Liste aller Records die zusammengeführt wurden.
+Für ein erleichtertes Verständnis der Cluster wird auch eine primitive Visualiserung der Cluster angeboten.
+Hier werden die Laufpfade aus der Vogelperspektive dargestellt.
+Falls sich mehrere Records im Cluster befinden wird der Mittelwert der Attribute visualisiert.
 Die starke Konfigurierbarkeit wird durch eine \emph{config-file} erreicht,
 die der Nutzer beim Start der Anwendung übergeben kann.
-Sie enthält unter anderem ein \emph{keywort} welcher Datensatz verwendet wird (Standardwert: \glqq kinect\grqq),
-den Pfad zum Datensatz, die zu nutzendem Attribute für den Vergleich des \ac{DTW}-Algorithmus,
-den Threshold für das Clustering und den Pfad zur Output-Datei.
+Sie enthält folgende Parameter:
+
+\begin{center}
+    \begin{tabular}{ |c|c| } 
+     \hline
+     Attributname & Beschreibung \\
+     \hline \hline
+     inputPath & Pfad zum Datensatz. \\
+     \hline
+     outputPath & Pfad zum Ablegen der Output-Dateien.  \\
+     \hline
+     separator & Trennzeichen zwischen den Attributen. \\
+     \hline
+     datasetType & Art des vorliegenden Datensatzes. \\
+     \hline
+     threshold & Grenzwert für das Zusammenführen von Clustern. \\
+     \hline
+     attributes & Vorhandene Attribute. \\
+     \hline
+     usedAttributes & Attribute, die zum Vergleich genutzt werden. \\
+     \hline
+     distanceFunction & Name der genutzten Distanzfunktion. \\
+     \hline
+     flipVisualization & Wahrheitswert, ob die Visualisierung gespiegelt wird. \\
+     \hline
+     bodyIdParamName & Bezeichnung des Körperidentifikationsparameters. \\
+     \hline
+    \end{tabular}
+  \end{center}
 
 \section{Programmablauf}
 \label{4-Programmablauf}
@@ -56,24 +96,31 @@ Im Folgenden wird der Programmablauf beschrieben.
     und gibt als Startparameter den Pfad der \emph{config-Datei} an.
     \item Der \emph{Processor} nutzt den \emph{Config-Reader}, um die Werte der \emph{Konfigurationdatei} auszulesen
     und speichert diese ab.
-    \item Der \emph{Processor} nutzt den \emph{TS-Reader}, um den Datensatz einzulesen
+    \item Der \emph{Processor} nutzt den \emph{DataReader}, um den Datensatz einzulesen
     und legt die Informationen in geeigneten Objekten ab.
-    Beim Kinect-Datensatz sind das \emph{KinectRecord} und \emph{KinectFrame}.
+    Beim Kinect-Datensatz sind das die Implementierungen \emph{RecordImpl} und \emph{FrameImpl}
+    der entsprechenden Interfaces.
     \item Der \emph{Processor} startet das Clustering durch den Aufruf der \emph{cluster-Methode}
     der \emph{HierarchicalClustering-Klasse}.
     Zu beginn entspricht jeder Record einem eigenen Cluster.
     Die \emph{recordToCluster-Methode} ermöglicht eine Transformation.
     \item Das Clustering nutzt die \emph{\ac{DTW}-Implementierung},
     um paarweise die Kosten zweier Cluster zu berechnen.
+    Diese Kosten werden in einer Map abgespeichert, um wiederholte Berechnungen in darauffolgenden Schritten zu vermeiden.
+    Als Key der jeweiligen Map-Einträge dient ein Objekt der Klasse ClusterKey.
     \item Die beiden Cluster mit den geringsten Kosten werden zusammengeführt.
     Dazu wird ein neues \emph{Cluster-Objekt} angelegt, dass durch Kombination der beiden Cluster entsteht.
+    Konkret wird eines der Cluster in das andere integriert.
+    Beim integrierten wird ein boolescher Wert auf \emph{false} gesetzt,
+    damit das Cluster in späteren Berechnungsschritten nicht mehr beachtet wird.
     Dabei wird jeweils das Mittel der Attributwerte berechnet und abgelegt.
     Zudem werden die Cluster-Bestandteile abgespeichert.
-    Bei allen Komponenten wird ein \emph{consider-flag} auf \emph{false} gesetzt,
+    Bei allen Komponenten wird ebenfalls das \emph{consider-flag} auf \emph{false} gesetzt,
     damit sie bei zukünftigen Vergleichen nicht mehr berücksichtigt werden.
     \item Schritte 5 und 6 werden so lange wiederholt, bis die geringsten Kosten den vom Nutzer definierten Threshold übersteigen.
     \item Der \emph{Processor} nutzt den \emph{Cluster-Writer}, um alle Cluster der \emph{clusters-Liste}
     in eine Ausgabedatei zu schreiben.
+    \item Die gefundenen Cluster werden visualisiert und ebenfalls im Output-Verzeichnis abgelegt.
     \item Die Anwendung terminiert. 
 
 \end{enumerate}

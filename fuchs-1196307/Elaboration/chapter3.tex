@@ -18,15 +18,19 @@ Dabei sollen die Unterschiede bei Elementen der gleichen Gruppe möglichst gerin
 und bei Elementen verschiedener Gruppen möglichst groß sein \citep{aghabozorgi_time-series_2015, warren_liao_clustering_2005}.
 Bei \emph{n} Datenpunkten erzeugt ein \emph{Clustering} \emph{k} Partitionen des Datensatzes.
 Jede Partition entspricht dabei einem \emph{Cluster}, dass mindestens ein Objekt enthält.
-Zum \emph{Clustering} sind besonders die Wahl des Clustering-Algorithmus
+Beim \emph{Clustering} sind besonders die Wahl des Clustering-Algorithmus
 und der Methode zur Bestimmung der Ähnlichkeit von zwei Datenreihen von Bedeutung \citep{warren_liao_clustering_2005}.
-Letzteres wird \ac{DTW} gelöst und in \autoref{3-DTW} beschrieben.
+Letzteres wird \ac{DTW} gelöst.
+Das Verfahren wird in \autoref{3-DTW} beschrieben.
 Als Clustering-Vorgehen kann das sogenannte \emph{hierarchical Clustering} genutzt werden.
 Dieses funktioniert, indem Datenobjekte in einen Baum von Clustern eingeteilt werden.
 Bei agglomerativen Vorgehen wird ein \emph{bottom-up} Ansatz verfolgt.
 Jedes Objekt ist daher zunächst ein eigenes Cluster.
 Dann werden schrittweise Cluster zusammengeführt,
 bis alle Objekte im selben Cluster sind, oder eine Terminierungsbedingung erfüllt ist \citep{warren_liao_clustering_2005}.
+In jedem Iterationsschritt werden dabei die beiden Cluster zusammengeführt,
+die die geringste Differenz zueinander aufweisen.
+Die Terminierungsbedingung ist bei uns das Überschreiten des vordefinierten Thresholds.
 
 Im Fall des Kinect-Datensatzes liegen die Daten als \ac{TSD} vor.
 \ac{TSD} zu kategorisieren findet in vielen wissenschaftlichen Gebieten Anwendung, um Muster zu finden.
@@ -56,7 +60,7 @@ Im Folgenden soll der Algorithmus ebenfalls erläutert werden.
 Das Ziel ist die Zuordnung verschiedener Signale,
 die im Verlauf der Zeit ähnliche Muster aufweisen.
 Diese Muster treten zu unterschiedlichen Zeiten oder in unterschiedlichen Raten auf.
-Um die Zuweisung zueinander zu erreichen muss jedes Signal gegebenenfalls lokal gestreckt oder gestaucht werden.
+Um die Zuweisung zueinander zu erreichen muss ein Signal gegebenenfalls lokal gestreckt oder gestaucht werden.
 Durch \emph{dynamisches Programmieren} kann eine Korrespondenz zwischen den Zeitindizes zweier Signale gefunden werden,
 sodass die Summe der Distanzen zwischen den beiden Signalen minimal ist \citep{mohammadzade_dynamic_2021}.
 
@@ -65,6 +69,7 @@ zwei Signale die durch \ac{DTW} ausgerichtet werden sollen, sodass die Differenz
 Dafür wird eine \emph{n x m} Matrix \emph{M} gebildet, wobei das Element \emph{(i, j)} die Distanz \emph{$d(q_{i}, r_{j})$}
 zwischen zwei Punkten \emph{$q_{i}$} und \emph{$r_{j}$} enthält.
 Hierfür wird im Normalfall die euklidische Distanz genutzt \citep{warren_liao_clustering_2005}.
+Allerdings sind auch andere Funktionen denkbar.
 In der Zelle \emph{(0, 0)} enthält die Matrix den Wert 0
 und für die übrigen Zellen der Spalte und Zeile 0 wird jeweils der Wert unendlich angenommen.
 Das Verfahren kann auf einfache Weise auf mehrdimensionale \ac{TSD} angepasst werden.
@@ -141,7 +146,13 @@ Außerdem ergeben sich folgende gerundete Kosten zwischen den einzelnen Reihen:
 Da \emph{$R_{1}$} und \emph{$R_{2}$} zusammen die geringsten Kosten haben bilden sie das erste Cluster \emph{$C_{1}$}.
 Um dessen Wertreihe zu erhalten werden die Attributwerte paarweise addiert und die Summe anschließend halbiert.
 Dabei kann anhand des Warping Pfads abgelesen werden, welche Werte zusammengehören.
+Die Bildung der Paare entspricht also der Zuordnung mit den geringsten Kosten.
 So ergibt sich \emph{$C_{1}$ = (0, 1, 1, 1, 2, 2, 1, 1)}.
+Falls mehrere verschiedene Attribute berücksichtigt werden kann für sie eine kombinierte Matrix erstellt werden,
+indem für jedes Attribut eine Matrix erstellt wird und deren Mittelwert in eine neue Matrix geschrieben wird.
+Da all diese Matrizen das selbe Format haben, ist dies problemlos möglich.
+Der Warping Path kann dann an dieser kombinierten Matrix abgelesen werden.
+Die Bildung der Paare erolgt entsprechend.
 Es sollte ein \emph{Threshold} definiert werden,
 der angibt, ab wann die Kosten zu groß sind, um die beiden Datenreihen zu einem Cluster zusammenzuführen.
 Ein sinnvoller Wert hängt dabei vom vorliegenden Datensatz ab.
@@ -194,7 +205,7 @@ Im Folgenden wird eine Auswahl dieser Veröffentlichungen beschrieben.
 
 \citet{wahyuni_motion_2021} stellen ein Erkennungssystem für Gesten vor.
 Dabei wird eine Kinect-Kamera genutzt, um die Bewegungen aufzuzeichnen.
-Zudem kommt eine Form des \ac{DTW}-Algorithmus zum Einsatz, um die Gesten zu erkennen.
+Es kommt eine Form des \ac{DTW}-Algorithmus zum Einsatz, um die Gesten zu erkennen.
 Für den Vergleich werden die x- und y-Koordinaten von sechs Körperpunkten genutzt.
 Dabei liegen zu jeder bekannten Bewegung jeweils Referenzwerte für den Vergleich mit den aktuellen Werten vor.
 Für die Entscheidung, ob eine betrachtete Bewegung zu einer Kategorie gehört oder nicht sind die Kosten entscheidend.
