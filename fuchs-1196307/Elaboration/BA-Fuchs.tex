@@ -11,6 +11,7 @@
 \usepackage{lmodern}
 \usepackage{inconsolata}
 \usepackage[printonlyused]{acronym}
+\usepackage{tocloft}
 
 \graphicspath{{./Images/}}
 \input{hyphenation}
@@ -31,6 +32,8 @@
      \iffieldundef{url}{}{\renewcommand*{\finentrypunct}{\relax}}}
     {}}
 
+\setlength\cftparskip{-6pt}
+
 \linespread{1.4}
 
 \begin{document}
@@ -45,7 +48,9 @@
     \cleardoublepage
     \include{abstract}
     \thispagestyle{empty}
+    \linespread{0.5}
     \tableofcontents
+    \linespread{1.4}
 
 % ---------------------------------------------------------------
 \mainmatter
