@@ -12,60 +12,68 @@ und wichtige Aspekte der Implementierung betrachtet.
 
 \section{Aufbau}
 \label{5-Aufbau}
-Der detailierte Aufbau des Tools kann \autoref{fig:Classes} entnommen werden.
+Der detailierte Aufbau des Tools kann dem Klassendiagramm in \autoref{fig:Classes} entnommen werden.
 Hier wurde aus Gründen der Übersichtlichkeit auf Konstruktoren,
 sowie Getter- und Setter-Methoden verzichtet.
-Die Architektur wird im Folgenden detailiert beschrieben.
-
-\begin{figure}[ht]
+\begin{figure}[p]
     \begin{center}
-        \includegraphics[width=0.7\textwidth]{classes.png}
+        \includegraphics[width=0.6\textwidth]{classes.png}
     \end{center}
     \caption{Klassendiagramm des Tools.}
     \label{fig:Classes}
 \end{figure}
-
-
+Die wichtigen Aspekte dieser Architektur werden im Folgenden beschrieben.
+Dabei entspricht die grobe Struktur der aus \autoref{4-Teilsysteme}.
+Zum Start der Anwendung ist ein Aufrud der main-Methode des Processors nötig.
+Dieser initialisiert zunächst geeignete Reader.
+Das Reader-Interface wird konkret von den Klassen ConfigReader und DataReader implementiert.
+Der ConfigReader dient lediglich dazu die Werte der Config-Datei einzulesen.
+Dabei wird ein Properties Objekt zurückgeliefert,
+mit dem auf die jeweiligen Werte zugegriffen werden kann.
+Der DataReader liest die Kinect-Daten ein.
+Ihm wird zunächst übermittelt, welche Attribute vorhanden sind,
+durch welches Zeichen sie voneinander abgetrennt sind
+und ob Frames übersprungen werden sollen,
+um die Performanz zu verbessern.
+Mit diesen Informationen liest er die Daten geeignet ein und liefert eine RecordImpl-Liste zurück.
+Jeder Record enthält dabei eine Liste von FrameImpl.
+Diese Datentypen sind die Implementierungen der entsprechenden Interfaces Record und Frame.
+Sie können für Kinect-Daten genutzt werden.
+Ein Frame enthält jeweils eine Map mit den vorhandenen Attributen die mithilfe der getValue-Methode
+abgerufen werden können.
+Ein weiterer Datentyp sind die Cluster.
+Sie bestehen aus beliebig vielen, aber mindestens einem Record.
+Hier werden die Methoden mergeWithCluster und mergeWithRecord angeboten.
+Mit ihnen wird jeweils eine neue Komponente in das Cluster integriert.
+Nach dem Einlesen und Abspeichern der Daten startet der Processor das Clustering.
+Dazu wird eine Instanz von HierarchicalClustering, einer Implementierung von ClusterAlgorithm, erstellt.
+Das Objekt erhält vom Prozessor alle wichtigen Informationen,
+wie die initialen Records, den Threshold und die Attribute.
+Da jedes Cluster am Anfang aus einem einzigen Record besteht,
+wird die recordToCluster-Methode angeboten.
+Mit ihr kann jeder der initialen Records transformiert und in der clusterImpls-Liste abgelegt werden.
+Die cluster-Methode kümmert sich um den eigentlichen Cluster-Vorgang.
+Dabei nutzt sie eine Instanz der Dtw-Klasse zur Berechnung von Kosten.
+Sie implementiert das Metric-Interface und bietet daher die nötigen Methoden,
+um die Kosten zwischen zwei Records, beziehungsweise deren Frame-Listen zu berechnen.
+Dies wird durch den in \autoref{3-DTW} beschriebenen \ac{DTW}-Algorithmus realisiert.
+Um auch Cluster mit Records vergleichen zu können bietet die Klasse zudem entsprechende
+calculateMedianFrames-Methoden, die aus mehreren Frame-Listen eine neue erzeugt,
+indem die Werte mithilfe von \ac{DTW} kombiniert werden.
+Das genaue Verhalten von HierarchicalClustering und Dtw wird in \autoref{5-Codebeschreibung} näher beschrieben.
+Nach dem Ende der Berechnungen liegen die gefundenen Cluster in der clusterImpl-Liste vor.
+Sie können mit einem ClusterWriter geeignet in einer Textdatei abgespeichert werden.
+Zudem kann eine Visualiserung mithilfe von VisualizerImpl erfolgen.
+Die Klasse nutzt dazu einfache Java-AWT-Komponenten.
+Der Wahrheitswert \emph{flipVisualization} gibt dabei an,
+ob die Werte in x-Richtung gespiegelt werden sollen.
+Dies ist nötig, da bei der Kinect das Koordinatensystem aus Nutzersicht erstellt wird.
+In der Visualiserung führt dies dazu, dass die aufgezeichneten Bewegungen spiegelverkehrt erscheinen.
+Der String \emph{attributeForBodyIdentification} dient dazu,
+die unterschiedlichen Personen im Record korrekt darzustellen.
 
 \section{Codebeschreibung}
 \label{5-Codebeschreibung}
-
-\begin{lstlisting}[language=Java, caption=Processor-Workflow.]
-    if (datasetType.equals("kinect")) {
-            DataReader dataReader
-                = new DataReader(
-                    "D:",
-                    separator,
-                    attributes);
-            data = dataReader.read(inputPath);
-
-            HierarchicalClustering clustering
-                = new HierarchicalClustering(
-                    data,
-                    threshold,
-                    attributes,
-                    usedAttributes,
-                    distanceFunction);
-            clusterImpls = clustering.cluster();
-
-            ClusterWriter writer = new ClusterWriter();
-            writer.write(
-                outputPath,
-                clusterImpls);
-
-            VisualizerImpl visualizerImpl
-                = new VisualizerImpl(
-                    flipVisualization,
-                    bodyIdParamName);
-            for (ClusterImpl clusterImpl : clusterImpls) {
-                visualizerImpl.visualize(
-                    clusterImpl.getId(),
-                    outputPath,
-                    clusterImpl.getMedianFrames());
-            }
-        }
-\end{lstlisting}
-
 
 \begin{lstlisting}[language=Java, caption=Berechnung der Kosten.]
     public double calculateCost(
@@ -273,6 +281,28 @@ Die Architektur wird im Folgenden detailiert beschrieben.
 
 \section{Abweichungen zur Konzeption}
 \label{5-AbweichungenKonzeption}
+An die Performanz der Anwendung wurden zwar keine besonderen Anforderungen gestellt
+(\autoref{4-NichtFunktionaleAnforderungen}),
+es zeigte sich aber schnell, dass bereits Datensätze mit mehreren Hundert Records zu langen Bearbeitungszeiten führen.
+Daher wurden zwei Funktionen integriert die sich diesem Problem annehmen sollen.
+Zum einen werden die berechneten Kosten in einer Map abgespeichert,
+um wiederholte Berechnungen in darauffolgenden Schritten zu vermeiden.
+Als Key der jeweiligen Map-Einträge dient ein Objekt der Klasse ClusterKey.
+Sie implementiert das Comparable-Interface und sorgt dafür,
+dass zwei Cluster zusammen als Key einer Map verwendet werden können.
+Dies spart viele Berechnungsschritte,
+da beinahe alle Werte im Vergleich zum vorherigen Iterationsschritt gleich bleiben.
+Lediglich jene Kosten an denen die neu zusammengeführten Cluster beteiligt waren,
+sowie die Kosten mit dem neuen Cluster müssen neu berechnet werden.
+Zum anderen gibt es die Möglichkeit jeden zweiten Frame der Records zu ignorieren.
+Dies geschieht, indem der Parameter \emph{skipFrames} in der config-Datei auf \emph{true} gesetzt wird.
+Damit ist in der Regel weiterhin ein sinnvolles Clustering möglich,
+wobei die Anzahl der Berechnungsschritte drastisch reduziert werden kann.
+Hier ist zu erwähnen, dass aber definitiv Informationen verloren gehen.
+Diese Option sollte daher nur bei sehr großen Datenmengen genutzt werden.
 
-\section{Verbesserung der Performanz}
-\label{5-Performanz}
+Zudem wurde abweichend zur Konzeption ein primitiver \emph{Visualizer} ergänzt,
+da sonst die Analyse der Cluster mühsam über Kinect Studio erfolgen muss.
+Er stellt die Laufwege der gefundenen Cluster aus der Vogelperspektive dar.
+Für jedes Cluster wird ein Verzeichnis erstellt.
+Darin werden die einzelnen Komponenten visualisiert.

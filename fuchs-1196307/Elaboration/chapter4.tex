@@ -54,8 +54,6 @@ Zudem besitzt das Output-Funktionalitäten.
 Die gefundenen Cluster werden in einer Textdatei aufgelistet.
 Jedes Cluster erhält einen eindeutigen Namen und eine Liste aller Records die zusammengeführt wurden.
 Für ein erleichtertes Verständnis der Cluster wird auch eine primitive Visualiserung der Cluster angeboten.
-Hier werden die Laufpfade aus der Vogelperspektive dargestellt.
-Falls sich mehrere Records im Cluster befinden wird der Mittelwert der Attribute visualisiert.
 Die starke Konfigurierbarkeit wird durch eine \emph{config-file} erreicht,
 die der Nutzer beim Start der Anwendung übergeben kann.
 Sie enthält folgende Parameter:
@@ -83,7 +81,9 @@ Sie enthält folgende Parameter:
      \hline
      flipVisualization & Wahrheitswert, ob die Visualisierung gespiegelt wird. \\
      \hline
-     bodyIdParamName & Bezeichnung des Körperidentifikationsparameters. \\
+     attributeForBodyIdentification & Bezeichnung des Körperidentifikationsparameters. \\
+     \hline
+     skipFrames & Wahrheitswert, ob jeder zweite Frame ignoriert wird. \\
      \hline
     \end{tabular}
   \end{center}
@@ -106,8 +106,6 @@ Im Folgenden wird der Programmablauf beschrieben.
     Die \emph{recordToCluster-Methode} ermöglicht eine Transformation.
     \item Das Clustering nutzt die \emph{\ac{DTW}-Implementierung},
     um paarweise die Kosten zweier Cluster zu berechnen.
-    Diese Kosten werden in einer Map abgespeichert, um wiederholte Berechnungen in darauffolgenden Schritten zu vermeiden.
-    Als Key der jeweiligen Map-Einträge dient ein Objekt der Klasse ClusterKey.
     \item Die beiden Cluster mit den geringsten Kosten werden zusammengeführt.
     Dazu wird ein neues \emph{Cluster-Objekt} angelegt, dass durch Kombination der beiden Cluster entsteht.
     Konkret wird eines der Cluster in das andere integriert.
@@ -120,7 +118,6 @@ Im Folgenden wird der Programmablauf beschrieben.
     \item Schritte 5 und 6 werden so lange wiederholt, bis die geringsten Kosten den vom Nutzer definierten Threshold übersteigen.
     \item Der \emph{Processor} nutzt den \emph{Cluster-Writer}, um alle Cluster der \emph{clusters-Liste}
     in eine Ausgabedatei zu schreiben.
-    \item Die gefundenen Cluster werden visualisiert und ebenfalls im Output-Verzeichnis abgelegt.
     \item Die Anwendung terminiert. 
 
 \end{enumerate}
@@ -140,14 +137,10 @@ Das Paket \emph{model} enthält die Interfaces für Cluster, Records und Frames.
 Außerdem jeweils geeignete Implementierungen dieser Interfaces für den Kinect-Datensatz.
 Bei Bedarf können hier bei späterer Verwendung der Software weitere Implementierungen
 für andere Datensätze ergänzt werden.
-Im \emph{utility}-Paket befinden sich Interfaces für Reader, Writer und Visualizer.
+Im \emph{utility}-Paket befinden sich Interfaces für Reader und Writer.
 Auch hier sind geeignete Implementierungen Bereitsgestellt.
-Konkret ein Reader für die Config-Datei, ein Reader für die Kinect-Daten,
-ein Writer für die Ergebnisse und ein primitiver Visualizer,
-der die Laufwege der gefundenen Cluster visualisiert.
-Außerdem befindet sich hier die Klasse ClusterKey.
-Sie implementiert das Comparable-Interface und sorgt dafür,
-dass zwei Cluster zusammen als Key einer Map verwendet werden können.
+Konkret ein Reader für die Config-Datei, ein Reader für die Kinect-Daten
+und ein Writer für die gefundenen Cluster.
 Im Paket \emph{calculating} befindet sich alles was für das Clustern der Daten benötigt wird.
 Es ist weiter untergliedert in \emph{clustering} und \emph{metric}.
 Letzteres liefert die Vergleichsmetrik für unser Clusterverfahren.
@@ -161,4 +154,3 @@ Zunächst werden die benötigten Reader Instanzen initialisiert.
 Mit ihnen werden die Daten eingelesen.
 Anschließend wird das Clustering gestartet und die Ergebnisse mithilfe des Writers
 geeignet in der Ausgabedatei gespeichert.
-Zuletzt erfolgt die Visualisierung mithilfe des Visualizers.
