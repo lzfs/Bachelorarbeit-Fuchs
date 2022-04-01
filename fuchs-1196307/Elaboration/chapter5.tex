@@ -6,8 +6,8 @@ Damit für die Nutzung keine weiteren Installationen nötig sind,
 wurden nur die Standardbibliotheken zur Umsetzung genutzt.
 Der gesamte Source Code kann unter \href{https://github.com/lzfs/tsprocessor}{github/lzfs/tsprocessor}
 abgerufen werden.
-In diesem Kapitel wird vertiefend auf die Struktur des Tools eingegangen
-und wichtige Aspekte der Implementierung betrachtet.
+In diesem Kapitel wird vertiefend auf die Struktur des Tools eingegangen.
+Zudem werden wichtige Aspekte der Implementierung betrachtet.
 
 
 \section{Aufbau}
@@ -24,266 +24,300 @@ sowie Getter- und Setter-Methoden verzichtet.
 \end{figure}
 Die wichtigen Aspekte dieser Architektur werden im Folgenden beschrieben.
 Dabei entspricht die grobe Struktur der aus \autoref{4-Teilsysteme}.
-Zum Start der Anwendung ist ein Aufrud der main-Methode des Processors nötig.
-Dieser initialisiert zunächst geeignete Reader.
-Das Reader-Interface wird konkret von den Klassen ConfigReader und DataReader implementiert.
-Der ConfigReader dient lediglich dazu die Werte der Config-Datei einzulesen.
-Dabei wird ein Properties Objekt zurückgeliefert,
+Zum Start der Anwendung ist ein Aufruf der \emph{main-Methode} des \emph{Processors} nötig.
+Dieser initialisiert zunächst geeignete \emph{Reader}.
+Das \emph{Reader-Interface} wird konkret von den Klassen \emph{ConfigReader} und \emph{DataReader} implementiert.
+Der \emph{ConfigReader} dient lediglich dazu die Werte der Config-Datei einzulesen.
+Dabei wird ein \emph{Properties-Objekt} zurückgeliefert,
 mit dem auf die jeweiligen Werte zugegriffen werden kann.
-Der DataReader liest die Kinect-Daten ein.
+Der \emph{DataReader} liest die Kinect-Daten ein.
 Ihm wird zunächst übermittelt, welche Attribute vorhanden sind,
 durch welches Zeichen sie voneinander abgetrennt sind
-und ob Frames übersprungen werden sollen,
+und ob \emph{Frames} übersprungen werden sollen,
 um die Performanz zu verbessern.
-Mit diesen Informationen liest er die Daten geeignet ein und liefert eine RecordImpl-Liste zurück.
-Jeder Record enthält dabei eine Liste von FrameImpl.
-Diese Datentypen sind die Implementierungen der entsprechenden Interfaces Record und Frame.
+Mit diesen Informationen liest er die Daten geeignet ein und liefert eine \emph{RecordImpl-Liste} zurück.
+Jede \emph{RecordImpl} enthält dabei eine Liste von \emph{FrameImpl}.
+Diese Datentypen sind die Implementierungen der entsprechenden Interfaces \emph{Record} und \emph{Frame}.
 Sie können für Kinect-Daten genutzt werden.
-Ein Frame enthält jeweils eine Map mit den vorhandenen Attributen die mithilfe der getValue-Methode
+Eine \emph{FrameImpl} enthält jeweils eine Map mit seinen Attributen die mithilfe der \emph{getValue-Methode}
 abgerufen werden können.
-Ein weiterer Datentyp sind die Cluster.
-Sie bestehen aus beliebig vielen, aber mindestens einem Record.
-Hier werden die Methoden mergeWithCluster und mergeWithRecord angeboten.
-Mit ihnen wird jeweils eine neue Komponente in das Cluster integriert.
-Nach dem Einlesen und Abspeichern der Daten startet der Processor das Clustering.
-Dazu wird eine Instanz von HierarchicalClustering, einer Implementierung von ClusterAlgorithm, erstellt.
-Das Objekt erhält vom Prozessor alle wichtigen Informationen,
-wie die initialen Records, den Threshold und die Attribute.
-Da jedes Cluster am Anfang aus einem einzigen Record besteht,
-wird die recordToCluster-Methode angeboten.
-Mit ihr kann jeder der initialen Records transformiert und in der clusterImpls-Liste abgelegt werden.
-Die cluster-Methode kümmert sich um den eigentlichen Cluster-Vorgang.
-Dabei nutzt sie eine Instanz der Dtw-Klasse zur Berechnung von Kosten.
-Sie implementiert das Metric-Interface und bietet daher die nötigen Methoden,
-um die Kosten zwischen zwei Records, beziehungsweise deren Frame-Listen zu berechnen.
+Der letzte verfügbare Datentyp sind die \emph{Cluster} und die zugehörige \emph{ClusterImpl}.
+Sie bestehen aus beliebig vielen, aber mindestens einer \emph{RecordImpl}.
+Die Komponenten werden in einer Liste gespeichert.
+Hier werden die Methoden \emph{mergeWithCluster} und \emph{mergeWithRecord} angeboten.
+Mit ihnen wird jeweils eine neue Komponente in die \emph{ClusterImpl} integriert.
+\emph{ClusterImpls} haben außerdem eine eindeutige Identifikationsnummer und eine Liste der berechneten
+\emph{FrameImpl-Mittelwerte} aller Komponenten.
+Zudem besitzen sie, genau wie die \emph{RecordImpls}, einen Wahrheitswert der angibt,
+ob das die \emph{ClusterImpl} in zukünftigen Kombinationsschritten weiterhin beachtet werden soll.
+Alle genannten Interfaces können bei Bedarf geeignet für andere \ac{TSD}-Datensätze implementiert werden.
+Nach dem Einlesen und Abspeichern der Daten startet der \emph{Processor} das Clustering.
+Dazu wird eine Instanz von \emph{HierarchicalClustering}, einer Implementierung von \emph{ClusterAlgorithm}, erstellt.
+Das Objekt erhält vom \emph{Processor} alle wichtigen Informationen,
+wie die initialen \emph{RecordImpls}, den Threshold und die Attribute.
+Da jede \emph{ClusterImpl} am Anfang aus einer einzigen \emph{RecordImpl} besteht,
+wird eine \emph{recordToCluster-Methode} angeboten.
+Mit ihr kann jeder der initialen \emph{RecordImpls} transformiert und in der \emph{clusterImpl-Liste} abgelegt werden.
+Die \emph{cluster-Methode} kümmert sich um den eigentlichen Cluster-Vorgang.
+Dabei nutzt sie eine Instanz der \emph{Dtw-Klasse} zur Berechnung von Kosten,
+Sie implementiert das \emph{Metric-Interface} und bietet daher die nötigen Methoden,
+um die Kosten zwischen zwei \emph{RecordImpls}, beziehungsweise deren \emph{FrameImpl-Listen} zu berechnen.
 Dies wird durch den in \autoref{3-DTW} beschriebenen \ac{DTW}-Algorithmus realisiert.
-Um auch Cluster mit Records vergleichen zu können bietet die Klasse zudem entsprechende
-calculateMedianFrames-Methoden, die aus mehreren Frame-Listen eine neue erzeugt,
+Um auch \emph{ClusterImpls} mit \emph{RecordImpls} vergleichen zu können bietet die Klasse zudem entsprechende
+\emph{calculateMedianFrames-Methoden}, die aus mehreren \emph{FrameImpl-Listen} eine neue erzeugt,
 indem die Werte mithilfe von \ac{DTW} kombiniert werden.
-Das genaue Verhalten von HierarchicalClustering und Dtw wird in \autoref{5-Codebeschreibung} näher beschrieben.
-Nach dem Ende der Berechnungen liegen die gefundenen Cluster in der clusterImpl-Liste vor.
-Sie können mit einem ClusterWriter geeignet in einer Textdatei abgespeichert werden.
-Zudem kann eine Visualiserung mithilfe von VisualizerImpl erfolgen.
+Das genaue Verhalten der Klassen \emph{HierarchicalClustering} und \emph{Dtw} wird in \autoref{5-Codebeschreibung} näher betrachtet.
+Nach dem Ende der Berechnungen liegen die gefundenen \emph{ClusterImpls} in der \emph{clusterImpl-Liste} vor.
+Sie können mit einem \emph{ClusterWriter} geeignet in einer Textdatei abgespeichert werden.
+Zudem kann eine Visualiserung mithilfe von \emph{VisualizerImpl} erfolgen.
 Die Klasse nutzt dazu einfache Java-AWT-Komponenten.
 Der Wahrheitswert \emph{flipVisualization} gibt dabei an,
 ob die Werte in x-Richtung gespiegelt werden sollen.
 Dies ist nötig, da bei der Kinect das Koordinatensystem aus Nutzersicht erstellt wird.
 In der Visualiserung führt dies dazu, dass die aufgezeichneten Bewegungen spiegelverkehrt erscheinen.
 Der String \emph{attributeForBodyIdentification} dient dazu,
-die unterschiedlichen Personen im Record korrekt darzustellen.
+die unterschiedlichen Personen im \emph{Record} korrekt darzustellen.
 
 \section{Codebeschreibung}
 \label{5-Codebeschreibung}
+Nach der Beschreibung des Aufbaus sollen nun wichtige Codeausschnitte des hierarchischen Clustering
+und des \ac{DTW}-Algorithmus beschrieben werden.
 
-\begin{lstlisting}[language=Java, caption=Berechnung der Kosten.]
-    public double calculateCost(
-        List<FrameImpl> frames1,
-        List<FrameImpl> frames2) {
-        // add the calculated cost of each attribute to it
-        double cost = 0;
-        // calculate the cost for all attributes
-        for (String attribute : this.usedAttributes) {
-            // build the cost matrix for this attribute
-            double[][] dtwMatrix = buildCostMatrix(
-                frames1,
-                frames2,
-                attribute);
-            // calculate and add the cost of this attribute
-            cost += calculatePathCost(dtwMatrix);
-        }
-        return cost / this.usedAttributes.size();
-    }
+Objekte der Klassen ClusterImpl, RecordImpl und FrameImpl werden in diesem Abschnitt
+vereinfacht als Cluster, Record und Frame bezeichnet.
+Bei der Ausführung des Folgenden Codes wurden die Daten bereits eingelesen.
+Zudem wurde ein HierarchicalClustering-Objekt mit den nötigen Parametern erzeugt.
+Damit kann die cluster-Methode gestartet werden.
+Die Klasse HierarchicalClustering verfügt über eine clusterImpl-Liste,
+welche zunächst leer ist.
+Sie wird mit den initialen Clustern belegt,
+indem alle Records zunächst zu trivialen Clustern transformiert werden
+und anschließend der Liste hinzugefügt werden.
+Des Weiteren werden die nötigen Variablen für die Berechnung deklariert.
+\begin{lstlisting}[language=Java, caption=Cluster-Methode: Initialisierung.]
+  // initialize each record as a cluster and add it to the clusters list
+  for (RecordImpl record : this.initialRecords) {
+      this.clusterImpls.add(this.recordToCluster(record));
+  }
+  double currentMinimumCost;
+  double cost;
+  int mergeCandidate1;
+  int mergeCandidate2;
 \end{lstlisting}
-
-
-\begin{lstlisting}[language=Java, caption=Kostenmatrix.]
-    private double[][] buildCostMatrix(
-        List<FrameImpl> frames1,
-        List<FrameImpl> frames2,
-        String attribute) {
-        double[] s = new double[frames1.size()];
-        double[] t = new double[frames2.size()];
-
-        int counter = 0;
-        for (FrameImpl frame : frames1) {
-            s[counter] = Double.parseDouble(frame.getValue(attribute));
-            counter += 1;
-        }
-        counter = 0;
-        for (FrameImpl frame : frames2) {
-            t[counter] = Double.parseDouble(frame.getValue(attribute));
-            counter += 1;
-        }
-
-        int n = s.length;
-        int m = t.length;
-        // filled with zeros by default
-        double[][] dtwMatrix = new double[n + 1][m + 1];
-
-        for (int i = 0; i < dtwMatrix.length; i++) {
-            for (int j = 0; j < dtwMatrix[0].length; j++) {
-                // filled with infinity by definition of dtw
-                dtwMatrix[i][j] = Double.POSITIVE_INFINITY;
-            }
-        }
-        // filled with 0 by definition of dtw
-        dtwMatrix[0][0] = 0;
-
-        for (int i = 1; i < dtwMatrix.length; i++) {
-            for (int j = 1; j < dtwMatrix[0].length; j++) {
-                // this is the default distance function
-                double cost = Math.abs(s[i - 1] - t[j - 1]);
-                
-                double minTmp = Math.min(
-                    dtwMatrix[i - 1][j],
-                    dtwMatrix[i][j - 1]);
-                double lastMin = Math.min(
-                    minTmp,
-                     dtwMatrix[i - 1][j - 1]);
-                dtwMatrix[i][j] = cost + lastMin;
-            }
-        }
-        return dtwMatrix;
-    }
+Der eigentliche Berechnungsablauf befindet sich in einer Schleife die mindestens einmal ausgeführt wird.
+Sie läuft weiter bis die geringsten gefundenen Kosten den Threshold übersteigen, oder nur noch ein einziges Cluster übrig ist.
+Die Merge-Kandidaten geben die Indizes der beiden Cluster mit den
+geringsten Kombinationskosten an.
+In jedem Durchlauf der äußeren Schleife werden die Werte der Kosten
+und die gewählten Merge-Kandidaten zurückgesetzt.
+Dazu werden standardmäßig die Kosten zwischen dem ersten und zweiten Cluster in der Liste gewählt.
+Dann werden mittels der geschachtelten Schleifen paarweise die Cluster miteinander verglichen.
+Dabei werden nur Cluster in Betracht gezogen deren consider-Wert noch \emph{true} ist,
+außerdem dürfen darf es sich nicht zweimal um das gleiche Cluster handeln.
+Mithilfe der calculatedCost-Map wird geprüft, ob die Kosten für diese Kombination schon berechnet wurden.
+Falls ja werden sie wieder genutzt, falls nein werden sie neu berechnet.
+Als Schlüssel dienst ein Objekt der bereits erwähnten ClusterKey-Klasse.
+Deren equal-Methode ist so definiert,
+dass \emph{new ClusterKey(clusterImpl1, clusterImpl2).equals(new ClusterKey(clusterImpl2, clusterImpl1)) == true} gilt.
+Somit wird auch der symmetrische Fall automatisch betrachtet.
+Immer wenn eine Kombination gefunden wird, deren Kosten geringer sind als die bisherigen,
+werden die aktuellen Minimalkosten und die Merge-Kandidaten angepasst.
+Nach dem Vergleich aller Cluster, erfolgt die Kombination derer mit den geringsten Kombinationskosten.
+\begin{lstlisting}[language=Java, caption=Cluster-Methode: Berechnungsvorgang.]
+  do {
+      // reset for next loop iteration
+      cost = this.dtw.calculateCost(    
+          this.clusterImpls.get(0).getMedianFrames(),
+          this.clusterImpls.get(1).getMedianFrames());
+      currentMinimumCost = cost;
+      mergeCandidate1 = 0;
+      mergeCandidate2 = 1;
+      for (ClusterImpl clusterImpl1 : this.clusterImpls) {
+          for (ClusterImpl clusterImpl2 : this.clusterImpls) {
+              if (
+                  clusterImpl1 != clusterImpl2
+                  && clusterImpl1.isConsider()
+                  && clusterImpl2.isConsider()) {
+                  if (this.calculatedCost.containsKey(
+                      new ClusterKey(clusterImpl1, clusterImpl2))) {
+                      cost = this.calculatedCost.get(
+                          new ClusterKey(clusterImpl1, clusterImpl2));
+                  }
+                  else {
+                      cost = this.dtw.calculateCost(
+                          clusterImpl1.getMedianFrames(),
+                          clusterImpl2.getMedianFrames());
+                      this.calculatedCost.put(
+                          new ClusterKey(clusterImpl1, clusterImpl2), cost);
+                  }
+                  if (cost < currentMinimumCost) {
+                      /* if a cost smaller than the current minimum cost
+                      is found it will be the new minimum cost */
+                      currentMinimumCost = cost;
+                      mergeCandidate1 = this.clusterImpls.indexOf(clusterImpl1);
+                      mergeCandidate2 = this.clusterImpls.indexOf(clusterImpl2);
+                  }
+              }
+          }
+      }
+      // Merging. Showed in next Listing.
+      } while (currentMinimumCost < threshold && this.clusterImpls.size() > 1);
 \end{lstlisting}
-
-\begin{lstlisting}[language=Java, caption=Warping Path berechnen.]
-    public double calculatePathCost(double[][] dtwMatrix) {
-        int n = dtwMatrix.length - 1;
-        int m = dtwMatrix[n - 1].length - 1;
-        int pathCounter = 1;
-        double cost = dtwMatrix[n][m];
-        while (n != 0 && m != 0) {
-            // dynamic time warping algorithm
-            double minTmp = Math.min(dtwMatrix[n - 1][m], dtwMatrix[n][m - 1]);
-            double lastMin = Math.min(minTmp, dtwMatrix[n - 1][m - 1]);
-            cost += lastMin;
-            if (lastMin == dtwMatrix[n - 1][m - 1]) {
-                n = n - 1;
-                m = m - 1;
-            }
-            else if (lastMin == dtwMatrix[n - 1][m]) {
-                n = n - 1;
-            }
-            else if (lastMin == dtwMatrix[n][m - 1]) {
-                m = m - 1;
-            }
-            pathCounter += 1;
-        }
-        return cost / pathCounter;
-    }
+Nun wurden die beiden Cluster mit den geringsten Kombinationskosten gefunden.
+Die zugehörigen Kosten sind in der Variablen \emph{currentMinimumCost} abgelegt.
+Sind diese immer noch geringer als der definierte Threshold können die Kandidaten zusammengeführt werden.
+Dazu wird \emph{mergeCandidate2} mit der Methode mergeWithCluster in \emph{mergeCandidate1} integriert.
+Dabei wird der \emph{consider}-Wert des \emph{mergeCandidate2}-Clusters auf \emph{false} gesetzt,
+da es in künftigen Schritten nicht mehr als eigenständige Einheit betrachtet werden soll.
+Abschließend müssen alle berechneten Werte mit \emph{cluster1} aus der calculateCost-Map entfernt werden,
+da die aktuellen Werte aufgrund der neuen Komponente nicht mehr gültig sind.
+Die Kosten mit \emph{cluster2} können ignoriert werden, da diese Cluster ohnehin nicht mehr betrachtet werden.
+\begin{lstlisting}[language=Java, caption=Cluster-Methode: Mergevorgang.]
+  if (currentMinimumCost < threshold) {
+      /* MergeCandidate1 and mergeCandidate2 should be merged together.
+      Merge cluster2 into cluster1 and update the cluster list.
+      Consider of cluster2 is set to false. */
+      this.clusterImpls.get(mergeCandidate1).mergeWithCluster(
+          this.clusterImpls.get(mergeCandidate2));  
+      this.clusterImpls.remove(this.clusterImpls.get(mergeCandidate2));
+      // create a copy of the map to avoid an exception
+      Map<ClusterKey, Double> calculatedCostCopy = new HashMap<>(calculatedCost); 
+      /* remove all calculated costs from the map that contain
+      cluster1 because it changed and therefore all cost values
+      with this cluster have to be calculated again */
+      for (Map.Entry<ClusterKey, Double> entry : calculatedCostCopy.entrySet()) {
+          /* ignore mergeCandidate2 because it got removed from the list and
+          the consider value of cluster2 is set to false */
+          if (entry.getKey().getCluster1().getId() == mergeCandidate1) {
+              for (ClusterImpl clusterImpl : clusterImpls) {
+                  calculatedCost.remove(
+                      new ClusterKey(
+                          this.clusterImpls.get(mergeCandidate1), clusterImpl));
+              }
+          }
+      }
+  }
 \end{lstlisting}
+In den oben gezeigten Clustering-Schritten wurden die Kosten mithilfe der calculateCost-Methode berechnet.
+Diese wird nun vorgestellt.
+Für jedes der Attribute das für die Berechnung verwendet werden soll wird gemäß des \ac{DTW}-Algorithmus
+eine Kostenmatrix aufgestellt.
+Für sie werden die minimalen Pfadkosten berechnet und zu den Gesamtkosten für diesen Vergleich addiert.
+Das Ergebnis wird am Ende durch die Anzahl der betrachteten Attribute geteilt,
+um auch vergleichbare Werte zu erhalten, wenn eine andere Anzahl an Attributen verwendet wird.
+\begin{lstlisting}[language=Java, caption=DTW: Berechnung der Kosten.]
+  public double calculateCost(
+      List<FrameImpl> frames1,
+      List<FrameImpl> frames2) {
+      // add the calculated cost of each attribute to it
+      double cost = 0;
+      // calculate the cost for all attributes
+      for (String attribute : this.usedAttributes) {
+          // build the cost matrix for this attribute
+          double[][] dtwMatrix = buildCostMatrix(frames1, frames2, attribute);
+          // calculate and add the cost of this attribute
+          cost += calculatePathCost(dtwMatrix);
+      }
+      return cost / this.usedAttributes.size();
+  }
+\end{lstlisting}
+Die Methode buildCostMatrix liefert die passende Kostenmatrix für ein gemeinsames Attribut
+zweier Frame-Listen gemäß des \ac{DTW}-Algorithmus.
+Zunächst werden die beiden Attributreihen in Arrays kopiert.
+Anschließend wird die initiale Matrix erstellt.
+Die Zellen der Reihe und Spalte mit dem Index \emph{0} werden mit dem Wert {\glqq unendlich\grqq} belegt.
+Die Zelle \emph{(0, 0)} und alle übrigen Zellen erhalten den Wert 0.
+Nun werden die Attributwerte paarweise verglichen.
+Hier wird standardmäßig die absolute Distanz verwendet.
+Bei Bedarf können an dieser Stelle weitere Distanzmetriken ergänzt werden.
+Zur berechneten Differenz wird jeweils das Minimum der angrenzenden, bereits berechneten Zellen addiert.
+Diese Summe wird in die entsprechende Matrixzelle eingetragen.
+Dadurch füllt sich die Matrix und kann nach Abschluss der Berechnungen zurückgegeben werden.
+\begin{lstlisting}[language=Java, caption=DTW: Kostenmatrix.]
+  private double[][] buildCostMatrix(
+      List<FrameImpl> frames1,
+      List<FrameImpl> frames2,
+      String attribute) {
+      double[] s = new double[frames1.size()];
+      double[] t = new double[frames2.size()];
 
-\begin{lstlisting}[language=Java, caption=Hierarchisches Clustering.]
-    public List<ClusterImpl> cluster() {
-        List<ClusterImpl> result = new ArrayList<>();
-        // initialize each record as a cluster and add it to the clusters list
-        for (RecordImpl record : this.initialRecords) {
-            this.clusterImpls.add(this.recordToCluster(record));
-        }
-        double currentMinimumCost;
-        double cost;
-        int mergeCandidate1;
-        int mergeCandidate2;
+      int counter = 0;
+      for (FrameImpl frame : frames1) {
+          s[counter] = Double.parseDouble(frame.getValue(attribute));
+          counter += 1;
+      }
+      counter = 0;
+      for (FrameImpl frame : frames2) {
+          t[counter] = Double.parseDouble(frame.getValue(attribute));
+          counter += 1;
+      }
 
-        do {
-            // reset for next loop iteration
-            currentMinimumCost = this.dtw.calculateCost(    
-                this.clusterImpls.get(0).getMedianFrames(),
-                this.clusterImpls.get(1).getMedianFrames());
-            cost = this.dtw.calculateCost(  
-                this.clusterImpls.get(0).getMedianFrames(),
-                this.clusterImpls.get(1).getMedianFrames());
-            mergeCandidate1 = 0;
-            mergeCandidate2 = 1;
-            for (ClusterImpl clusterImpl1 : this.clusterImpls) {
-                for (ClusterImpl clusterImpl2 : this.clusterImpls) {
-                    if (
-                        clusterImpl1 != clusterImpl2
-                        && clusterImpl1.isConsider()
-                        && clusterImpl2.isConsider()) {
-                        if (this.calculatedCost.containsKey(
-                            new ClusterKey(
-                                clusterImpl1,
-                                clusterImpl2))) {
-                            cost = this.calculatedCost.get(
-                                new ClusterKey(
-                                    clusterImpl1,
-                                    clusterImpl2));
-                        }
-                        else {
-                            cost = this.dtw.calculateCost(
-                                clusterImpl1.getMedianFrames(),
-                                clusterImpl2.getMedianFrames());
-                            this.calculatedCost.put(
-                                new ClusterKey(
-                                    clusterImpl1,
-                                    clusterImpl2),
-                                cost);
-                        }
-                        if (cost <= currentMinimumCost) {
-                            /* if a cost smaller than the current minimum cost
-                            is found this will be the new cost */
-                            currentMinimumCost = cost;
-                            mergeCandidate1 =
-                                this.clusterImpls.indexOf(clusterImpl1);
-                            mergeCandidate2 =
-                                this.clusterImpls.indexOf(clusterImpl2);
-                        }
-                    }
-                }
-            }
-            // if the minimum cost is still below the threshold we can continue
-            if (
-                currentMinimumCost < threshold
-                && currentMinimumCost > this.minConst) {
-                /* Combining mergeCandidate1 and mergeCandidate2
-                has the lowest found cost.
-                These two should therefore be merged together.
-                Merge cluster2 into cluster1 and update the cluster list.
-                Consider of cluster2 is set to false. */
-                this.clusterImpls.get(mergeCandidate1).mergeWithCluster(
-                    this.clusterImpls.get(mergeCandidate2));
+      int n = s.length;
+      int m = t.length;
+      // filled with zeros by default
+      double[][] dtwMatrix = new double[n + 1][m + 1];
 
-                // create a copy of the map to avoid an exception
-                Map<ClusterKey, Double> calculatedCostCopy = new HashMap<>();
-                calculatedCostCopy.putAll(calculatedCost);
+      for (int i = 0; i < dtwMatrix.length; i++) {
+          for (int j = 0; j < dtwMatrix[0].length; j++) {
+              // filled with infinity by definition of dtw
+              dtwMatrix[i][j] = Double.POSITIVE_INFINITY;
+          }
+      }
+      // filled with zero by definition of dtw
+      dtwMatrix[0][0] = 0;
 
-                /* remove all calculated costs from the map that contain
-                cluster1 because it changed and therefore all cost values
-                with this cluster have to be calculated again */
-                for (Map.Entry<ClusterKey, Double> entry : calculatedCostCopy.entrySet()) {
-                    /* ignore mergeCandidate2 because the consider
-                    value of cluster2 is set to false */
-                    if (entry.getKey().getCluster1().getId() == mergeCandidate1) {
-                        for (ClusterImpl clusterImpl : clusterImpls) {
-                            calculatedCost.remove(
-                                new ClusterKey(
-                                    this.clusterImpls.get(mergeCandidate1),
-                                    clusterImpl));
-                        }
-                    }
-                }
-            }
-        } while (
-            currentMinimumCost < threshold
-            && currentMinimumCost > this.minConst);
-        /* clean up the list of found clusters by removing all clusters
-        that shouldn't be considered anymore */
-        for (ClusterImpl clusterImpl : this.clusterImpls) {
-            if (clusterImpl.isConsider()) {
-                result.add(clusterImpl);
-            }
-        }
-        return result;
-    }
+      for (int i = 1; i < dtwMatrix.length; i++) {
+          for (int j = 1; j < dtwMatrix[0].length; j++) {
+              // this is the default distance function
+              double cost = Math.abs(s[i - 1] - t[j - 1]);
+              
+              double minTmp = Math.min(dtwMatrix[i - 1][j], dtwMatrix[i][j - 1]);
+              double lastMin = Math.min(minTmp, dtwMatrix[i - 1][j - 1]);
+              dtwMatrix[i][j] = cost + lastMin;
+          }
+      }
+      return dtwMatrix;
+  }
+\end{lstlisting}
+Die Kosten des Warping Pfads der entsprechenden Matrix können mithilfe der Methode calculatePathCost
+berechnet werden.
+Das Verfahren startet in der letzten Zelle der Matrix und sucht den Pfad mit den geringsten Kosten,
+um die Zelle \emph{(0, 0)} zu erreichen.
+Dabei werden die in \autoref{3-DTW} beschriebenen Vorgaben eingehalten.
+Die Kosten des Pfades werden aufsummiert und anschließend durch die Anzahl der betretenen Zellen geteilt.
+Diese Division ist nötig, um im Falle von unterschiedlich großen Matrizen vergleichbare Ergebnisse zu erhalten.
+\begin{lstlisting}[language=Java, caption=DTW: Warping Path berechnen.]
+  public double calculatePathCost(double[][] dtwMatrix) {
+      int n = dtwMatrix.length - 1;
+      int m = dtwMatrix[n - 1].length - 1;
+      int pathCounter = 1;
+      double cost = dtwMatrix[n][m];
+      while (n != 0 && m != 0) {
+          // dynamic time warping algorithm
+          double minTmp = Math.min(dtwMatrix[n - 1][m], dtwMatrix[n][m - 1]);
+          double lastMin = Math.min(minTmp, dtwMatrix[n - 1][m - 1]);
+          cost += lastMin;
+          if (lastMin == dtwMatrix[n - 1][m - 1]) {
+              n = n - 1;
+              m = m - 1;
+          }
+          else if (lastMin == dtwMatrix[n - 1][m]) {
+              n = n - 1;
+          }
+          else if (lastMin == dtwMatrix[n][m - 1]) {
+              m = m - 1;
+          }
+          pathCounter += 1;
+      }
+      return cost / pathCounter;
+  }
 \end{lstlisting}
 
 \section{Abweichungen zur Konzeption}
 \label{5-AbweichungenKonzeption}
 An die Performanz der Anwendung wurden zwar keine besonderen Anforderungen gestellt
-(\autoref{4-NichtFunktionaleAnforderungen}),
-es zeigte sich aber schnell, dass bereits Datensätze mit mehreren Hundert Records zu langen Bearbeitungszeiten führen.
+(\autoref{4-NichtFunktionaleAnforderungen}).
+Es zeigte sich aber schnell, dass bereits Datensätze mit einigen Hundert Records zu langen Bearbeitungszeiten führen.
 Daher wurden zwei Funktionen integriert die sich diesem Problem annehmen sollen.
 Zum einen werden die berechneten Kosten in einer Map abgespeichert,
 um wiederholte Berechnungen in darauffolgenden Schritten zu vermeiden.
@@ -297,12 +331,12 @@ sowie die Kosten mit dem neuen Cluster müssen neu berechnet werden.
 Zum anderen gibt es die Möglichkeit jeden zweiten Frame der Records zu ignorieren.
 Dies geschieht, indem der Parameter \emph{skipFrames} in der config-Datei auf \emph{true} gesetzt wird.
 Damit ist in der Regel weiterhin ein sinnvolles Clustering möglich,
-wobei die Anzahl der Berechnungsschritte drastisch reduziert werden kann.
-Hier ist zu erwähnen, dass aber definitiv Informationen verloren gehen.
+wobei die Anzahl der Berechnungsschritte reduziert werden kann.
+Hier ist zu erwähnen, dass es aber dennoch zu einem Informationsverlust kommt.
 Diese Option sollte daher nur bei sehr großen Datenmengen genutzt werden.
 
 Zudem wurde abweichend zur Konzeption ein primitiver \emph{Visualizer} ergänzt,
-da sonst die Analyse der Cluster mühsam über Kinect Studio erfolgen muss.
+da sonst die Analyse der Cluster manuell über Kinect Studio erfolgen muss.
 Er stellt die Laufwege der gefundenen Cluster aus der Vogelperspektive dar.
 Für jedes Cluster wird ein Verzeichnis erstellt.
 Darin werden die einzelnen Komponenten visualisiert.
