@@ -188,7 +188,8 @@ Die Kosten mit \emph{cluster2} können ignoriert werden, da diese Cluster ohnehi
       for (Map.Entry<ClusterKey, Double> entry : calculatedCostCopy.entrySet()) {
           /* ignore mergeCandidate2 because it got removed from the list and
           the consider value of cluster2 is set to false */
-          if (entry.getKey().getCluster1().getId() == mergeCandidate1) {
+          if (  entry.getKey().getCluster1().getId() == mergeCandidate1
+                || entry.getKey().getCluster2().getId() == mergeCandidate1) {
               for (ClusterImpl clusterImpl : clusterImpls) {
                   calculatedCost.remove(
                       new ClusterKey(
