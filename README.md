@@ -1,3 +1,3 @@
 # Bachelorarbeit
 
-## Kategorisierung von Kinect-Bewegungsdaten mittels deterministischer Algorithmen
+## Hierarchisches Clustering von Kinect-Bewegungsdaten mittels Dynamic Time Warping
