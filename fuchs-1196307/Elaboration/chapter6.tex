@@ -1,21 +1,22 @@
 \chapter{Evaluation}
 \label{chapter6}
 Um die Praxistauglichkeit zu überprüfen, werden nun ausgewählte Daten
-mithilfe des entwickelten Tools evaluiert.
+mithilfe des entwickelten Tools geclustert.
+Die Ergebnisse werden bewertet.
 Zur Bewertung des Clusterings unterscheidet man \emph{externe}
 und \emph{interne} Indizes \citep{aghabozorgi_time-series_2015, warren_liao_clustering_2005}.
-Bei einem \emph{externen Index} werden Ground-Truth-Daten extern bereitgestellt.
+Bei einem \emph{externen Index} werden \emph{Ground-Truth-Daten} extern bereitgestellt.
 Nach dem Clustering kann der Grad der Übereinstimmung zwischen gefundenen Cluster
 und den vorgegebenen Clustern überprüft werden.
-Zur Analyse werden die Daten mithilfe der Visualisierung manuell geclustert.
-In \autoref{6-GroundTruth} werden die gefundenen Cluster mit den berechneten verglichen. 
+In diesem Kapitel werden die Daten mithilfe der Visualisierung manuell geclustert.
+In \autoref{6-GroundTruth} werden die gefundenen Cluster mit den erwarteten verglichen.
 Bei \emph{internen Indizes} muss die Qualität der Cluster hingegen
 ohne zusätzliche Informationen überprüft werden \citep{aghabozorgi_time-series_2015, warren_liao_clustering_2005}.
 Dazu sollen in \autoref{6-Statistical} \emph{desktiptive Statistiken} genutzt werden.
 Die Standardabweichung, der Mittelwert, das Maximum und das Minimum liefern
 ein Maß für die Ähnlichkeit von Cluster-Komponenten.
-Damit soll überprüft werden,
-ob zusammengefasste Records tatsächlich einen hohen Grad an Übereinstimmung besitzen.
+Damit wird überprüft,
+ob zusammengefasste Records tatsächlich einen hohen Grad an Übereinstimmung aufweisen.
 
 \section{Einführende Bemerkungen}
 \label{6-Bemerkungen}
@@ -41,12 +42,12 @@ In den später beschriebenen Szenarien war beispielsweise auffällig,
 dass der Threshold bei Records mit einer Person deutlich niedriger war,
 als bei Records mit mehreren Personen.
 Abhängig davon wie viele Cluster am Ende erwünscht sind
-und wie stark die Cluster-Komponenten voneinander abweichen dürfen,
+und wie stark die Cluster-Bestandteile voneinander abweichen dürfen,
 muss ein anderer Wert gewählt werden.
 
-Die Ground-Truth Daten-wurden manuell anhand der Visualisierung erstellt.
-Zunächst an drei Minimalbeispielen.
-Dafür wurden für die Fälle eine bis drei Personen jeweils zufällig 25 Records gewählt.
+Die Ground-Truth-Daten wurden manuell mithilfe der Visualisierung erstellt.
+Zunächst werden drei Minimalbeispiele betrachtet.
+Dafür wurden für die Fälle eine bis drei Personen jeweils beliebig 25 Records gewählt.
 Diese wurden mithilfe des Visualizers und Kinect Studio visualisiert und manuell in Cluster eingeteilt.
 \autoref{fig:Clusters} zeigt jeweils die Visualisierung eines Repräsentanten der Cluster.
 \begin{figure}[ht]
@@ -57,7 +58,7 @@ Diese wurden mithilfe des Visualizers und Kinect Studio visualisiert und manuell
     \label{fig:Clusters}
 \end{figure}
 Die Ergebnisse und eine sprachliche Beschreibung des Inhalts
-können jeweils im \emph{resources}-Verzeichnis des Projektordners eingesehen werden.
+können im \emph{resources}-Verzeichnis des Projektordners eingesehen werden.
 Das hierarchische Clustering wurde mit den x- und z-Werten als Vergleichsattribute gestartet.
 Der Threshold wurde dabei jeweils so gewählt,
 dass genau so viele Cluster entstehen wie auch manuell erkannt wurden.
@@ -92,18 +93,18 @@ Allerdings wurde ein eindeutiges Cluster identifiziert.
 \end{figure}
 Es handelt sich dabei um drei Personen die nebeneinander durch den Sensorbereich laufen.
 Die selben Erkenntnisse lieferte auch das Minimalbeispiel aus \autoref{6-Bemerkungen}.
-Grund hierfür kann sein, dass die Datenmenge mit circa 100 Records noch immer gering ist.
-Nun soll überprüft werden, ob die häufig auftretende Bewegung auch
-vom entwickelten Tool korrekt erkannt wird.
+Grund hierfür kann sein, dass die Datenmenge mit circa 100 Records immer noch gering ist.
+Anschließend wurde überprüft, ob diese häufig auftretende Bewegung auch
+vom Tool korrekt erkannt wird.
 Die Ergebnisse der Berechnungen stimmen mit den manuell gefundenen Daten überein.
 Im Wesentlichen wird nur ein nicht-triviales Cluster gefunden
-und zwar das oben beschriebene.
+und zwar das oben Beschriebene.
 
 Die Teilmenge aller Records mit zwei Personen enthält 513 Records.
 Bei der manuellen Durchsicht lassen sich wieder spezielle,
 nicht wiederkehrende Bewegungen erkennen.
 Diese werden erneut ignoriert.
-Im Gegensatz zum Fall mit drei Personen sind hier aber mehrere häufig auftretende Bewegungen erkennbar.
+Im Gegensatz zum Fall mit drei Personen sind hier aber mehrere häufig auftretende Bewegungen identifizierbar.
 \autoref{fig:2PersClusters} zeigt jeweils einen Repräsentanten dieser manuell erkannten Muster.
 \begin{figure}[ht]
     \begin{center}
@@ -116,11 +117,11 @@ Zum einen handelt es sich um den Fall, dass zwei Personen durch den Aufnahmebere
 Dies ist die analoge Bewegung zum gefundenen Cluster bei drei Personen.
 Der zweite Fall zeigt, wie sich zwei Personen dem Sensor nähern.
 In Szenario drei bewegt sich eine Person zur Kamera,
-während eine andere lediglich durch das Bild läuft.
+während eine Andere lediglich durch das Bild läuft.
 Im letzten Fall laufen zwei Personen gemeinsam zum oberen Bildrand.
 Alle Szenarien werden durch das Tool gefunden.
 Bei dieser großen Menge an Records fällt auf,
-dass bei niedrigeren Thresholds besonders oft ähnliche Records noch in unterschiedlichen Clustern liegen
+dass bei niedrigen Thresholds ähnliche Records teilweise noch in unterschiedlichen Clustern liegen
 und erst in späteren Schritten kombiniert werden,
 da andere Szenarien noch eine höhere Ähnlichkeit aufweisen.
 
@@ -135,7 +136,7 @@ oder das Tool weiter optimiert werden.
 Beispielweise kann über Parallelisierung nachgedacht werden.
 Insgesamt befinden sich 3523 Records mit einer Person im gefilterten Datensatz.
 Ab einer gewissen Menge treten allerdings kaum noch neue Bewegungsmuster auf.
-Deshalb soll die Analyse im Folgenden auf eine Teilmenge mit 1000 Records eingeschränkt werden.
+Deshalb soll die Analyse im Folgenden auf eine Teilmenge mit 1000 beliebigen Records eingeschränkt werden.
 Erneut wird überprüft, ob wiederkehrende Bewegungen korrekt erkannt werden.
 \autoref{fig:1PersClusters} zeigt jeweils einen Repräsentanten der manuell erkannten Muster.
 \begin{figure}[ht]
@@ -146,17 +147,17 @@ Erneut wird überprüft, ob wiederkehrende Bewegungen korrekt erkannt werden.
     \label{fig:1PersClusters}
 \end{figure}
 Im ersten Fall bewegt sich eine Person durch den Aufnahmebereich,
-im zweiten Szenario bewegt sie sich unmittelbar vor der Kamera.
-Bild drei zeigt ein direktes Zugehen auf den Bildschirm,
-während im vierten Fall und sechsten Fall die Person an verschiedenen Positionen still steht.
+während sie sich im zweiten Szenario unmittelbar vor der Kamera befindet.
+Bild drei zeigt ein direktes Zugehen auf den Bildschirm.
+Im vierten Fall und sechsten Fall steht die Person an verschiedenen Positionen beinahe still.
 Szenario fünf zeigt, wie eine Person nach vorne läuft,
 sich umdreht und wieder zurück läuft.
 All diese Fälle können durch das Tool erkannt werden.
 Zu erwähnen ist allerdings, dass manche Cluster bei hohen Thresholds bereits in andere Muster integriert werden.
 So kann etwa das fünfte Szenario nur bei niedrigeren Thresholds erkannt werden,
-während es bei höheren Werten unter Umständen bereits mit Cluster eins zusammengeführt wird.
-Dies verdeutlicht erneut, dass zwar eine sinnvolle Suche nach Clustern möglich ist,
-aber trotzdem eine Evaluation dieser erfolgen sollte.
+während es bei höheren Werten unter Umständen bereits mit Cluster eins zusammengeführt wurde.
+Dies verdeutlicht erneut, dass eine sinnvolle Suche nach Clustern möglich ist,
+diese aber dennoch manuell betrachtet werden müssen.
 Dabei sollte auch mit verschiedenen Thresholds experimentiert werden.
 
 Die Auswertung des gesamten Datensatzes bestätigt also was die Minimalbeispiele bereits vermuten liesen.
@@ -167,15 +168,14 @@ Im Folgenden Abschnitt soll abschließend die Güte der gefundenen Cluster an ei
 \section{Statistische Analyse}
 \label{6-Statistical}
 Abschließend soll mithilfe von \emph{deskriptiven Statistiken} überprüft werden,
-ob ein Zusammenhang zwischen den Record-Komponenten eines Clusters besteht.
+ob ein Zusammenhang zwischen den Record-Bestandteilen eines Clusters besteht.
 Der Grad der Übereinstimmung liefert Informationen zur Ähnlichkeit.
 Konkret werden nun für die Komponenten einiger gefundener Cluster
 die Standardabweichung, der Mittelwert, das Maximum und das Minimum für die x-Laufwege berechnet
 und tabellarisch dargestellt werden.
 Dazu werden teilweise die Minimalbeispiele aus \autoref{6-GroundTruth} wieder aufgegriffen.
-Als erstes werden die Werte für drei zufällige Records aus dem ersten Cluster mit drei Personen
-aus \autoref{fig:Clusters} berechnet.
-Die Ergebnisse wurden auf zwei Nachkommastellen gerundet.
+Als erstes werden die Werte für drei beliebige Records des ersten Cluster mit drei Personen berechnet (\autoref{fig:Clusters}).
+Die Ergebnisse sind auf zwei Nachkommastellen gerundet.
 \begin{center}
     \begin{tabular}{ |c|c|c|c|c| } 
      \hline
@@ -237,7 +237,7 @@ Die Ergebnisse wurden auf zwei Nachkommastellen gerundet.
     \end{tabular}
   \end{center}
   Setzt man in diesem Beispiel allerdings den Threshold noch höher,
-  sodass die gefundenen Cluster nicht mehr augenscheinlich nicht mehr sinnvoll erscheinen
+  sodass die gefundenen Cluster augenscheinlich nicht mehr sinnvoll erscheinen
   erhält man Folgende Werte.
   \begin{center}
     \begin{tabular}{ |c|c|c|c|c| } 
@@ -267,7 +267,7 @@ Die Ergebnisse wurden auf zwei Nachkommastellen gerundet.
      \hline
     \end{tabular}
   \end{center}
-  Hier sind klare Differenzen erkennbar.
+  Hier sind größere Differenzen erkennbar.
   Dies betont einerseits erneut die bedeutende Rolle eines geeigneten Thresholds
   und andererseits, dass die Bestimmung der Güte mittels desktiptiver Statistiken möglich ist.
-  Die Records der Cluster der beiden ersten Beispiele tatsächlich eine hohe Ähnlichkeit aufweisen.
+  Die Records der Cluster der beiden ersten Beispiele weisen tatsächlich eine hohe Ähnlichkeit auf.
