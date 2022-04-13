@@ -56,7 +56,7 @@
      \iffieldundef{url}{}{\renewcommand*{\finentrypunct}{\relax}}}
     {}}
 
-\setlength\cftparskip{-6pt}
+\setlength\cftparskip{-7.5pt}
 
 \linespread{1.4}
 
@@ -72,9 +72,7 @@
     \cleardoublepage
     \include{abstract}
     \thispagestyle{empty}
-    \linespread{0.5}
     \tableofcontents
-    \linespread{1.4}
 
 % ---------------------------------------------------------------
 \mainmatter
@@ -89,15 +87,30 @@
 
 % ---------------------------------------------------------------
 \backmatter
-    \input{acronyms}
+    \cleardoublepage
+    \phantomsection
+    \addcontentsline{toc}{chapter}{\listfigurename}
     \listoffigures
+
+    \input{acronyms}
+
+    \renewcommand{\lstlistlistingname}{Listingsverzeichnis}
+    \lstlistoflistings
+
+    \cleardoublepage
+    \phantomsection
+    \addcontentsline{toc}{chapter}{\listtablename}
+    \listoftables
+
     \begingroup
+        \renewcommand{\bibname}{Literaturverzeichnis}
         \hbadness 10000
         \linespread{1.2}
         \renewcommand*{\bibfont}{\small}
         \setlength\bibhang{2em}
         \printbibliography
     \endgroup
+
     \begingroup
         \hbadness 10000
         \input{./Title/affirmation-unibw}
