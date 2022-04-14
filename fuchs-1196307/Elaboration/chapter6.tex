@@ -203,7 +203,8 @@ Der Grad der Übereinstimmung liefert Informationen zur Ähnlichkeit.
 Konkret werden nun für die Komponenten einiger gefundener Cluster
 die Standardabweichung, der Mittelwert, das Maximum und das Minimum für die x-Laufwege berechnet
 und tabellarisch dargestellt werden.
-Dazu werden teilweise die Minimalbeispiele aus \autoref{6-GroundTruth} wieder aufgegriffen.
+Dazu werden teilweise die Minimalbeispiele aus \autoref{6-GroundTruth} mit veränderten Thresholds wieder aufgegriffen.
+Auch hierzu befinden sich alle Daten im \emph{resources}-Verzeichnis des Projektordners.
 Als erstes werden die Werte für drei beliebige Records des ersten Cluster mit drei Personen berechnet (\autoref{fig:Clusters}).
 Sie werden in \autoref{tbl:ClustThreePers} dargestellt.
 Die Ergebnisse sind auf zwei Nachkommastellen gerundet.
@@ -211,28 +212,140 @@ Die Ergebnisse sind auf zwei Nachkommastellen gerundet.
     \begin{table}[ht]
     \begin{tabular}{ |c|c|c|c|c| } 
      \hline
-     Record & Mittelwert & Standardabw. & Minimum & Maximum \\
+     Record & Minimum & Maximum & Mittelwert & Standardabw. \\
      \hline \hline
-     2017-04-05 08.16.53.128 +02.00
-     & -0,79
-     & 0,50
-     & -1,79
-     & 0,17
-     \\
+     2017-05-04 16.35.15.463 +02.00
+     & -2.12
+     & 0.63
+     & -0.59
+     & 0,72 \\
      \hline
-     2017-04-05 10.56.51.141 +02.00
-     & -0,73
-     & 0,63
-     & -2,20
-     & 0,41
-     \\
+     2017-04-13 12.34.38.535 +02.00
+     & -1.72
+     & 0.46
+     & -0.65
+     & 0,58 \\
      \hline
-     2017-04-05 12.29.05.007 +02.00
-     & -0,66
-     & 0,64
-     & -1,96
-     & 0,44
-     \\
+     2017-05-08 12.30.56.954 +02.00
+     & -2.09
+     & 0.12
+     & -1.01
+     & 0.56 \\
+     \hline
+     2017-04-13 12.36.06.669 +02.00
+     & -1.83
+     & 0.43
+     & -0.70
+     & 0.57 \\
+     \hline
+     2017-04-20 12.35.56.578 +02.00
+     & -2.06
+     & 0.50
+     & -0.75
+     & 0.67 \\
+     \hline
+     2017-04-10 11.53.16.991 +02.00
+     & -2.09
+     & -0.61
+     & -1.15
+     & 0.36 \\
+     \hline
+     2017-05-08 12.45.55.652 +02.00
+     & -1.84
+     & 0.51
+     & -0.64
+     & 0.65 \\
+     \hline
+     2017-04-06 09.47.43.189 +02.00
+     & -1.96
+     & 0.44
+     & -0.66
+     & 0.64 \\
+     \hline
+     2017-04-05 13.00.04.745 +02.00
+     & -1.79
+     & 0.17
+     & -0.79
+     & 0.50 \\
+     \hline
+     2017-04-11 13.29.55.196 +02.00
+     & -2.06
+     & 0.72
+     & -0.47
+     & 0.72 \\
+     \hline
+     2017-04-07 13.19.05.395 +02.00
+     & -2.01
+     & 0.32
+     & -0.81
+     & 0.56 \\
+     \hline
+     2017-04-21 14.17.23.301 +02.00
+     & -2.03
+     & 0.30
+     & -0.91
+     & 0.59 \\
+     \hline
+     2017-04-26 11.59.37.413 +02.00
+     & -1.74
+     & 0.31
+     & -0.76
+     & 0.55 \\
+     \hline
+     2017-04-21 12.58.27.894 +02.00
+     & -1.84
+     & 0.20
+     & -0.81
+     & 0.51 \\
+     \hline
+     2017-04-19 12.54.19.390 +02.00
+     & -1.81
+     & 0.66
+     & -0.54
+     & 0.69 \\
+     \hline
+     2017-04-27 12.36.45.995 +02.00
+     & -1.85
+     & -0.04
+     & -0.92
+     & 0.50 \\
+     \hline
+     2017-05-04 13.13.17.884 +02.00
+     & -2.07
+     & -0.03
+     & -0.85
+     & 0.52 \\
+     \hline
+     2017-04-05 09.28.25.562 +02.00
+     & -1.78
+     & 0.36
+     & -0.66
+     & 0.58 \\
+     \hline
+     2017-05-04 13.24.36.117 +02.00
+     & -2.00
+     & 0.38
+     & -0.66
+     & 0.65 \\
+     \hline
+     2017-04-05 13.01.44.147 +02.00
+     & -2.20
+     & 0.41
+     & -0.73
+     & 0.63 \\
+     \hline
+     2017-04-07 11.05.51.351 +02.00
+     & -1.89
+     & 0.32
+     & -0.63
+     & 0.65 \\
+     \hline
+     \hline
+     Standardabweichung
+     & f
+     & f
+     & f
+     & f \\
      \hline
     \end{tabular}
     \caption{Deskriptive Statistiken für das Cluster mit drei Pers.}
@@ -245,32 +358,162 @@ Die Ergebnisse sind auf zwei Nachkommastellen gerundet.
   Auch hier ähneln sich die Werte, wie in \autoref{tbl:ClustTwoPers} zu sehen ist.
   \begin{center}
     \begin{table}[ht]
-    \begin{tabular}{ |c|c|c|c|c| } 
-     \hline
-     Record & Mittelwert & Standardabw. & Minimum & Maximum \\
-     \hline \hline
-     2017-04-05 08.16.53.128 +02.00
-     & -0,88
-     & 0,48
-     & -1,77
-     & -0,03
-     \\
-     \hline
-     2017-04-05 10.56.51.141 +02.00
-     & -0,68
-     & 0,58
-     & -1,77
-     & 0,31
-     \\
-     \hline
-     2017-04-05 12.29.05.007 +02.00
-     & -0,80
-     & 0,55
-     & -1,85
-     & 0,16
-     \\
-     \hline
-    \end{tabular}
+      \begin{tabular}{ |c|c|c|c|c| } 
+        \hline
+        Record & Minimum & Maximum & Mittelwert & Standardabw. \\
+        \hline \hline
+        2017-04-06 12.26.06.199 +02.00
+        & -1.90
+        & -0.34
+        & -0.98
+        & 0,49 \\
+        \hline
+        2017-04-05 09.13.53.631 +02.00
+        & -1.73
+        & 0.01
+        & -0.88
+        & 0,41\\
+        \hline
+        2017-04-04 16.54.30.868 +02.00
+        & -1.67
+        & 0.45
+        & -0.61
+        & 0.61 \\
+        \hline
+        2017-04-05 12.32.59.075 +02.00
+        & -1.71
+        & 0.30
+        & -0.62
+        & 0.54 \\
+        \hline
+        2017-04-04 18.04.06.507 +02.00
+        & -1.23
+        & 1.07
+        & -0.14
+        & 0.54 \\
+        \hline
+        2017-04-05 12.53.33.743 +02.00
+        & -1.80
+        & 0.28
+        & -0.67
+        & 0.55 \\
+        \hline
+        2017-04-05 10.03.28.598 +02.00
+        & -1.89
+        & -0.02
+        & -1.00
+        & 0.51 \\
+        \hline
+        2017-04-05 08.16.53.128 +02.00
+        & -1.77
+        & -0.03
+        & -0.88
+        & 0.48 \\
+        \hline
+        2017-04-05 12.40.57.142 +02.00
+        & -1.52
+        & -0.23
+        & -1.00
+        & 0.22 \\
+        \hline
+        2017-04-05 14.44.27.088 +02.00
+        & -1.87
+        & 0.31
+        & -0.72
+        & 0.60 \\
+        \hline
+        2017-04-06 12.31.41.933 +02.00
+        & -1.77
+        & 0.28
+        & -0.70
+        & 0.61 \\
+        \hline
+        2017-04-05 15.01.29.988 +02.00
+        & -1.95
+        & 0.58
+        & -0.50
+        & 0.68 \\
+        \hline
+        2017-04-04 17.27.46.240 +02.00
+        & -1.93
+        & -0.32
+        & -1.10
+        & 0.38 \\
+        \hline
+        2017-04-04 14.55.11.727 +02.00
+        & -1.57
+        & 1.02
+        & 0.36
+        & 0.84 \\
+        \hline
+        2017-04-05 15.02.00.252 +02.00
+        & -2.13
+        & 0.26
+        & -0.83
+        & 0.65 \\
+        \hline
+        2017-04-05 17.08.48.758 +02.00
+        & -1.76
+        & 0.30
+        & -0.73
+        & 0.64 \\
+        \hline
+        2017-04-05 16.59.22.830 +02.00
+        & -1.92
+        & 0.38
+        & -0.74
+        & 0.57 \\
+        \hline
+        2017-04-05 11.40.51.237 +02.00
+        & -1.32
+        & 0.17
+        & -0.49
+        & 0.46 \\
+        \hline
+        2017-04-05 11.41.21.472 +02.00
+        & -1.08
+        & -0.14
+        & -0.53
+        & 0.36 \\
+        \hline
+        2017-04-06 11.38.42.632 +02.00
+        & -1.67
+        & 0.12
+        & -0.81
+        & 0.50 \\
+        \hline
+        2017-04-05 10.56.51.141 +02.00
+        & -1.77
+        & 0.31
+        & -0.68
+        & 0.58 \\
+        \hline
+        2017-04-05 12.29.05.007 +02.00
+        & -1.85
+        & 0.16
+        & -0.80
+        & 0.55 \\
+        \hline
+        2017-04-05 13.33.56.412 +02.00
+        & -1.97
+        & 0.31
+        & -0.79
+        & 0.63 \\
+        \hline
+        2017-04-05 10.59.42.469 +02.00
+        & -1.77
+        & -0.17
+        & -0.92
+        & 0.49 \\
+        \hline
+        \hline
+        Standardabweichung
+        & f
+        & f
+        & f
+        & f \\
+        \hline
+       \end{tabular}
     \caption{Deskriptive Statistiken für das Cluster mit zwei Pers.}
     \label{tbl:ClustTwoPers}
     \end{table}
@@ -280,32 +523,138 @@ Die Ergebnisse sind auf zwei Nachkommastellen gerundet.
   erhält man die Werte in \autoref{tbl:ClustTwoPersHighThreshold}.
   \begin{center}
     \begin{table}[ht]
-    \begin{tabular}{ |c|c|c|c|c| } 
-     \hline
-     Record & Mittelwert & Standardabw. & Minimum & Maximum \\
-     \hline \hline
-     2017-04-05 08.16.53.128 +02.00
-     & -0,61
-     & 0,61
-     & -1,67
-     & 0,45
-     \\
-     \hline
-     2017-04-05 10.56.51.141 +02.00
-     & -0,53
-     & 0,36
-     & -1,08
-     & -0,14
-     \\
-     \hline
-     2017-04-05 12.29.05.007 +02.00
-     & -0,14
-     & 0,54
-     & -1,23
-     & 1,07
-     \\
-     \hline
-    \end{tabular}
+      \begin{tabular}{ |c|c|c|c|c| } 
+        \hline
+        Record & Minimum & Maximum & Mittelwert & Standardabw. \\
+        \hline \hline
+        2017-04-06 12.26.06.199 +02.00
+        & -1.90
+        & -0.34
+        & -0.98
+        & 0,49 \\
+        \hline
+        2017-04-05 09.13.53.631 +02.00
+        & -1.73
+        & 0.01
+        & -0.88
+        & 0,41\\
+        \hline
+        2017-04-04 16.54.30.868 +02.00
+        & -1.67
+        & 0.45
+        & -0.61
+        & 0.61 \\
+        \hline
+        2017-04-05 12.32.59.075 +02.00
+        & -1.71
+        & 0.30
+        & -0.62
+        & 0.54 \\
+        \hline
+        2017-04-05 12.53.33.743 +02.00
+        & -1.80
+        & 0.28
+        & -0.67
+        & 0.55 \\
+        \hline
+        2017-04-05 10.03.28.598 +02.00
+        & -1.89
+        & -0.02
+        & -1.00
+        & 0.51 \\
+        \hline
+        2017-04-05 08.16.53.128 +02.00
+        & -1.77
+        & -0.03
+        & -0.88
+        & 0.48 \\
+        \hline
+        2017-04-05 14.44.27.088 +02.00
+        & -1.87
+        & 0.31
+        & -0.72
+        & 0.60 \\
+        \hline
+        2017-04-06 12.31.41.933 +02.00
+        & -1.77
+        & 0.28
+        & -0.70
+        & 0.61 \\
+        \hline
+        2017-04-05 15.01.29.988 +02.00
+        & -1.95
+        & 0.58
+        & -0.50
+        & 0.68 \\
+        \hline
+        2017-04-04 17.27.46.240 +02.00
+        & -1.93
+        & -0.32
+        & -1.10
+        & 0.38 \\
+        \hline
+        2017-04-05 15.02.00.252 +02.00
+        & -2.13
+        & 0.26
+        & -0.83
+        & 0.65 \\
+        \hline
+        2017-04-05 17.08.48.758 +02.00
+        & -1.76
+        & 0.30
+        & -0.73
+        & 0.64 \\
+        \hline
+        2017-04-05 16.59.22.830 +02.00
+        & -1.92
+        & 0.38
+        & -0.74
+        & 0.57 \\
+        \hline
+        2017-04-05 11.40.51.237 +02.00
+        & -1.32
+        & 0.17
+        & -0.49
+        & 0.46 \\
+        \hline
+        2017-04-06 11.38.42.632 +02.00
+        & -1.67
+        & 0.12
+        & -0.81
+        & 0.50 \\
+        \hline
+        2017-04-05 10.56.51.141 +02.00
+        & -1.77
+        & 0.31
+        & -0.68
+        & 0.58 \\
+        \hline
+        2017-04-05 12.29.05.007 +02.00
+        & -1.85
+        & 0.16
+        & -0.80
+        & 0.55 \\
+        \hline
+        2017-04-05 13.33.56.412 +02.00
+        & -1.97
+        & 0.31
+        & -0.79
+        & 0.63 \\
+        \hline
+        2017-04-05 10.59.42.469 +02.00
+        & -1.77
+        & -0.17
+        & -0.92
+        & 0.49 \\
+        \hline
+        \hline
+        Standardabweichung
+        & f
+        & f
+        & f
+        & f \\
+        \hline
+       \end{tabular}
     \caption{Deskriptive Statistiken für das Cluster mit zwei Pers. (hoher Threshold).}
     \label{tbl:ClustTwoPersHighThreshold}
     \end{table}
