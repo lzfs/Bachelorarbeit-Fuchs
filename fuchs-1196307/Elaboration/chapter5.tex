@@ -82,7 +82,6 @@ die unterschiedlichen Personen im \emph{Record} korrekt darzustellen.
 Nach der Beschreibung des Ablaufs und der groben Struktur
 sollen nun wichtige Codeausschnitte des hierarchischen Clusterings
 und des \ac{DTW}-Algorithmus beschrieben werden.
-
 Objekte der Klassen ClusterImpl, RecordImpl und FrameImpl werden in diesem Abschnitt
 vereinfacht als Cluster, Record und Frame bezeichnet.
 Bei der Ausführung des Folgenden Codes wurden die Daten bereits eingelesen.
@@ -94,17 +93,21 @@ Sie wird mit den initialen Clustern belegt,
 indem alle Records zunächst zu trivialen Clustern transformiert werden
 und anschließend der Liste hinzugefügt werden.
 Des Weiteren werden die nötigen Variablen für die Berechnung deklariert.
-\begin{lstlisting}[language=Java, caption=Cluster-Methode: Initialisierung.]
+\autoref{lst:ClustInit} zeigt diese Schritte.
+\begin{lstfloat}
+\begin{lstlisting}[language=Java, label={lst:ClustInit}, caption=Cluster-Methode: Initialisierung.]
   // Initialize each record as a cluster and add it to the clusters list.
   for (RecordImpl record : this.initialRecords) {
       this.clusterImpls.add(this.recordToCluster(record));
-  }
-  double currentMinimumCost;
-  double cost;
-  int mergeCandidate1;
-  int mergeCandidate2;
+      }
+      double currentMinimumCost;
+      double cost;
+      int mergeCandidate1;
+      int mergeCandidate2;
 \end{lstlisting}
-Der eigentliche Berechnungsablauf befindet sich in einer Schleife die mindestens einmal ausgeführt wird.
+\end{lstfloat}
+Der eigentliche Berechnungsablauf wird in \autoref{lst:ClustCalc} gezeigt.
+Er befindet sich in einer Schleife die mindestens einmal ausgeführt wird.
 Sie läuft weiter, bis die geringsten gefundenen Kosten den Threshold übersteigen,
 oder nur noch ein einziges Cluster übrig ist.
 Die Merge-Kandidaten geben die Indizes der beiden Cluster mit den
@@ -124,7 +127,9 @@ Somit wird auch der symmetrische Fall betrachtet.
 Immer wenn eine Kombination gefunden wird, deren Kosten geringer sind als die bisherigen,
 werden die aktuellen Minimalkosten und die Merge-Kandidaten angepasst.
 Nach dem Vergleich aller Cluster, erfolgt die Kombination der beiden mit den geringsten Kombinationskosten.
-\begin{lstlisting}[language=Java, caption=Cluster-Methode: Berechnungsvorgang.]
+Dies ist in \autoref{lst:ClustMerge} zu sehen.
+\begin{lstfloat}
+\begin{lstlisting}[language=Java, label={lst:ClustCalc}, caption=Cluster-Methode: Berechnungsvorgang.]
   do {
       // Reset for next loop iteration.
       cost = this.dtw.calculateCost(    
@@ -164,7 +169,8 @@ Nach dem Vergleich aller Cluster, erfolgt die Kombination der beiden mit den ger
       // Merging. Showed in next Listing.
       } while (currentMinimumCost < threshold && this.clusterImpls.size() > 1);
 \end{lstlisting}
-Nun wurden die beiden Cluster mit den geringsten Kombinationskosten gefunden.
+\end{lstfloat}
+Die beiden Cluster mit den geringsten Kombinationskosten wurden gefunden.
 Die zugehörigen Kosten sind in der Variablen \emph{currentMinimumCost} abgelegt.
 Sind diese immer noch geringer als der definierte Threshold können die Kandidaten zusammengeführt werden.
 Dazu wird \emph{mergeCandidate2} mit der Methode \emph{mergeWithCluster} in \emph{mergeCandidate1} integriert.
@@ -173,7 +179,8 @@ da es in künftigen Schritten nicht mehr als eigenständige Einheit betrachtet w
 Abschließend müssen alle berechneten Werte mit \emph{cluster1} aus der \emph{calculateCost-Map} entfernt werden,
 da die aktuellen Werte aufgrund der neuen Komponente nicht mehr gültig sind.
 Die Kosten mit \emph{cluster2} können ignoriert werden, da diese Cluster ohnehin nicht mehr betrachtet werden.
-\begin{lstlisting}[language=Java, caption=Cluster-Methode: Mergevorgang.]
+\begin{lstfloat}
+\begin{lstlisting}[language=Java, label={lst:ClustMerge}, caption=Cluster-Methode: Mergevorgang.]
   if (currentMinimumCost < threshold) {
       /* MergeCandidate1 and mergeCandidate2 should be merged together.
       Merge cluster2 into cluster1 and update the cluster list.
@@ -189,7 +196,7 @@ Die Kosten mit \emph{cluster2} können ignoriert werden, da diese Cluster ohnehi
       for (Map.Entry<ClusterKey, Double> entry : calculatedCostCopy.entrySet()) {
           /* Ignore mergeCandidate2 because it got removed from the list and
           the consider value of cluster2 is set to false. */
-          if (  entry.getKey().getCluster1().getId() == mergeCandidate1
+          if (entry.getKey().getCluster1().getId() == mergeCandidate1
                 || entry.getKey().getCluster2().getId() == mergeCandidate1) {
               for (ClusterImpl clusterImpl : clusterImpls) {
                   calculatedCost.remove(
@@ -200,14 +207,16 @@ Die Kosten mit \emph{cluster2} können ignoriert werden, da diese Cluster ohnehi
       }
   }
 \end{lstlisting}
+\end{lstfloat}
 In den oben gezeigten Clustering-Schritten wurden die Kosten mithilfe der \emph{calculateCost-Methode} berechnet.
-Diese wird nun vorgestellt.
+\autoref{lst:DtwCalc} zeigt diese.
 Für jedes der Attribute das für die Berechnung verwendet werden soll wird gemäß des \ac{DTW}-Algorithmus
-eine Kostenmatrix aufgestellt.
+eine Kostenmatrix aufgestellt (\autoref{lst:DtwMatrix}).
 Für sie werden die minimalen Pfadkosten berechnet und zu den Gesamtkosten für diesen Attributvergleich addiert.
 Das Ergebnis wird am Ende durch die Anzahl der betrachteten Attribute geteilt,
 um auch vergleichbare Werte zu erhalten, wenn die Anzahl an Attributen variiert.
-\begin{lstlisting}[language=Java, caption=DTW: Berechnung der Kosten.]
+\begin{lstfloat}
+\begin{lstlisting}[language=Java, label={lst:DtwCalc}, caption=DTW: Berechnung der Kosten.]
   public double calculateCost(
       List<FrameImpl> frames1,
       List<FrameImpl> frames2) {
@@ -223,6 +232,7 @@ um auch vergleichbare Werte zu erhalten, wenn die Anzahl an Attributen variiert.
       return cost / this.usedAttributes.size();
   }
 \end{lstlisting}
+\end{lstfloat}
 Die Methode \emph{buildCostMatri}x liefert die passende Kostenmatrix für ein gemeinsames Attribut
 zweier Frame-Listen gemäß des \ac{DTW}-Algorithmus.
 Zunächst werden die beiden Attributreihen in Arrays kopiert.
@@ -235,14 +245,14 @@ Bei Bedarf können an dieser Stelle weitere Distanzmetriken ergänzt werden.
 Zur berechneten Differenz wird jeweils das Minimum der angrenzenden, bereits berechneten Zellen addiert.
 Diese Summe wird in die entsprechende Matrixzelle eingetragen.
 Dadurch füllt sich die Matrix und kann nach Abschluss der Berechnungen zurückgegeben werden.
-\begin{lstlisting}[language=Java, caption=DTW: Kostenmatrix.]
+\begin{lstfloat}
+\begin{lstlisting}[language=Java, label={lst:DtwMatrix}, caption=DTW: Kostenmatrix.]
   private double[][] buildCostMatrix(
       List<FrameImpl> frames1,
       List<FrameImpl> frames2,
       String attribute) {
       double[] s = new double[frames1.size()];
       double[] t = new double[frames2.size()];
-
       int counter = 0;
       for (FrameImpl frame : frames1) {
           s[counter] = Double.parseDouble(frame.getValue(attribute));
@@ -253,12 +263,10 @@ Dadurch füllt sich die Matrix und kann nach Abschluss der Berechnungen zurückg
           t[counter] = Double.parseDouble(frame.getValue(attribute));
           counter += 1;
       }
-
       int n = s.length;
       int m = t.length;
       // Filled with zeros by default.
       double[][] dtwMatrix = new double[n + 1][m + 1];
-
       for (int i = 0; i < dtwMatrix.length; i++) {
           for (int j = 0; j < dtwMatrix[0].length; j++) {
               // filled with infinity by definition of dtw
@@ -267,12 +275,9 @@ Dadurch füllt sich die Matrix und kann nach Abschluss der Berechnungen zurückg
       }
       // Filled with zero by definition of dtw.
       dtwMatrix[0][0] = 0;
-
       for (int i = 1; i < dtwMatrix.length; i++) {
           for (int j = 1; j < dtwMatrix[0].length; j++) {
-              // this is the default distance function
               double cost = Math.abs(s[i - 1] - t[j - 1]);
-              
               double minTmp = Math.min(dtwMatrix[i - 1][j], dtwMatrix[i][j - 1]);
               double lastMin = Math.min(minTmp, dtwMatrix[i - 1][j - 1]);
               dtwMatrix[i][j] = cost + lastMin;
@@ -281,6 +286,7 @@ Dadurch füllt sich die Matrix und kann nach Abschluss der Berechnungen zurückg
       return dtwMatrix;
   }
 \end{lstlisting}
+\end{lstfloat}
 Die Kosten des Warping Pfads der entsprechenden Matrix können mithilfe der Methode \emph{calculatePathCost}
 berechnet werden.
 Das Verfahren startet in der letzten Zelle der Matrix und sucht den Pfad mit den geringsten Kosten,
@@ -288,7 +294,9 @@ um die Zelle \emph{(0, 0)} zu erreichen.
 Dabei werden die in \autoref{3-DTW} beschriebenen Vorgaben eingehalten.
 Die Kosten des Pfades werden aufsummiert und anschließend durch die Anzahl der betretenen Zellen geteilt.
 Diese Division ist nötig, um im Falle von unterschiedlich großen Matrizen vergleichbare Ergebnisse zu erhalten.
-\begin{lstlisting}[language=Java, caption=DTW: Warping Path berechnen.]
+\autoref{lst:DtwPath} veranschaulicht dieses Vorgehen.
+\begin{lstfloat}
+\begin{lstlisting}[language=Java, label={lst:DtwPath}, caption=DTW: Warping Path berechnen.]
   public double calculatePathCost(double[][] dtwMatrix) {
       int n = dtwMatrix.length - 1;
       int m = dtwMatrix[n - 1].length - 1;
@@ -314,6 +322,7 @@ Diese Division ist nötig, um im Falle von unterschiedlich großen Matrizen verg
       return cost / pathCounter;
   }
 \end{lstlisting}
+\end{lstfloat}
 
 \section{Abweichungen zur Konzeption}
 \label{5-AbweichungenKonzeption}
