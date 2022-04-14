@@ -125,15 +125,45 @@ dass bei niedrigen Thresholds ähnliche Records teilweise noch in unterschiedlic
 und erst in späteren Schritten kombiniert werden,
 da andere Szenarien noch eine höhere Ähnlichkeit aufweisen.
 
-Das Tool kann für Datensätze mit Ein- bis Zweitausend Records sehr effizient eingesetzt werden.
-Auf einem heute typischen Heimrechner werden innerhalb weniger Minuten Ergebnisse geliefert.
-Ab einigen Tausend Records nimmt die Bearbeitungszeit stark zu,
+Das Tool kann für Datensätze mit Ein- bis Zweitausend Records effizient eingesetzt werden.
+Auf einem heute typischen Mittelklasse-Heimrechner werden innerhalb weniger Minuten Ergebnisse geliefert.
+Ab einigen Tausend Records nimmt die Bearbeitungszeit zu,
 sodass unter Umständen mit mehreren Stunden Wartezeit zu rechnen ist.
-Diese Limitierung sollte beachtet werden,
+Die meisten Hierarchischen Clustering-Verfahren werden den Komplexitätsklassen
+\emph{O(n²)} oder \emph{O(n³)} zugeordnet.
+Das implementierte Tool fällt in die Klasse \emph{O(n²)},
+wie die Zeitmessungen aus \autoref{tbl:CalcTime} belegen.
+Die Verdoppelung der Recordanzahl führt nicht zu einer Verachtfachung der Bearbeitungszeit,
+wie dies bei \emph{O(n³)} der Fall wäre.
+Die Zeit zum Einlesen der Daten
+und zum Schreiben der Ergebnisse wurde hier ignoriert.
+\begin{table}[ht]
+  \begin{center}
+  \begin{tabular}{ |c|c| } 
+   \hline
+   Recordanzahl & Bearbeitungszeit (Sekunden) \\
+   \hline \hline
+   100 & 9 \\
+   \hline
+   200 & 30 \\
+   \hline
+   400 & 133 \\
+   \hline
+   800 & 637 \\
+   \hline
+  \end{tabular}
+  \caption{Bearbeitungszeiten des Clusteringvorgangs nach Recordanzahl.}
+  \label{tbl:CalcTime}
+  \end{center}
+\end{table}
+Diese Limitierung muss beachtet werden,
 falls in Zukunft noch größere Datenmengen geclustert werden müssen.
 Dann muss entweder ein leistungsfähigerer Rechner eingesetzt werden,
 oder das Tool weiter optimiert werden.
-Beispielweise kann über Parallelisierung nachgedacht werden.
+Beispielweise kann über Parallelisierung nachgedacht werden
+oder eine effizientere Version des Clustering-Verfahrens implementiert werden.
+\citet{patel_study_2015} stellen einige mögliche Varianten vor.
+
 Insgesamt befinden sich 3523 Records mit einer Person im gefilterten Datensatz.
 Ab einer gewissen Menge treten allerdings kaum noch neue Bewegungsmuster auf.
 Deshalb soll die Analyse im Folgenden auf eine Teilmenge mit 1000 beliebigen Records eingeschränkt werden.
