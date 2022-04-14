@@ -88,8 +88,8 @@ Aufgrund der Kontinuität sind nur Schritte in angrenzende Zellen erlaubt.
 Die Monotonitätsbedingung zwingt den Warping Pfad dazu, sich monoton in der Zeit zu bewegen.
 
 Mit Hilfe von dynamischer Programmierung können die Matrixeinträge von \emph{$M_{(0, 0)}$} ausgehend berechnet werden,
-indem wiederholt die folgende Gleichung ausgewertet wird.
-\emph{$ M_{(i, j)} = d(q_{i}, r_{j}) + min $ \{$M_{(i - 1, j - 1)}, M_{(i - 1, j)}, M_{(i, j - 1)} $\}}
+indem wiederholt die folgende Gleichung ausgewertet wird:
+\emph{$ M_{(i, j)} = d(q_{i}, r_{j}) + min $ \{$M_{(i - 1, j - 1)}, M_{(i - 1, j)}, M_{(i, j - 1)} $\}}.
 Sie definiert den kumulativen Abstand als die Summe aus dem Abstand des aktuellen Elementes
 und dem Minimum der kumulativen Abstände der benachbarten Elemente \citep{warren_liao_clustering_2005}.
 Der Pfad mit der minimalen Distanz ist von Bedeutung.
@@ -102,12 +102,16 @@ Zur Veranschaulichung soll nun das Vorgehen anhand von vier Datenreihen durchgef
 Seien \emph{$R_{1}$ = (0, 1, 1, 2, 2, 1, 1)}, \emph{$R_{2}$ = (0, 1, 1, 1, 2, 2, 1, 1)}, \emph{$R_{3}$ = (1, 1, 0, 1, 2, 2, 1, 1)}
 und \emph{$R_{4}$ = (2, 2, 1, 2, 2, 2)} gegeben.
 Die Kosten können berechnet werden, indem die Kostenmatrix aufgestellt und der Warping Pfad berechnet wird (\autoref{3-DTW}).
-Für die Berechnung der Kosten zwischen \emph{$R_{1}$} und \emph{$R_{2}$} ergibt sich beispielsweise folgende Matrix
+Für die Berechnung der Kosten zwischen \emph{$R_{1}$} und \emph{$R_{2}$} ergibt sich beispielsweise
+die in \autoref{tbl:ExampleMatrix} gezeigte Matrix
 mit hervorgehobenem Warping Pfad.
-\begin{center}
-    \begin{tabular}{ |c|c|c|c|c|c|c|c|c| } 
+\begin{table}[ht]
+    \begin{center}
+    \begin{tabular}{ |c||c|c|c|c|c|c|c|c| } 
      \hline
-     \textbf{0} & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ \\
+     \textbf{0} & $\infty$ & $\infty$ & $\infty$
+     & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ \\
+     \hline
      \hline
      $\infty$ &\textbf{0} & 1 & 2 & 3 & 5 & 7 & 8 & 9 \\
      \hline
@@ -124,9 +128,13 @@ mit hervorgehobenem Warping Pfad.
      $\infty$ & 8 & 2 & 2 & 2 & 2 & 2 & 0 & \textbf{0} \\
      \hline
     \end{tabular}
-\end{center}
-Außerdem ergeben sich folgende gerundete Kosten zwischen den einzelnen Reihen: 
-\begin{center}
+    \caption{Kostenmatrix mit hervorgehobenem Warping Pfad.}
+    \label{tbl:ExampleMatrix}
+    \end{center}
+\end{table}
+\autoref{tbl:ExampleCost1} zeigt die gerundeten Kosten zwischen den einzelnen Reihen.
+\begin{table}[ht]
+    \begin{center}
     \begin{tabular}{ |c|c|c| } 
      \hline
      Reihen & Kosten \\
@@ -142,7 +150,10 @@ Außerdem ergeben sich folgende gerundete Kosten zwischen den einzelnen Reihen:
      $R_{3}$, $R_{4}$ & 2.67 \\
      \hline
     \end{tabular}
-\end{center}
+    \caption{Erster Durchlauf der Kostenberechnung.}
+    \label{tbl:ExampleCost1}
+    \end{center}
+\end{table}
 Da \emph{$R_{1}$} und \emph{$R_{2}$} zusammen die geringsten Kosten haben bilden sie das erste Cluster \emph{$C_{1}$}.
 Um dessen Wertreihe zu erhalten werden die Attributwerte paarweise addiert und die Summe anschließend halbiert.
 Dabei kann anhand des Warping Pfads abgelesen werden, welche Werte zusammengehören.
@@ -158,8 +169,9 @@ der angibt, ab wann die Kosten zu groß sind, um die beiden Datenreihen zu einem
 Ein sinnvoller Wert hängt dabei vom vorliegenden Datensatz ab.
 Sei dieser Threshold im Folgenden \emph{t = 2}.
 Nun werden die Schritte wiederholt, wobei \emph{$C_{1}$} als eine einzelne neue Datenreihe betrachtet wird.
-Dabei ergeben sich folgende Kosten:
-\begin{center}
+Dabei ergeben sich die Kosten in \autoref{tbl:ExampleCost2}.
+\begin{table}[ht]
+    \begin{center}
     \begin{tabular}{ |c|c|c| } 
      \hline
      Reihen & Kosten \\
@@ -171,11 +183,16 @@ Dabei ergeben sich folgende Kosten:
      $R_{3}$, $R_{4}$ & 2.67 \\
      \hline
     \end{tabular}
-\end{center}
+    \caption{Zweiter Durchlauf der Kostenberechnung.}
+    \label{tbl:ExampleCost2}
+    \end{center}
+\end{table}
 Nun haben \emph{$C_{1}$} und \emph{$R_{3}$} die geringsten Kombinationskosten.
 Da die Kosten geringer sind als der Threshold kann ein neues Cluster gebildet werden.
 Es ergibt sich \emph{$C_{2}$ = (0.5, 1, 0.5, 1, 2, 2, 1, 1)}.
-Damit können die neuen Kosten berechnet werden:
+Damit können die neuen Kosten berechnet werden,
+welche in \autoref{tbl:ExampleCost3} dargestellt sind.
+\begin{table}[ht]
 \begin{center}
     \begin{tabular}{ |c|c|c| } 
      \hline
@@ -184,7 +201,10 @@ Damit können die neuen Kosten berechnet werden:
      $C_{2}$, $R_{4}$ & \textbf{2.78} \\
      \hline
     \end{tabular}
-\end{center}
+    \caption{Dritter Durchlauf der Kostenberechnung.}
+    \label{tbl:ExampleCost3}
+    \end{center}
+\end{table}
 Da die berechneten Kosten den zuvor definierten Threshold übersteigen wird kein neues Cluster mehr gebildet
 und wir sind am Ende unserer Berechnungen angekommen.
 \autoref{fig:Dendrogram} veranschaulicht die gebildeten Cluster.

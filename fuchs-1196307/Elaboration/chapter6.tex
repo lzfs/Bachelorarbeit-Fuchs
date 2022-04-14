@@ -175,8 +175,10 @@ die Standardabweichung, der Mittelwert, das Maximum und das Minimum für die x-L
 und tabellarisch dargestellt werden.
 Dazu werden teilweise die Minimalbeispiele aus \autoref{6-GroundTruth} wieder aufgegriffen.
 Als erstes werden die Werte für drei beliebige Records des ersten Cluster mit drei Personen berechnet (\autoref{fig:Clusters}).
+Sie werden in \autoref{tbl:ClustThreePers} dargestellt.
 Die Ergebnisse sind auf zwei Nachkommastellen gerundet.
 \begin{center}
+    \begin{table}[ht]
     \begin{tabular}{ |c|c|c|c|c| } 
      \hline
      Record & Mittelwert & Standardabw. & Minimum & Maximum \\
@@ -203,12 +205,16 @@ Die Ergebnisse sind auf zwei Nachkommastellen gerundet.
      \\
      \hline
     \end{tabular}
+    \caption{Deskriptive Statistiken für das Cluster mit drei Pers.}
+    \label{tbl:ClustThreePers}
+    \end{table}
   \end{center}
   Alle Mittelwerte und Standardabweichungen bewegen sich in einem ähnlichen Rahmen.
   Dadurch wird bestätigt, dass die Records einen inhaltlichen Zusammenhang aufweisen.
   Ähnliches ist beim ersten Cluster mit zwei Personen aus \autoref{fig:Clusters} zu erkennen.
-  Auch hier ähneln sich die Werte.
+  Auch hier ähneln sich die Werte, wie in \autoref{tbl:ClustTwoPers} zu sehen ist.
   \begin{center}
+    \begin{table}[ht]
     \begin{tabular}{ |c|c|c|c|c| } 
      \hline
      Record & Mittelwert & Standardabw. & Minimum & Maximum \\
@@ -235,11 +241,15 @@ Die Ergebnisse sind auf zwei Nachkommastellen gerundet.
      \\
      \hline
     \end{tabular}
+    \caption{Deskriptive Statistiken für das Cluster mit zwei Pers.}
+    \label{tbl:ClustTwoPers}
+    \end{table}
   \end{center}
   Setzt man in diesem Beispiel allerdings den Threshold noch höher,
   sodass die gefundenen Cluster augenscheinlich nicht mehr sinnvoll erscheinen
-  erhält man Folgende Werte.
+  erhält man die Werte in \autoref{tbl:ClustTwoPersHighThreshold}.
   \begin{center}
+    \begin{table}[ht]
     \begin{tabular}{ |c|c|c|c|c| } 
      \hline
      Record & Mittelwert & Standardabw. & Minimum & Maximum \\
@@ -266,6 +276,9 @@ Die Ergebnisse sind auf zwei Nachkommastellen gerundet.
      \\
      \hline
     \end{tabular}
+    \caption{Deskriptive Statistiken für das Cluster mit zwei Pers. (hoher Threshold).}
+    \label{tbl:ClustTwoPersHighThreshold}
+    \end{table}
   \end{center}
   Hier sind größere Differenzen erkennbar.
   Dies betont einerseits erneut die bedeutende Rolle eines geeigneten Thresholds

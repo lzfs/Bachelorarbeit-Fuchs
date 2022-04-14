@@ -56,9 +56,10 @@ Jedes Cluster erhält einen eindeutigen Namen und eine Liste aller Records die z
 Für ein erleichtertes Verständnis der Cluster wird auch eine primitive Visualiserung der Cluster angeboten.
 Die starke Konfigurierbarkeit wird durch eine \emph{config-file} erreicht,
 die der Nutzer beim Start der Anwendung übergeben kann.
-Sie enthält folgende Parameter:
+\autoref{tbl:AttributesConfig} zeigt die Attribute.
 
 \begin{center}
+    \begin{table}[ht]
     \begin{tabular}{ |c|c| } 
      \hline
      Attributname & Beschreibung \\
@@ -86,6 +87,9 @@ Sie enthält folgende Parameter:
      skipFrames & Wahrheitswert, ob jeder zweite Frame ignoriert wird. \\
      \hline
     \end{tabular}
+    \caption{Attribute der Configuration-Datei.}
+    \label{tbl:AttributesConfig}
+    \end{table}
   \end{center}
 
 \section{Programmablauf}
