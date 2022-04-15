@@ -159,16 +159,16 @@ die jeweils den Zeitstempel in Kombination mit einem geeigneten Postfix als Date
 Diese Attribute werden in der Textdatei durch drei Rauten ('\#\#\#') voneinander abgegrenzt.
 Ein konkreter Frame aus dem Datensatz kann \autoref{fig:FrameExample} entnommen werden.
 
+\begin{center}
 \begin{figure}[ht]
-  \begin{center}
-    2017-04-10 07:41:53.943 +02:00 \#\#\# 72057594038063128 \#\#\# 1341053376 \#\#\# 
-    \newline \#\#\# 1 \#\#\# 1 \#\#\# No \#\#\# Maybe \#\#\# Unknown \#\#\# No \#\#\# No \#\#\#
-    \newline No \#\#\# Yes \#\#\# Maybe \#\#\# Unknown \#\#\# Closed \#\#\# 0,1074784
-    \newline \#\#\# 0,2451882 \#\#\# 4,18441 \#\#\# 4,19296454679429
-  \end{center}
-  \caption{Frame aus dem Datensatz.}
-  \label{fig:FrameExample}
-\end{figure}
+    2017-04-10 07:41:53.943 +02:00 \#\#\# 72057594038063128 \#\#\# 1341053376 \#\#\# 1 \#\#\#
+    \newline 1 \#\#\# No \#\#\# Maybe \#\#\# Unknown \#\#\# No \#\#\# No \#\#\# No \#\#\# Yes \#\#\#
+    \newline Maybe \#\#\# Unknown \#\#\# Closed \#\#\# 0,1074784 \#\#\# 0,2451882 \#\#\# 4,18441 \#\#\#
+    \newline 4,19296454679429
+    \caption{Frame aus dem Datensatz.}
+    \label{fig:FrameExample}
+  \end{figure}
+\end{center}
 
 Da die Anordnung und das Vorhandensein dieser Attribute je nach Version des Datensatzes abweichen kann,
 sollen diese in der Implementierung manuell konfigurierbar sein.
