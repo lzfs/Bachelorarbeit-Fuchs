@@ -107,55 +107,55 @@ Dabei entspricht ein Frame der Momentaufnahme einer Person.
 Zu jedem Record liegen verschiedene Dateien vor,
 die jeweils den Zeitstempel in Kombination mit einem geeigneten Postfix als Dateinamen tragen.
 \autoref{tbl:AttributesDataset} zeigt die Attribute der Datei \emph{timestamp.txt}.
-\begin{center}
-  \begin{table}[ht]
-  \begin{tabular}{ |c|c| } 
-   \hline
-   Attributname & Beschreibung \\
-   \hline \hline
-   Zeitstempel & Zeitpunkt der Aufnahme \\
-   \hline
-   KinectId & Skelett-Identifikationsnummer des Framework  \\
-   \hline
-   RecordId & Identifikationsnummer des Records \\
-   \hline
-   BodyIndex & Identifikationsnummer der Person \\
-   \hline
-   BodyCount & Anzahl der erfassten Personen \\
-   \hline
-   Happy & Person ist glücklich \\
-   \hline
-   Engaged & Person zeigt Interesse \\
-   \hline
-   WearingGlasses & Person trägt eine Brille \\
-   \hline
-   LeftEyeClosed & Person hat das linke Auge geschlossen \\
-   \hline
-   RightEyeClosed & Person hat das rechte Auge geschlossen \\
-   \hline
-   MouthOpen & Person hat den Mund geöffnet \\
-   \hline
-   MouthMoved & Person bewegt den Mund\\
-   \hline
-   LookingAway & Person schaut nicht zur Kinect \\
-   \hline
-   Body.HandLeftState & Zustand der linken Hand \\
-   \hline
-   Body.HandRightState & Zusand der rechten Hand \\
-   \hline
-   x & x-Koordinate des Skelettpunkts SpineShoulder \\
-   \hline
-   y & y-Koordinate des Skelettpunkts SpineShoulder \\
-   \hline
-   z & z-Koordinate des Skelettpunkts SpineShoulder \\
-   \hline
-   Distance & Distanz zwischen Kinect und Skelettpunkt SpineShoulder \\
-   \hline
-  \end{tabular}
-  \caption{Attribute des Datensatzes.}
-  \label{tbl:AttributesDataset}
-  \end{table}
-\end{center}
+\begin{table}[ht]
+  \begin{center}
+    \begin{tabular}{ |c|c| } 
+      \hline
+      Attributname & Beschreibung \\
+      \hline \hline
+      Zeitstempel & Zeitpunkt der Aufnahme \\
+      \hline
+      KinectId & Skelett-Identifikationsnummer des Framework  \\
+      \hline
+      RecordId & Identifikationsnummer des Records \\
+      \hline
+      BodyIndex & Identifikationsnummer der Person \\
+      \hline
+      BodyCount & Anzahl der erfassten Personen \\
+      \hline
+      Happy & Person ist glücklich \\
+      \hline
+      Engaged & Person zeigt Interesse \\
+      \hline
+      WearingGlasses & Person trägt eine Brille \\
+      \hline
+      LeftEyeClosed & Person hat das linke Auge geschlossen \\
+      \hline
+      RightEyeClosed & Person hat das rechte Auge geschlossen \\
+      \hline
+      MouthOpen & Person hat den Mund geöffnet \\
+      \hline
+      MouthMoved & Person bewegt den Mund\\
+      \hline
+      LookingAway & Person schaut nicht zur Kinect \\
+      \hline
+      Body.HandLeftState & Zustand der linken Hand \\
+      \hline
+      Body.HandRightState & Zusand der rechten Hand \\
+      \hline
+      x & x-Koordinate des Skelettpunkts SpineShoulder \\
+      \hline
+      y & y-Koordinate des Skelettpunkts SpineShoulder \\
+      \hline
+      z & z-Koordinate des Skelettpunkts SpineShoulder \\
+      \hline
+      Distance & Distanz zwischen Kinect und Skelettpunkt SpineShoulder \\
+      \hline
+    \end{tabular}
+    \caption{Attribute des Datensatzes.}
+    \label{tbl:AttributesDataset}
+  \end{center}
+\end{table}
 Diese Attribute werden in der Textdatei durch drei Rauten ('\#\#\#') voneinander abgegrenzt.
 Ein konkreter Frame aus dem Datensatz kann \autoref{fig:FrameExample} entnommen werden.
 
