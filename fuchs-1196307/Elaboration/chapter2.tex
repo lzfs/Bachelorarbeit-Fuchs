@@ -194,8 +194,8 @@ Um die Gemeinsamkeiten zweier Aufnahmen zu berechnen,
 wird eine geeignete Vergleichsfunktion benötigt.
 Die Wahl dieser Funktion ist wichtig für den Erfolg des \emph{Clusterings} \citep{warren_liao_clustering_2005}.
 Zu beachten ist zudem, dass die Bewegungsaufnahmen durch \ac{TSD} beschrieben werden.
-Werden hier herkömmliche Distanzmetriken, wie die Euklidische-Distanz verwendet
-kann dies die Aussagekraft des Vergleichs verringern.
+Bei der bloßen Anwendung herkömmlicher Distanzmetriken, wie der Euklidische-Distanz,
+ist die Aussagekraft des Vergleichs gering.
 Es kann vorkommen, dass verschiedene Personen die gleiche Bewegung unterschiedlich schnell,
 oder zeitlich versetzt ausführen.
 Gegebenenfalls weisen die Datenreihen bei der gleichen Bewegung daher sogar eine unterschiedliche Anzahl an Frames auf.
@@ -225,7 +225,7 @@ da die Arbeit darauf abzielt, mehr Erkenntnis über mögliche sinnvolle Cluster 
 Statt die Anzahl vorzugeben, wird ein Threshold definiert der angibt,
 ab wann zwei Cluster nicht mehr zusammengeführt werden sollen,
 weil die Differenz zwischen ihnen zu groß ist.
-Als geeignete Distanz-Metrik wird dabei \emph{\ac{DTW}} verwendet (\autoref{3-DTW}).
+Zur geeigneten Zuordung der Datenpunkte wird dabei \emph{\ac{DTW}} verwendet (\autoref{3-DTW}).
 Hier ist eine Mehrfachzuordnung von Punkten möglich.
 Diese können so verbunden werden, dass die Kosten minimal sind.
 Dies erlaubt eine Zuordnung ähnlicher Muster in den Daten, auch wenn sie zeitlich verschoben sind.
