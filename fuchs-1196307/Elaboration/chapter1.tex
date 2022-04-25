@@ -14,32 +14,32 @@ Dabei soll auch der Aspekt der Datenerhebung und -analyse weiter ausgebaut werde
 Hierzu muss ein methodisches Rahmenwerk entwickelt werden, welches eine auf Sensordaten-basierende,
 automatische und zeitlich uneingeschränkte Evaluation von \emph{Ambient Displays} ermöglicht \citep{unibw_honeypot-effekt_2021}.
 Die Sensordaten werden von Body-Tracking-Kameras bereitgestellt.
-Es liegt ein Datensatz vor bei dem Wandbildschirme mit Microsoft Kinect v2 Kameras ausgestattet wurden.
+Es liegt ein Datensatz vor, bei dem Wandbildschirme mit Microsoft Kinect v2 Kameras ausgestattet wurden.
 Diese zeichnen die Interaktion von Nutzern mit den Displays auf,
 wodurch das Nutzerverhalten zu einem späteren Zeitpunkt ausgewertet werden kann.
-Die Daten liegen als \ac{TSD} vor.
-Bei diesem Datentyp handelt es sich um geordnete Sequenzen von Datenpunkten,
+Die Daten liegen als \emph{\ac{TSD}} vor.
+Dabei handelt es sich um geordnete Sequenzen von Datenpunkten,
 die über eine gewisse Zeit hinweg aufgenommen werden \citep{ali_clustering_2019}.
-\ac{TSD} enthalten oft wichtige Informationen, die durch eine Sortierung entdeckt werden können.
+\emph{\ac{TSD}} enthalten oft wichtige Informationen, die durch eine Analyse entdeckt werden können.
 Dabei stellt sich die Frage, ob sich eine Menge von Kategorien identifizieren lässt,
 die etwas über das Verhalten von Menschen vor Wandbildschirmen aussagt.
 Bei großen Datensätzen ist eine manuelle Evaluation zur Beantwortung der Frage nicht möglich.
-Daher muss die Sortierung automatisiert werden.
+Daher muss eine Sortierung automatisiert werden.
 In dieser Bachelorarbeit wird versucht, dieses Problem mithilfe von deterministischen Algorithmen zu lösen.
-Wesentliches Ziel ist die Implementierung eines Systems zur Kategorisierung der vorliegenden Kinect-Bewegungsdaten.
+Wesentliches Ziel ist die Implementierung eines Systems zur Kategorisierung der vorliegenden \emph{Kinect-Bewegungsdaten}.
 Eine gängige Methode zur Analyse sind dabei \emph{Clustering}-Verfahren \citep{aghabozorgi_time-series_2015}.
-Konkret soll \emph{hierarchisches Clustering} mithilfe des \emph{\ac{DTW}}-Algorithmus eingesetzt werden.
+Konkret soll \emph{hierarchisches Clustering} mithilfe des \emph{\ac{DTW}} Algorithmus eingesetzt werden.
 
-Dabei ist die Arbeit wie folgt aufgebaut:
-Zunächst wird in \autoref{chapter2} auf wichtige Grundlagen für diese Arbeit eingegangen.
+Die Arbeit ist wie folgt aufgebaut:
+Zunächst wird in \autoref{chapter2} auf wichtige Grundlagen der Thematik eingegangen.
 Mögliche Modelle der Interaktion mit Wandbildschirmen
 werden in \autoref{2-ModelleInteraktion-Wandbildschirme} vorgestellt.
-Das entwickelte Tool soll später dazu beitragen, konkrete Bewegungsdaten in solche Modelle einzuteilen.
+Das entwickelte Tool kann später dazu beitragen, konkrete Bewegungsdaten in solche Modelle einzuordnen.
 Außerdem werden die Grundzüge der Kinect Kamera und des vorliegenden Datensatzes dargestellt
 (\autoref{2-SpezifikationKinect}, \autoref{2-StrukturDatensatz}).
 In \autoref{2-Problembeschreibung} erfolgt eine tiefergehende Erläuterung der Problemstellung.
 \autoref{chapter3} widmet sich dem Hierarchischen Clustering und dem \ac*{DTW}-Algorithmus.
-Die Wahl dieser Algorithmen wird hier zudem begründet.
+Gründe für die Wahl dieser Algorithmen werden hier erwähnt.
 Nach einer ausführlichen Beschreibung der Funktionsweise (\autoref{3-Clustering}, \autoref{3-DTW})
 wird das Vorgegen in \autoref{3-Example} an einem Beispiel veranschaulicht.
 Abschließend wird auf verwandte Literatur (\autoref{3-RelatedWork})
@@ -48,14 +48,14 @@ und den Einsatz im Kontext von Kinect-Bewegungsdaten (\autoref{3-Einsatz}) einge
 Dafür werden in \autoref{4-Anforderungsanalyse} die Anforderungen betrachtet,
 bevor im Rest des Kapitels auf den geplanten Programmablauf,
 sowie nötige Teilsysteme eingegangen wird.
-Anschließend erfolgt die eigentliche Implementierung der Software.
-In \autoref{chapter5} wird der Aufbau beleuchtet.
+Anschließend erfolgt die eigentliche Implementierung der Anwendung.
+In \autoref{chapter5} wird deren Aufbau beleuchtet.
 Außerdem werden zentrale Ausschnitte des Codes
 und Abweichungen zur Konzeption beschrieben.
 Abschließend erfolgt eine Evaluation (\autoref{chapter6}).
-Zunächst wird hier auf Limitierungen der Anwendung
+Hier wird zunächst auf Limitierungen der Anwendung
 und die zur Evaluation verwendeten Daten eingegangen.
-Diese werden mithilfe des Tools geclustert.
-Die Qualität der Cluster wird in \autoref{6-GroundTruth} mithilfe von Ground-Truth Daten
-und in \autoref{6-Statistical} durch deskriptive Statistiken überprüft.
+Teile des Datensatzes werden mithilfe des Tools geclustert.
+Die Qualität der Cluster wird mithilfe von Ground-Truth Daten (\autoref{6-GroundTruth})
+und durch deskriptive Statistiken (\autoref{6-Statistical}) überprüft.
 Ein abschließendes Fazit erfolgt in \autoref{chapter7}.
