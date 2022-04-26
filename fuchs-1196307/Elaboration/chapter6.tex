@@ -2,13 +2,13 @@
 \label{chapter6}
 Um die Praxistauglichkeit zu überprüfen, werden nun ausgewählte Daten
 mithilfe des entwickelten Tools geclustert.
-Die Ergebnisse werden bewertet.
-Zur Bewertung des Clusterings unterscheidet man \emph{externe}
-und \emph{interne} Indizes \citep{aghabozorgi_time-series_2015, warren_liao_clustering_2005}.
+Die Ergebnisse werden anschließend bewertet.
+Zur Bewertung des Clusterings werden \emph{externe}
+und \emph{interne} Indizes unterschieden \citep{aghabozorgi_time-series_2015, warren_liao_clustering_2005}.
 Bei einem \emph{externen Index} werden \emph{Ground-Truth-Daten} extern bereitgestellt.
-Nach dem Clustering kann der Grad der Übereinstimmung zwischen gefundenen Cluster
+Nach dem Clustering kann der Grad der Übereinstimmung zwischen gefundenen Clustern
 und den vorgegebenen Clustern überprüft werden.
-In diesem Kapitel werden die Daten mithilfe der Visualisierung manuell geclustert.
+Die Daten werden mithilfe einer Visualisierung manuell geclustert.
 In \autoref{6-GroundTruth} werden die gefundenen Cluster mit den erwarteten verglichen.
 Bei \emph{internen Indizes} muss die Qualität der Cluster hingegen
 ohne zusätzliche Informationen überprüft werden \citep{aghabozorgi_time-series_2015, warren_liao_clustering_2005}.
@@ -29,7 +29,7 @@ Das Filtern der Daten gehört nicht zu den Anforderungen an das entwickelte Tool
 und wird daher nicht in dieser Arbeit betrachtet.
 Dennoch sollte dem Nutzer bewusst sein,
 dass mit gefilterten Daten gegebenfalls aussagekräftigere Ergebnisse erzielbar sind.
-Gerade die separate Betrachtung von Records unterschiedlicher Personenzahl kann helfen,
+Gerade die separate Betrachtung von Records mit unterschiedlicher Personenzahl kann helfen,
 wiederkehrende Bewegungsmuster durch Clustering zu erkennen.
 Die Anzahl gibt dabei immer an wie viele Personen sich maximal
 zu einem Zeitpunkt in der Aufnahme befinden.
@@ -66,7 +66,7 @@ Die Auswertung zeigt, dass die vom Tool berechneten Cluster genau mit den Ground
 Diese Minimalbeispiele sind aber nur bedingt aussagekräftig,
 da lediglich eine kleine Teilmenge der tatsächlich vorhandenen Daten genutzt wird.
 Manche Muster treten dadurch gegebenfalls überhaupt nicht auf.
-In \autoref{6-GroundTruth} soll daher die Analyse auf alle vorhandenen gefilterten Daten
+In \autoref{6-GroundTruth} soll daher die Analyse auf mehr gefilterte Daten
 für ein bis drei Personen ausgeweitet werden.
 Aufgrund der Vielzahl der Daten ist das manuelle Clustering allerdings nicht so
 zuverlässig möglich wie in den oben beschriebenen Minimalbeispielen.
@@ -79,7 +79,7 @@ ob häufig wiederkehrende Muster vom Tool korrekt erkannt werden.
 \label{6-GroundTruth}
 Im gefilterten Datensatz mit drei Personen befinden sich insgesamt 103 Records.
 Die manuelle Einteilung ergab,
-dass es sich bei den meisten darin vorkommenden Bewegungsabläufen
+dass es sich bei vielen darin vorkommenden Bewegungsabläufen
 um spezielle Bewegungen handelt, die nicht häufiger auftreten.
 Sie sollen im Folgenden nicht aufgeführt werden.
 Allerdings wurde ein eindeutiges Cluster identifiziert.
@@ -96,9 +96,9 @@ Die selben Erkenntnisse lieferte auch das Minimalbeispiel aus \autoref{6-Bemerku
 Grund hierfür kann sein, dass die Datenmenge mit circa 100 Records immer noch gering ist.
 Anschließend wurde überprüft, ob diese häufig auftretende Bewegung auch
 vom Tool korrekt erkannt wird.
-Die Ergebnisse der Berechnungen stimmen mit den manuell gefundenen Daten überein.
+Die Ergebnisse der Berechnungen stimmen mit dem manuell gefundenen Cluster überein.
 Im Wesentlichen wird nur ein nicht-triviales Cluster gefunden
-und zwar das oben Beschriebene.
+und zwar das oben beschriebene.
 
 Die Teilmenge aller Records mit zwei Personen enthält 513 Records.
 Bei der manuellen Durchsicht lassen sich wieder spezielle,
@@ -158,7 +158,7 @@ und zum Schreiben der Ergebnisse wurde hier ignoriert.
 \end{table}
 Diese Limitierung muss beachtet werden,
 falls in Zukunft noch größere Datenmengen geclustert werden müssen.
-Dann muss entweder ein leistungsfähigerer Rechner eingesetzt werden,
+Dann muss entweder ein leistungsstärkerer Rechner eingesetzt werden,
 oder das Tool weiter optimiert werden.
 Beispielweise kann über Parallelisierung nachgedacht werden
 oder eine effizientere Version des Clustering-Verfahrens implementiert werden.
@@ -179,11 +179,11 @@ Erneut wird überprüft, ob wiederkehrende Bewegungen korrekt erkannt werden.
 Im ersten Fall bewegt sich eine Person durch den Aufnahmebereich,
 während sie sich im zweiten Szenario unmittelbar vor der Kamera befindet.
 Bild drei zeigt ein direktes Zugehen auf den Bildschirm.
-Im vierten Fall und sechsten Fall steht die Person an verschiedenen Positionen beinahe still.
+Im vierten und sechsten Fall steht die Person an verschiedenen Positionen beinahe still.
 Szenario fünf zeigt, wie eine Person nach vorne läuft,
 sich umdreht und wieder zurück läuft.
 All diese Fälle können durch das Tool erkannt werden.
-Zu erwähnen ist allerdings, dass manche Cluster bei hohen Thresholds bereits in andere Muster integriert werden.
+Zu erwähnen ist allerdings, dass manche Cluster bei hohen Thresholds bereits in andere Gruppen integriert werden.
 So kann etwa das fünfte Szenario nur bei niedrigeren Thresholds erkannt werden,
 während es bei höheren Werten unter Umständen bereits mit Cluster eins zusammengeführt wurde.
 Dies verdeutlicht erneut, dass eine sinnvolle Suche nach Clustern möglich ist,
@@ -192,7 +192,7 @@ Dabei sollte auch mit verschiedenen Thresholds experimentiert werden.
 
 Die Auswertung des gesamten Datensatzes bestätigt also was die Minimalbeispiele bereits vermuten liesen.
 Das Tool kann erfolgreich genutzt werden, um sinnvolle Cluster auf den Kinect-Bewegungsdaten zu finden.
-Im Folgenden Abschnitt soll abschließend die Güte der gefundenen Cluster an einigen Beispielen
+Im folgenden Abschnitt soll abschließend die Güte der gefundenen Cluster an einigen Beispielen
 überprüft werden.
 
 \section{Statistische Analyse}
@@ -211,9 +211,9 @@ Die Ergebnisse werden in \autoref{tbl:ClustThreePers} dargestellt
 und sind auf zwei Nachkommastellen gerundet.
 Anschließend werden die Werte des ersten Clusters mit zwei Personen aus \autoref{fig:Clusters} berechnet.
 Sie sind in \autoref{tbl:ClustTwoPers} zu sehen.
-Setzt man im selben Beispiel den Threshold noch höher,
+Wird im selben Beispiel der Threshold noch höher gesetzt,
 sodass die gefundenen Cluster augenscheinlich nicht mehr sinnvoll sind,
-erhält man die Werte in \autoref{tbl:ClustTwoPersHighThreshold}.
+werden die Werte in \autoref{tbl:ClustTwoPersHighThreshold} geliefert.
 \begin{table}[ht]
   \begin{center}
     \begin{tabular}{ |c|c|c|c|c| } 
@@ -392,13 +392,13 @@ Auch die Standardabweichung dieser Werte ist mit \emph{0.16} und \emph{0.09} im 
 sowie \emph{0.16} und \emph{0.08} im zweiten überprüften Cluster gering.
 Dadurch wird bestätigt, dass die Records einen inhaltlichen Zusammenhang aufweisen.
 Beim dritten Fall hingegen schwanken diese Werte stärker.
-Die ermittelte Gesamtstandardabweichungen sind mit \emph{0.31} und \emph{0.12} auch um
+Die ermittelte Gesamtstandardabweichungen sind mit \emph{0.31} und \emph{0.12} um
 circa 52 Prozent, bzw. 39 Prozent höher als bei den zuerst betrachteten Clustern.
 Einige Records scheinen also nicht in die Gruppe zu passen.
 So weicht beispielsweise die Zeile \emph{2017-04-04 14.55.11.727} stark von den anderen ab.
 Ein Blick in die Visualisierung bestätigt,
 dass dieser Laufweg nicht zu den anderen passt.
-Dieser Fall wurde lediglich aufgrund des hohen Thresholds einsortiert.
+Dieser Fall wurde lediglich aufgrund des zu hohen Thresholds einsortiert.
 Dies betont einerseits erneut die bedeutende Rolle eines geeigneten Thresholds
 und andererseits, dass die Bestimmung der Güte mittels deskriptiver Statistiken möglich ist.
 Die Records der Cluster der beiden ersten Beispiele weisen eine hohe Ähnlichkeit auf.
