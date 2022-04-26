@@ -6,26 +6,26 @@ Dazu soll auch ein methodisches Rahmenwerk entwickelt werden, welches eine auf S
 automatische und zeitlich uneingeschränkte Evaluation von Ambient Displays ermöglicht \citep{unibw_honeypot-effekt_2021}.
 Bewegungsdaten von Tiefenkameras können genutzt werden,
 um das Verhalten von Menschen vor Wandbildschirmen aufzuzeichnen.
-Es kann versucht werden, ob sich eine Menge von Kategorien identifizieren lässt,
+Es kann versucht werden, eine Menge von Kategorien zu identifizieren,
 die etwas über dieses Verhalten aussagt.
 Bei großen Datensätzen ist eine manuelle Identifikation nicht möglich.
 Daher ist eine Automatisierung notwendig.
 In dieser Bachelorarbeit wurde versucht, dieses Problem mithilfe von deterministischen Algorithmen zu lösen.
 Wesentliches Ziel war die Implementierung eines Systems zur Kategorisierung von vorliegenden \emph{Kinect-Bewegungsdaten}.
-Konkret wurde \emph{hierarchisches Clustering} mithilfe des \emph{\ac{DTW}}-Algorithmus eingesetzt.
+Konkret wurde \emph{hierarchisches Clustering} mithilfe des \emph{\ac{DTW}} Algorithmus eingesetzt.
 Die theoretischen Grundlagen der Algorithmen wurden ausführlich betrachtet. 
-Beim \ac*{DTW}-Algorithmus sind one-to-many oder one-to-none Beziehungen zwischen Datenpunkten möglich.
+Beim \ac{DTW} Algorithmus sind one-to-many oder one-to-none Beziehungen zwischen Datenpunkten möglich.
 Man bezeichnet das Vorgehen daher auch als eine elastische Metrik.
 Sie kann gut mit zeitlichen Verschiebungen und unterschiedlich langen Datenreihen umgehen \citep{aghabozorgi_time-series_2015}.
 Daher ist der Algorithmus besonders gut für Bewegungsdaten einsetzbar.
-Die konkrete Implementierung der Anwendung wird ebenfalls detailiert beschrieben.
-Die Anwendung wurde in Java geschrieben und verwendet nur Standardbibliotheken,
+Die konkrete Implementierung der Anwendung wurde detailiert beschrieben.
+Sie wurde in Java geschrieben und verwendet nur Standardbibliotheken,
 sodass sie ohne aufwändige Installationen eingesetzt werden kann.
 Zudem sorgt der generische Entwurf dafür, dass das Tool mit Datensätzen verschiedener Kameras eingesetzt werden kann.
 Neben Beschreibungen der wichtigsten Code-Ausschnitte
 wird auch auf mögliche Limitierungen der Arbeit eingegangen.
 Die große Bedeutung eines geeigneten Thresholds für ein sinnvolles Clustering ist hervorzuheben.
-In einer Evaluation wurde die Praxistauglichkeit des Tools überprüft.
+In der Evaluation wurde die Praxistauglichkeit des Tools überprüft.
 Dazu wurden gefilterte Teilmengen des vorliegenden Datensatzes geclustert.
 Die Ground-Truth-Analyse bestätigt, dass ein sinnvolles Clustering möglich ist.
 Die deskriptiven Statistiken belegen zudem, dass die Qualität der gefunden Cluster hoch ist.
