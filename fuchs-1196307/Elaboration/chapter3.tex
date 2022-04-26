@@ -7,48 +7,47 @@ Die Grundlagen der Verfahren werden erläutert und an einem Beispiel veranschaul
 Ein Einlick in verwandte Arbeiten (\autoref{3-RelatedWork}) vertieft das Verständnis weiter.
 Abschließend wird auf zu beachtende Besonderheiten des Kinect-Datensatzes eingegangen.
 
-
 \section{Hierarchisches Time-Series Clustering}
 \label{3-Clustering}
 \emph{Clustering} kann genutzt werden, um große Datensätze zu kategorisieren,
 wenn keine Informationen zu den Kategorien vorliegen \citep{aghabozorgi_time-series_2015}.
 Ziel ist es, eine Struktur in den vorliegenden Daten zu finden,
 indem Elemente anhand eines festgelegten Vorgehens in homogene Gruppen einsortiert werden.
-Dabei sollen die Unterschiede bei Elementen der gleichen Gruppe möglichst gering
+Dabei sollen die Unterschiede bei Elementen der gleichen Gruppe möglichst klein
 und bei Elementen verschiedener Gruppen möglichst groß sein \citep{aghabozorgi_time-series_2015, warren_liao_clustering_2005}.
 Bei \emph{n} Datenpunkten erzeugt ein \emph{Clustering} \emph{k} Partitionen des Datensatzes.
-Jede Partition entspricht dabei einem \emph{Cluster}, dass mindestens ein Objekt enthält.
+Jede Partition entspricht dabei einem Cluster, dass mindestens ein Objekt enthält.
 Beim \emph{Clustering} sind besonders die Wahl des Clustering-Algorithmus
 und der Methode zur Bestimmung der Ähnlichkeit von zwei Datenreihen von Bedeutung \citep{warren_liao_clustering_2005}.
-Letzteres wird \ac{DTW} gelöst.
+Letzteres wird durch \ac{DTW} gelöst.
 Das Verfahren wird in \autoref{3-DTW} beschrieben.
 Als Clustering-Vorgehen kann das sogenannte \emph{hierarchical Clustering} genutzt werden.
 Dieses funktioniert, indem Datenobjekte in einen Baum von Clustern eingeteilt werden.
-Bei agglomerativen Vorgehen wird ein \emph{bottom-up} Ansatz verfolgt.
+Beim agglomerativen Vorgehen wird ein \emph{bottom-up} Ansatz verfolgt.
 Jedes Objekt ist daher zunächst ein eigenes Cluster.
 Dann werden schrittweise Cluster zusammengeführt,
 bis alle Objekte im selben Cluster sind, oder eine Terminierungsbedingung erfüllt ist \citep{warren_liao_clustering_2005}.
 In jedem Iterationsschritt werden dabei die beiden Cluster zusammengeführt,
 die die geringste Differenz zueinander aufweisen.
-Die Terminierungsbedingung ist bei uns das Überschreiten des vordefinierten Thresholds.
+Die Terminierungsbedingung entspricht in diesem Kontext dem Überschreiten des vordefinierten Thresholds.
 
 Im Fall des Kinect-Datensatzes liegen die Daten als \ac{TSD} vor.
-\ac{TSD} zu kategorisieren findet in vielen wissenschaftlichen Gebieten Anwendung, um Muster zu finden.
-Sie erlauben es wichtige Informationen aus großen Datensätzen zu extrahieren.
+\ac{TSD} zu clustern findet in vielen wissenschaftlichen Gebieten Anwendung, um Muster zu finden.
+Das Vorgehen hilft dabei, wichtige Informationen aus großen Datensätzen zu extrahieren.
 \ac{TSD} sind dynamische Daten, weil sich die Attributwerte mit der Zeit verändern.
 Diese Sammlungen von Werten können aber auch als ein einziges Objekt betrachtet werden.
 Das Kategorisieren von derartigen Objekten kann bei der Detektion relevanter Muster helfen \citep{aghabozorgi_time-series_2015}.
 Die meisten bestehenden Cluster-Algorithmen können auf diesen Datentypen zugeschnitten werden.
 So auch das hierarchische Clustering.
-Der größte Unterschied ist wie bereits erwähnt, dass die Distanz-/ Ähnlichkeitsmetrik angepasst werden muss,
+Wie bereits erwähnt ist der größte Unterschied, dass die Distanz-/ Ähnlichkeitsmetrik angepasst werden muss,
 um sinnvoll bei \ac{TSD} genutzt werden zu können.
-Ein Vorteil ist, dass hierarchisches Clustern bei der Verwendung von \ac{DTW}
+Dafür kann \ac*{DTW} zum Einsatz kommen.
+Ein Vorteil ist, dass das hierarchische Clustering dann
 nicht auf Datenreihen der gleichen Länge beschränkt ist \citep{warren_liao_clustering_2005}.
-
 
 \section{Dynamic Time Warping Algorithmus}
 \label{3-DTW}
-Der \emph{\ac{DTW} Algorithmus} kann als Distanz-Metrik beim hierarchischen Clustern genutzt werden.
+Der \emph{\ac{DTW}} Algorithmus kann als Distanz-Metrik beim hierarchischen Clustern genutzt werden.
 Hier sind \emph{one-to-many} oder \emph{one-to-none} Beziehungen zwischen Datenpunkten möglich.
 Man bezeichnet das Vorgehen daher auch als eine \emph{elastische Metrik}.
 Sie kann gut mit zeitlichen Verschiebungen und unterschiedlich langen Datenreihen umgehen \citep{aghabozorgi_time-series_2015}.
@@ -56,7 +55,7 @@ Sie kann gut mit zeitlichen Verschiebungen und unterschiedlich langen Datenreihe
 In der Literatur findet man viele Erläuterungen des \ac{DTW}-Algorithmus.
 Beispielsweise in \citet{mohammadzade_dynamic_2021}, \citet{warren_liao_clustering_2005},
 \citet{aghabozorgi_time-series_2015} oder \citet{yu_dynamic_2019}.
-Im Folgenden soll der Algorithmus ebenfalls erläutert werden.
+Im Folgenden soll der Algorithmus ebenfalls beschrieben werden.
 Das Ziel ist die Zuordnung verschiedener Signale,
 die im Verlauf der Zeit ähnliche Muster aufweisen.
 Diese Muster treten zu unterschiedlichen Zeiten oder in unterschiedlichen Raten auf.
@@ -69,25 +68,25 @@ zwei Signale die durch \ac{DTW} ausgerichtet werden sollen, sodass die Differenz
 Dafür wird eine \emph{n x m} Matrix \emph{M} gebildet, wobei das Element \emph{(i, j)} die Distanz \emph{$d(q_{i}, r_{j})$}
 zwischen zwei Punkten \emph{$q_{i}$} und \emph{$r_{j}$} enthält.
 Hierfür wird im Normalfall die euklidische Distanz genutzt \citep{warren_liao_clustering_2005}.
-Allerdings sind auch andere Funktionen denkbar.
-In der Zelle \emph{(0, 0)} enthält die Matrix den Wert 0
-und für die übrigen Zellen der Spalte und Zeile 0 wird jeweils der Wert unendlich angenommen.
+Allerdings sind je nach Problemstellung auch andere Funktionen denkbar.
+In der Zelle \emph{(1, 1)} enthält die Matrix den Wert 0.
+Für die übrigen Zellen der ersten Spalte und Zeile wird jeweils der Wert unendlich angenommen.
 Das Verfahren kann auf einfache Weise auf mehrdimensionale \ac{TSD} angepasst werden.
 In diesem Fall sind die zu minimierenden Kosten die Summe
 der Distanzen zwischen den korrespondierenden Werten der beiden Datenreihen \citep{mohammadzade_dynamic_2021}.
 Ein \emph{Warping Pfad} \emph{W = $w_{1}, w_{2}, ... , w_{k}, ... , w_{K}$} in dem \emph{$max(m, n) \le K \le m + n - 1$} gilt,
-ist eine Reihe von Matrixelementen die drei Bedingungen erfüllen:
+ist eine Reihe von Matrixzellen die drei Bedingungen erfüllen:
 \begin{itemize}
     \item Grenzbedingungen
     \item Kontinuität
     \item Monotonität
 \end{itemize}
 Die Grenzbedingungen fordern, dass die Startzelle des Warping Pfads in der Matrix eine andere ist als die Zielzelle.
-Dabei gilt: \emph{$w_{1}$ = (m, n)} und \emph{$w_{k}$ = (0, 0)}.
+Dabei gilt: \emph{$w_{1}$ = (m, n)} und \emph{$w_{K}$ = (1, 1)}.
 Aufgrund der Kontinuität sind nur Schritte in angrenzende Zellen erlaubt.
 Die Monotonitätsbedingung zwingt den Warping Pfad dazu, sich monoton in der Zeit zu bewegen.
 
-Mit Hilfe von dynamischer Programmierung können die Matrixeinträge von \emph{$M_{(0, 0)}$} ausgehend berechnet werden,
+Mit Hilfe von dynamischer Programmierung können die Matrixeinträge von \emph{$M_{(1, 1)}$} ausgehend berechnet werden,
 indem wiederholt die folgende Gleichung ausgewertet wird:
 \emph{$ M_{(i, j)} = d(q_{i}, r_{j}) + min $ \{$M_{(i - 1, j - 1)}, M_{(i - 1, j)}, M_{(i, j - 1)} $\}}.
 Sie definiert den kumulativen Abstand als die Summe aus dem Abstand des aktuellen Elementes
@@ -98,117 +97,118 @@ Er kann mit \emph{$d_{DTW} = min(\frac{\sum_{k = 1}^{K}w_{k}}{K})$} berechnet we
 
 \section{Veranschaulichendes Beispiel}
 \label{3-Example}
-Zur Veranschaulichung soll nun das Vorgehen anhand von vier Datenreihen durchgeführt werden.
-Seien \emph{$R_{1}$ = (0, 1, 1, 2, 2, 1, 1)}, \emph{$R_{2}$ = (0, 1, 1, 1, 2, 2, 1, 1)}, \emph{$R_{3}$ = (1, 1, 0, 1, 2, 2, 1, 1)}
-und \emph{$R_{4}$ = (2, 2, 1, 2, 2, 2)} gegeben.
+Zur Veranschaulichung soll nun das Vorgehen mit vier Datenreihen durchgeführt werden.
+Seien \emph{$R_{1}$ = (0, 1, 1, 2, 2, 1, 1)}, \emph{$R_{2}$ = (0, 1, 1, 1, 2, 2, 1, 1)},
+\emph{$R_{3}$ = (1, 1, 0, 1, 2, 2, 1, 1)} und \emph{$R_{4}$ = (2, 2, 1, 2, 2, 2)} gegeben.
+Bei diesen Records handelt es sich um die initialen trivialen Cluster.
 Die Kosten können berechnet werden, indem die Kostenmatrix aufgestellt und der Warping Pfad berechnet wird (\autoref{3-DTW}).
 Für die Berechnung der Kosten zwischen \emph{$R_{1}$} und \emph{$R_{2}$} ergibt sich beispielsweise
 die in \autoref{tbl:ExampleMatrix} gezeigte Matrix
 mit hervorgehobenem Warping Pfad.
-\begin{table}[ht]
-    \begin{center}
-    \begin{tabular}{ |c||c|c|c|c|c|c|c|c| } 
-     \hline
-     \textbf{0} & $\infty$ & $\infty$ & $\infty$
-     & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ \\
-     \hline
-     \hline
-     $\infty$ &\textbf{0} & 1 & 2 & 3 & 5 & 7 & 8 & 9 \\
-     \hline
-     $\infty$ & 1 & \textbf{0} & \textbf{0} & 0 & 1 & 2 & 2 & 2 \\
-     \hline
-     $\infty$ & 2 & 0 & 0 & \textbf{0} & 1 & 2 & 2 & 2 \\
-     \hline
-     $\infty$ & 4 & 1 & 1 & 1 & \textbf{0} & 0 & 1 & 2 \\
-     \hline
-     $\infty$ & 6 & 2 & 2 & 2 & 0 & \textbf{0} & 1 & 2 \\
-     \hline
-     $\infty$ & 7 & 2 & 2 & 2 & 1 & 1 & \textbf{0} & 0 \\
-     \hline
-     $\infty$ & 8 & 2 & 2 & 2 & 2 & 2 & 0 & \textbf{0} \\
-     \hline
-    \end{tabular}
-    \caption{Kostenmatrix mit hervorgehobenem Warping Pfad.}
-    \label{tbl:ExampleMatrix}
-    \end{center}
-\end{table}
 \autoref{tbl:ExampleCost1} zeigt die gerundeten Kosten zwischen den einzelnen Reihen.
-\begin{table}[ht]
-    \begin{center}
-    \begin{tabular}{ |c|c|c| } 
-     \hline
-     Reihen & Kosten \\
-     \hline \hline
-     $R_{1}$, $R_{2}$ & \textbf{0} \\
-     \hline
-     $R_{1}$, $R_{3}$ & 1.56 \\
-     \hline
-     $R_{1}$, $R_{4}$ & 2.88 \\
-     \hline
-     $R_{2}$, $R_{3}$ & 2.89 \\
-     \hline
-     $R_{3}$, $R_{4}$ & 2.67 \\
-     \hline
-    \end{tabular}
-    \caption{Erster Durchlauf der Kostenberechnung.}
-    \label{tbl:ExampleCost1}
-    \end{center}
-\end{table}
 Da \emph{$R_{1}$} und \emph{$R_{2}$} zusammen die geringsten Kosten haben bilden sie das erste Cluster \emph{$C_{1}$}.
-Um dessen Wertreihe zu erhalten werden die Attributwerte paarweise addiert und die Summe anschließend halbiert.
-Dabei kann anhand des Warping Pfads abgelesen werden, welche Werte zusammengehören.
+Um dessen Wertereihe zu erhalten werden die Attributwerte paarweise addiert.
+Diese Summe wird anschließend jeweils halbiert, damit die Werte mit den anderen Reihen vergleichbar bleiben.
+Anhand des Warping Pfads kann abgelesen werden, welche Werte zusammengehören.
 Die Bildung der Paare entspricht also der Zuordnung mit den geringsten Kosten.
 So ergibt sich \emph{$C_{1}$ = (0, 1, 1, 1, 2, 2, 1, 1)}.
-Falls mehrere verschiedene Attribute berücksichtigt werden kann für sie eine kombinierte Matrix erstellt werden,
-indem für jedes Attribut eine Matrix erstellt wird und deren Mittelwert in eine neue Matrix geschrieben wird.
-Da all diese Matrizen das selbe Format haben, ist dies problemlos möglich.
-Der Warping Path kann dann an dieser kombinierten Matrix abgelesen werden.
-Die Bildung der Paare erolgt entsprechend.
-Es sollte ein \emph{Threshold} definiert werden,
-der angibt, ab wann die Kosten zu groß sind, um die beiden Datenreihen zu einem Cluster zusammenzuführen.
+Falls mehrere Attribute berücksichtigt werden müssen wird für jedes eine eigene Matrix erstellt.
+und der Warping Path berechnet.
+Die Kosten der Pfade werden aufsummiert und durch die Anzahl der Attribute geteilt.
+Damit kann auch im mehrdimensionalen Fall ein Vergleich erfolgen.
+Die mittlere Wertereihe wird in diesem Fall für jedes Attribut neu berechnet.
+Es sollte ein \emph{Threshold t} definiert werden,
+der angibt, ab wann die Kosten zu groß sind, um zwei Datenreihen zu einem Cluster zusammenzuführen.
 Ein sinnvoller Wert hängt dabei vom vorliegenden Datensatz ab.
 Sei dieser Threshold im Folgenden \emph{t = 2}.
 Nun werden die Schritte wiederholt, wobei \emph{$C_{1}$} als eine einzelne neue Datenreihe betrachtet wird.
 Dabei ergeben sich die Kosten in \autoref{tbl:ExampleCost2}.
-\begin{table}[ht]
-    \begin{center}
-    \begin{tabular}{ |c|c|c| } 
-     \hline
-     Reihen & Kosten \\
-     \hline \hline
-     $C_{1}$, $R_{3}$ & \textbf{1.56} \\
-     \hline
-     $C_{1}$, $R_{4}$ & 2.89 \\
-     \hline
-     $R_{3}$, $R_{4}$ & 2.67 \\
-     \hline
-    \end{tabular}
-    \caption{Zweiter Durchlauf der Kostenberechnung.}
-    \label{tbl:ExampleCost2}
-    \end{center}
-\end{table}
-Nun haben \emph{$C_{1}$} und \emph{$R_{3}$} die geringsten Kombinationskosten.
+Hier haben \emph{$C_{1}$} und \emph{$R_{3}$} die geringsten Kombinationskosten.
 Da die Kosten geringer sind als der Threshold kann ein neues Cluster gebildet werden.
 Es ergibt sich \emph{$C_{2}$ = (0.5, 1, 0.5, 1, 2, 2, 1, 1)}.
 Damit können die neuen Kosten berechnet werden,
 welche in \autoref{tbl:ExampleCost3} dargestellt sind.
+Da die berechneten Kosten den zuvor definierten Threshold übersteigen wird kein neues Cluster mehr gebildet
+und die Berechnung terminiert.
+\autoref{fig:Dendrogram} veranschaulicht die gebildeten Cluster.
 \begin{table}[ht]
-\begin{center}
-    \begin{tabular}{ |c|c|c| } 
-     \hline
-     Reihen & Kosten \\
-     \hline \hline
-     $C_{2}$, $R_{4}$ & \textbf{2.78} \\
-     \hline
-    \end{tabular}
-    \caption{Dritter Durchlauf der Kostenberechnung.}
-    \label{tbl:ExampleCost3}
+    \begin{center}
+        \begin{tabular}{ |c||c|c|c|c|c|c|c|c| } 
+         \hline
+         \textbf{0} & $\infty$ & $\infty$ & $\infty$
+         & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ \\
+         \hline
+         \hline
+         $\infty$ &\textbf{0} & 1 & 2 & 3 & 5 & 7 & 8 & 9 \\
+         \hline
+         $\infty$ & 1 & \textbf{0} & \textbf{0} & 0 & 1 & 2 & 2 & 2 \\
+         \hline
+         $\infty$ & 2 & 0 & 0 & \textbf{0} & 1 & 2 & 2 & 2 \\
+         \hline
+         $\infty$ & 4 & 1 & 1 & 1 & \textbf{0} & 0 & 1 & 2 \\
+         \hline
+         $\infty$ & 6 & 2 & 2 & 2 & 0 & \textbf{0} & 1 & 2 \\
+         \hline
+         $\infty$ & 7 & 2 & 2 & 2 & 1 & 1 & \textbf{0} & 0 \\
+         \hline
+         $\infty$ & 8 & 2 & 2 & 2 & 2 & 2 & 0 & \textbf{0} \\
+         \hline
+        \end{tabular}
+        \caption{Kostenmatrix mit hervorgehobenem Warping Pfad.}
+        \label{tbl:ExampleMatrix}
     \end{center}
 \end{table}
-Da die berechneten Kosten den zuvor definierten Threshold übersteigen wird kein neues Cluster mehr gebildet
-und wir sind am Ende unserer Berechnungen angekommen.
-\autoref{fig:Dendrogram} veranschaulicht die gebildeten Cluster.
-
+\begin{table}[ht]
+    \begin{center}
+        \begin{tabular}{ |c|c|c| } 
+         \hline
+         Reihen & Kosten \\
+         \hline \hline
+         $R_{1}$, $R_{2}$ & \textbf{0} \\
+         \hline
+         $R_{1}$, $R_{3}$ & 1.56 \\
+         \hline
+         $R_{1}$, $R_{4}$ & 2.88 \\
+         \hline
+         $R_{2}$, $R_{3}$ & 2.89 \\
+         \hline
+         $R_{3}$, $R_{4}$ & 2.67 \\
+         \hline
+        \end{tabular}
+        \caption{Erster Durchlauf der Kostenberechnung.}
+        \label{tbl:ExampleCost1}
+    \end{center}
+\end{table}
+\begin{table}[ht]
+    \begin{center}
+        \begin{tabular}{ |c|c|c| } 
+         \hline
+         Reihen & Kosten \\
+         \hline \hline
+         $C_{1}$, $R_{3}$ & \textbf{1.56} \\
+         \hline
+         $C_{1}$, $R_{4}$ & 2.89 \\
+         \hline
+         $R_{3}$, $R_{4}$ & 2.67 \\
+         \hline
+        \end{tabular}
+        \caption{Zweiter Durchlauf der Kostenberechnung.}
+        \label{tbl:ExampleCost2}
+    \end{center}
+\end{table}
+\begin{table}[ht]
+    \begin{center}
+        \begin{tabular}{ |c|c|c| } 
+         \hline
+         Reihen & Kosten \\
+         \hline \hline
+         $C_{2}$, $R_{4}$ & \textbf{2.78} \\
+         \hline
+        \end{tabular}
+        \caption{Dritter Durchlauf der Kostenberechnung.}
+        \label{tbl:ExampleCost3}
+    \end{center}
+\end{table}
 \begin{figure}[ht]
     \begin{center}
     \includegraphics[width=0.25\textwidth]{dendrogram.png}
@@ -217,11 +217,11 @@ und wir sind am Ende unserer Berechnungen angekommen.
     \label{fig:Dendrogram}
 \end{figure}
 
-
+\clearpage
 \section{Related Work Analyse}
 \label{3-RelatedWork}
 \ac{DTW} kommt in vielen Arbeiten als Distanz-Metrik zum Einsatz.
-Im Folgenden wird eine Auswahl dieser Veröffentlichungen beschrieben.
+Im Folgenden wird eine Auswahl dieser Veröffentlichungen und deren Einfluss auf diese Bachelorarbeit beschrieben.
 
 \citet{wahyuni_motion_2021} stellen ein Erkennungssystem für Gesten vor.
 Dabei wird eine Kinect-Kamera genutzt, um die Bewegungen aufzuzeichnen.
@@ -244,7 +244,10 @@ als Distanz-Metrik.
 Die Ergebnisse zeigen, dass \ac{DTW} effektiv eingesetzt werden kann,
 um automatisiert Bewegungsabläufe mit Vorlagen zu vergleichen und diese somit zu bewerten.
 Im Kontext der Interaktion mit Wandbildschirmen werden andere Eingabewerte interessant sein als hier.
-Deshalb müssen geeignete Werte für unsere Szenarien elaboriert werden.
+In dieser Bachelorarbeit sollen daher die Attribute für den Vergleich,
+nicht bei der Implementierung festgelegt werden.
+Stattdessen sollen sie frei konfigurierbar sein.
+Keines der in der Literatur gezeigten Systeme liefert eine derartige Funktionalität.
 \citet{mohammadzade_dynamic_2021} nutzen \ac{TSD}-Informationen für eine Überwachung von alltäglichen menschlichen Aktivitäten.
 Jede Aktion wird durch eine mehrdimensionale Time-Series repräsentiert.
 Dabei entspricht eine Dimension jeweils der Postion eines Skelettpunkts im Verlauf der Zeit.
@@ -256,22 +259,24 @@ Allerdings sind dafür vordefinierte Klassen mit teils künstlich erzeugten Beis
 Wesentliches Ziel dieser Bachelorarbeit ist es allerdings dazu beizutragen neue Informationen
 über mögliche Interaktionsverhalten mit interaktiven Wandbildschirmen zu gewinnen.
 Eine Definition im Voraus ist für dieses Szenario nicht zielführend.
-\citet{hautamaki_time-series_2008} vergleichen experimentell einige Time-Series Clustering-Verfahren
+Daher soll ein Clustering-Verfahren implementiert werden,
+welches ohne vordefinierte Kategorien funktioniert.
+\citet{hautamaki_time-series_2008} vergleichen experimentell einige \ac*{TSD} Clustering-Verfahren
 mit \ac{DTW} als Distanzmetrik.
-Hierarchisches Clustering wird hier agglomerativ implementiert.
-Das bedeutet, dass zunächst alle Records als eigenes Cluster initialisiert werden.
+Unter anderem auch hierarchisches Clustering.
+Hier werden zunächst alle Records als eigenes Cluster initialisiert.
 Durch iterierte Anwendung von Merge-Operationen werden schrittweise zwei Cluster zusammengeführt,
-die eine geringe Distanz in den \ac{TSD} aufweisen.
+die eine geringe Differenz aufweisen.
 \citet{hautamaki_time-series_2008} prüfen die Zuverlässigkeit anhand mehrerer Experimente.
 Unter anderem mit Sprachdaten, die ebenfalls zu den \ac{TSD} gehören.
-Die Evaluation zeigt, dass hierarchisches Clustering in Kombination mit \ac{DTW} erfolgreich eingesetzt werden kann. 
-
+Die Evaluation zeigt, dass hierarchisches Clustering in Kombination mit \ac{DTW} erfolgreich eingesetzt werden kann.
+Ein Versuch im Kontext von Bewegungsdaten erfolgt hier allerdings nicht.
 
 \section{Einsatz im Kontext von Kinect-Bewegungsdaten}
 \label{3-Einsatz}
-Wie bereits erwähnt handelt es sich bei den vorliegenden Daten um \ac{TSD}.
+Wie bereits erwähnt handelt es sich bei den vorliegenden Kinect-Daten um \ac{TSD}.
 \citet{warren_liao_clustering_2005} und \citet{aghabozorgi_time-series_2015} weisen darauf hin,
-dass besonders die verwendete Distanz-/ Ähnlichkeitsmetrik entscheidend ist,
+dass besonders die verwendete Distanzmetrik entscheidend ist,
 um diesen Datentyp sinnvoll in Kategorien einteilen zu können.
 Hierarchisches Clustering in Kombination mit \ac{DTW} scheint ein vielversprechender Ansatz zu sein.
 Da die Daten in Textdateien vorliegen ist eine Komponente im System nötig,
@@ -280,12 +285,13 @@ Besonders von Bedeutung ist zudem die Wahl geeigneter Attribute.
 Die Daten enthalten viele Werte die mehr oder weniger interessant für die Kategorisierung sein können.
 Die Laufwege oder Engagement-Werte sind beispielsweise relevanter als die Tatsache,
 ob eine Person Brillenträger ist oder nicht.
-Idealerweise sollte die Wahl der genutzten Attribute vom Nutzer der Anwendung definiert werden können.
+Die Wahl der genutzten Attribute muss also vom Nutzer definiert werden können.
 So kann das Tool effektiv genutzt werden, um nach wiederkehrenden Abläufen in den Daten zu suchen.
-Des weiteren stellt sich die Frage, ab wann keine weitere Clusterbildung mehr stattfinden soll.
-Dazu muss ein geeigneter Threshold definiert werden.
-Zudem ist die große Menge der Daten zu erwähnen.
-\citet{aghabozorgi_time-series_2015} weist darauf hin,
+Um zu definieren, ab wann keine weitere Clusterbildung mehr stattfinden soll, muss ein geeigneter Threshold angegeben werden.
+Dieser kann je nach Daten unterschiedlich ausfallen
+und sollte daher ebenfalls von Nutzer konfiguriert werden können.
+Abschließend ist die große Menge der Daten zu erwähnen.
+\citet{aghabozorgi_time-series_2015} weisen darauf hin,
 dass \ac{DTW} weniger performant ist als herkömmliche Metriken wie die euklidische Distanz.
 Gegebenenfalls müssen die Daten vor der Nutzung geeignet gefilter werden.
-Diese Filterung soll allerdings nicht Bestandteil dieser Bachelorarbeit sein.
+Diese Filterung ist allerdings nicht Bestandteil dieser Bachelorarbeit.
