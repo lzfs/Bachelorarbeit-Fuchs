@@ -1,24 +1,28 @@
 \chapter{Grundlagen und Problembeschreibung}
 \label{chapter2}
-Bevor näher auf die verwendeten Algorithmen eingegangen wird,
-erfolgt eine Erläuterung grundlegender Aspekte.
+Als Basis für das weitere Vorgehen
+werden nun grundlegende Aspekte herausgearbeitet.
 Dabei werden neben einigen Interaktionsmodellen vor Wandbildschirmen
 auch die eingesetzte Kinect-Sensorik und die Struktur des vorliegenden Datensatzes beschrieben.
 Zudem erfolgt abschließend eine ausführliche Problembeschreibung.
 
 \section{Modelle der Interaktion mit Wandbildschirmen}
 \label{2-ModelleInteraktion-Wandbildschirme}
-Interaktive digitale Medien sind in der Öffentlichkeit immer präsenter.
+\citep{wouters_uncovering_2016} verweisen darauf, dass interaktive digitale Medien in der Öffentlichkeit immer präsenter sind.
 Deshalb wird es für Wandbildschirme immer schwieriger die Aufmerksamkeit von Passanten zu erregen
 und sie zur Interaktion zu animieren.
-Diese Herausforderungen können nicht einfach durch verbesserte Hardware oder attraktivere Displays gelöst werden.
+Diese Herausforderungen können nicht einfach nur durch verbesserte Hardware gelöst werden.
 Stattdessen muss ein besseres Verständnis von Menschen und deren Technologienutzung geschaffen werden \citep{wouters_uncovering_2016}.
 \emph{Ambient Displays} sind große, interaktive Bildschirme im (halb-) öffentlichen Raum, mit denen Nutzer interagieren können.
-Es handelt sich meist um ästhetisch ansprechende Displays die Personen mit Informationen versorgen \citep{mankoff_heuristic_2003}.
-Eine Kategorisierung von Interaktionen mit solchen Wandbildschirmen kann das Verständnis des Nutzungsverhaltens verbessern.
-Dazu existieren verschiedenste \emph{Audience Behaviour-Interaktionsmodelle}, wovon im Folgenden zwei näher beschrieben werden.
+Es handelt sich meist um ansprechende Displays die Personen mit Informationen versorgen \citep{mankoff_heuristic_2003}.
+Eine Kategorisierung von Interaktionen mit solchen Wandbildschirmen kann gegebenenfalls das Verständnis des Nutzungsverhaltens verbessern.
+Dazu existieren verschiedenste \emph{Audience Behaviour-Interaktionsmodelle}.
+Das \emph{Audience Funnel Modell} ist ein weit verbreitetes Modell
+und der \emph{Honeypot-Effekt} ist besonders im Kontext des \emph{HoPE-Projekts} relevant.
+Daher sollen diese beiden im Folgenden näher beschrieben werden.
 
-Das \emph{Audience Funnel Modell} beschreibt, wie Menschen sich um ein großes öffentliches Display versammeln
+Das \emph{Audience Funnel Modell} \citep{wouters_uncovering_2016, mai_audience_2018} beschreibt,
+wie Menschen sich um ein großes öffentliches Display versammeln
 und von Beobachtern zu Interagierenden mit dem System, und anschließend wieder zu Beobachtern werden.
 Menschen neigen dazu verschiedene Phasen der Interaktivität zu durchlaufen,
 bevor sie direkt mit dem System interagieren \citep{wouters_uncovering_2016, mai_audience_2018}.
@@ -28,7 +32,7 @@ und den Nutzer zu motivieren mit dem System zu interagieren \citep{mai_audience_
 \citet{mai_audience_2018} verweisen darauf, dass \emph{Ambient Displays} in der Öffentlichkeit
 nicht undbedingt der zentrale Punkt der Aufmerksamkeit sind, da vorbeigehende Personen eigene intrinsische Ziele verfolgen.
 Die Herausforderung für Entwickler ist es die Systeme so zu gestalten,
-dass sie Aufmerksamkeit erregen, sich aber gleichzeitig nicht aufdrängend in den Mittelpunkt stellen.
+dass sie Aufmerksamkeit erregen, sich aber gleichzeitig nicht aufdrängend in den Mittelpunkt stellen \citep{mai_audience_2018}.
 \begin{figure}[ht]
     \begin{center}
     \includegraphics[width=0.8\textwidth]{audience-funnel-model.png}
@@ -36,6 +40,7 @@ dass sie Aufmerksamkeit erregen, sich aber gleichzeitig nicht aufdrängend in de
     \caption{Audience Funnel Framework. Abbildung aus \citet{mai_audience_2018}.}
     \label{fig:AudienceFunnelModel}
   \end{figure}
+
 Ein zweites Modell wird durch den bereits erwähnten \emph{Honeypot-Effekt} beschrieben.
 Er zeigt, dass Individuen unabhängig von Belohnung, Bestrafung oder sozialem Wettbewerb
 von der reinen Präsenz oder den Aktivitäten anderer beeinflusst werden.
@@ -46,28 +51,29 @@ nachdem sie anderen Menschen dabei zugesehen haben \citep{wouters_uncovering_201
 Eine Einordnung der Bewegungsdaten in die Kategorien solcher Modelle
 und eine weiterführende Analyse der Bewegungen kann Aufschluss über das Verhalten von Menschen
 vor interaktiven Bildschirmen geben.
-Wie bereits erwähnt sollte eine derartige Kategorisierung automatisiert werden.
+Wie bereits erwähnt soll eine derartige Kategorisierung automatisiert werden.
 
 \section{Spezifikation der Kinect}
 \label{2-SpezifikationKinect}
 \citet{tolgyessy_evaluation_2021} verweisen darauf,
 dass der Xbox 360 Kinect-Sensor eine \glqq Revolution\grqq\ im Bereich der erschwinglichen 3D-Erkennungssensorik war.
-Ursprünglich war er für die Videospiel-Industrie gedacht.
-Schon bald wurde er aber auch für wissenschaftliche Experimente genutzt.
+Ursprünglich war dieser für die Videospiel-Industrie gedacht.
+Schon bald wurde der Sensor aber auch für wissenschaftliche Experimente genutzt.
 In späteren Jahren folgten weitere Iterationen der Kinect \citep{tolgyessy_evaluation_2021}.
 Im vorliegenden Datensatz des \emph{HoPE-Projekts} kam die Kinect v2 für Xbox One zum Einsatz.
-Diese Sensorik stellt Farbbilder einer \ac{RGB} Kamera, Tiefenbilder einer Tiefenkamera
+Diese Sensorik stellt Farbbilder einer \ac{RGB} Kamera, Tiefendaten einer Tiefenkamera
 und Audiodateien verschiedener Mikrofone zur Verfügung \citep{windows-developer-center_microsoft_corporation_human_2014}.
-Besonders die Tiefenkamera hilft zuverlässige Ergebnisse bei der Erkennung von Menschen vor \emph{Ambient Displays} zu erzielen.
-\citet{li_time-flight_2014} fassen es wie folgt zusammen.
-Die kompakte Größe, die Benutzungsfreundlichkeit,
+Tiefenkameras ordnen jedem Punkt eines Bildes eine Entfernung zum Sensor zu.
+Dies hilft zuverlässige Ergebnisse bei der Erkennung von Menschen vor \emph{Ambient Displays} zu erzielen.
+\citet{li_time-flight_2014} fassen es wie folgt zusammen:
+\glqq Die kompakte Größe, die Benutzungsfreundlichkeit,
 die stark vereinfachte Hintergrund-Subtraktion im Vergleich zu anderer Sensorik, sowie die hohe Genauigkeit
-und die hohe Bildrate machen Tiefenkameras zu einer attraktiven Lösung für ein breites Spektrum an Anwendungen.
+und die hohe Bildrate machen Tiefenkameras zu einer attraktiven Lösung für ein breites Spektrum an Anwendungen.\grqq\
 Die Kinect v2 verwendet dabei den Ansatz der kontinuierlichen Wellenintensitätsmodulation,
 der häufig bei \ac{ToF}-Tiefenkameras zum Einsatz kommt.
 Dabei wird das Licht einer Lichtquelle von Objekten im Sichfeld der Kamera zurückgestreut
-und die Phasenverzögerung zwischen dem emittierten und dem reflektierten Licht gemessen.
-Diese Phasendifferenz wird für jedes Pixel im Bild in einen Entfernungswert umgerechnet \citep{tolgyessy_evaluation_2021}.
+und die Zeit zwischen der Emittierung und dem Wiedereintreffen des reflektierten Licht gemessen.
+Diese \glqq Flugzeit\grqq\ wird für jedes Pixel im Bild in einen Entfernungswert umgerechnet \citep{tolgyessy_evaluation_2021}.
 Der Sensor kann Tiefenbilder mit einer Auflösung von 512 x 424 Pixeln
 und gewöhnliche Farbbilder mit 1920 x 1080 Pixeln aufnehmen \citep{marin_multi-camera_2019}.
 Bei der Kinect v2 können bis zu sechs Personen erfasst werden.
@@ -84,7 +90,7 @@ Dabei wird die Lage von 25 Skelettpunkten, sowie verschiedene Gesichtsattribute 
 \section{Struktur des vorliegenden Datensatzes}
 \label{2-StrukturDatensatz}
 Im Rahmen des HoPE-Projekts wurden im Jahr 2017 Ambient Displays für 18 Wochen mit Kinect v2 Systemen ausgestattet.
-Der entstandene Datensatz dient zur Evaluation des implementierten System.
+Der entstandene Datensatz dient zur späteren Evaluation der zu implementierenden Anwendung.
 
 Eine Betrachtung des Datensatzes ergab, dass dieser 97.626 Records beinhaltet \citep{temiz_konzeption_2022}.
 Dabei enthält jeder Record mehrere sogenannte Frames.
@@ -96,6 +102,31 @@ Dabei entspricht ein Frame der Momentaufnahme einer Person.
 Zu jedem Record liegen verschiedene Dateien vor,
 die jeweils den Zeitstempel in Kombination mit einem geeigneten Postfix als Dateinamen tragen.
 \autoref{tbl:AttributesDataset} zeigt die Attribute der Datei \emph{timestamp.txt}.
+Diese Attribute können im Kontext der Kategorisierung von Bewegungsdaten genutzt werden.
+Dazu kann eine Teilmenge der Werte verschiedener Records miteinander verglichen werden.
+So können sie auf Gemeinsamkeiten und Unterschiede hin untersucht werden.
+Die Attribute werden in der Textdatei durch das Trennzeichen '\#\#\#' voneinander abgegrenzt.
+Ein exemplarischer Frame aus dem Datensatz kann \autoref{fig:FrameExample} entnommen werden.
+Da die Anordnung und das Vorhandensein dieser Attribute je nach Version des Datensatzes abweichen kann,
+sollen diese in der Implementierung manuell konfigurierbar sein.
+Selbes gilt für das Trennzeichen.
+Die Datei \emph{timestamp$\_$bodies.txt} enthält für jeden Frame die Position aller 25 Skelettpunkte.
+\emph{timestamp.xef} kann genutzt werden, um die Aufnahme in der Anwendung Kinect Studio zu visualisieren.
+Letztlich sind die Einträge sogenannte \emph{\ac{TSD}}.
+Bei diesem Datentyp handelt es sich um geordnete Sequenzen von Datenpunkten,
+die über eine gewisse Zeit hinweg aufgenommen wurden.
+Oft in regelmäßigen Abständen \citep{ali_clustering_2019}.
+Insgesamt befinden sich im Datensatz 34.687.630 Frames \citep{temiz_konzeption_2022}.
+Diese Anzahl verdeutlicht erneut die Notwendigkeit eines Software-Tools zur Auswertung.
+Um aussagekräftige Ergebnisse zu erhalten lohnt es sich den Datensatz zu bereinigen
+und für den jeweiligen Betrachtungsfall zu optimieren.
+So liefern beispielsweise Records mit weniger als zwei Sekunden Länge nur wenig Erkenntnisse über das Interaktionsverhalten.
+Sie müssen aussortiert werden.
+Je nach Fragestellung kann es zudem lohnenswert sein Records mit einer, zwei oder mehreren Personen
+separat zu betrachten.
+Auch in \autoref{chapter6} werden bereits gefilterte Teilmengen des gesamten Datensatzes zur Evaluation verwendet.
+Hier ist anzumerken, dass das zu entwickelnde Tool auch mit anderen Datensätzen funktionieren soll.
+So sollen bei Bedarf zum Beispiel auch Daten anderer Tiefenkameras geclustert werden können.
 \begin{table}[ht]
   \begin{center}
     \begin{tabular}{ |c|c| } 
@@ -145,8 +176,6 @@ die jeweils den Zeitstempel in Kombination mit einem geeigneten Postfix als Date
     \label{tbl:AttributesDataset}
   \end{center}
 \end{table}
-Diese Attribute werden in der Textdatei durch das Trennzeichen '\#\#\#' voneinander abgegrenzt.
-Ein exemplarischer Frame aus dem Datensatz kann \autoref{fig:FrameExample} entnommen werden.
 \begin{center}
   \begin{figure}[ht]
     2017-04-10 07:41:53.943 +02:00 \#\#\# 72057594038063128 \#\#\# 1341053376 \#\#\# 1 \#\#\#
@@ -157,46 +186,40 @@ Ein exemplarischer Frame aus dem Datensatz kann \autoref{fig:FrameExample} entno
     \label{fig:FrameExample}
   \end{figure}
 \end{center}
-Da die Anordnung und das Vorhandensein dieser Attribute je nach Version des Datensatzes abweichen kann,
-sollen diese in der Implementierung manuell konfigurierbar sein.
-Selbes gilt für das Trennzeichen.
-Die Datei \emph{timestamp$\_$bodies.txt} enthält für jeden Frame die Position aller 25 Skelettpunkte.
-\emph{timestamp.xef} kann genutzt werden, um die Aufnahme in der Anwendung Kinect Studio zu visualisieren.
-Letztlich sind die Einträge sogenannte \emph{\ac{TSD}}.
-Bei diesem Datentyp handelt es sich um geordnete Sequenzen von Datenpunkten,
-die über eine gewisse Zeit hinweg aufgenommen wurden.
-Oft in regelmäßigen Abständen \citep{ali_clustering_2019}.
-Insgesamt befinden sich im Datensatz 34.687.630 Frames \citep{temiz_konzeption_2022}.
-Diese Anzahl bestätigt erneut die Notwendigkeit eines Software-Tools zur Auswertung.
-Um aussagekräftige Ergebnisse zu erhalten lohnt es sich gegebenenfalls mit Teilmengen des Datensatzes zu arbeiten.
-So liefern beispielsweise Records mit weniger als zwei Sekunden Länge nur wenig Erkenntnisse über das Interaktionsverhalten.
-Sie sollten aussortiert werden.
-Je nach Fragestellung kann es zudem lohnenswert sein Records mit einer, zwei oder mehreren Personen
-separat zu betrachten.
-Auch in \autoref{chapter6} bereits gefilterte Teilmengen des gesamten Datensatzes zur Evaluation verwendet.
-Hier ist anzumerken, dass das zu entwickelnde Tool auch mit anderen Datensätzen funktionieren soll.
 
+\clearpage
 \section{Problembeschreibung}
 \label{2-Problembeschreibung}
+Wesentliches Ziel ist die Kategorisierung von Bewegungsdaten.
+Da die Bewegungen von verschiedenen Personen ausgeführt werden,
+kann es sein, dass gegebenenfalls auch gleiche Bewegungshandlungen voneinander abweichen.
+Zudem kann es vorkommen, dass die Bewegungen zu unterschiedlichen Zeitpunkten in den Records auftreten.
+Diese Tatsachen machen eine manuelle Kategorisierung oft schwierig.
+Hinzu kommt das bereits beschriebene Problem der großen Datenmenge.
+Im Folgenden sollen mögliche Lösungsansätze der beschriebenen Problematik diskutiert werden.
+
 Es gibt verschiedene Möglichkeiten sich der Kategorisierung von Bewegungsdaten zu nähern.
 So kann beispielsweise \emph{Maschine Learning} eingesetzt werden.
 Dieser Ansatz wird derzeit ebenfalls im Rahmen des HoPE-Projekts erforscht \citep{plischke_master_2022}.
 In dieser Bachelorarbeit werden hingegen \emph{deterministische Algorithmen} genutzt.
-Durch sie kann die Implementierung eines Kategorisierungssystems verhältnismäßig einfach gehalten werden.
-\citet{aghabozorgi_time-series_2015} verweisen zudem darauf, dass die Verwendung von Methoden
+Durch sie kann der Aufwand einer Kategorisierung verhältnismäßig gering gehalten werden.
+\citet{aghabozorgi_time-series_2015} verweisen darauf, dass die Verwendung von Methoden
 wie Maschine Learning (\emph{supervised}), im Falle von großen Datensätzen zu Problemen führen kann.
-\emph{Deterministische Cluster-Algorithmen} sollten bei großen Datenmengen weniger Probleme bereiten (\emph{unsupervised}).
+Es ist kaum möglich Trainingsdaten zur Verfügung zu stellen, die alle möglichen Szenarien enthalten.
+Dies ist auch nicht Ziel der Untersuchungen.
+Stattdessen soll geprüft werden,
+ob mithilfe der Anwendung automatisch Bewegungsabläufe gefunden werden können.
+\emph{Deterministische Cluster-Algorithmen} sind hier geeignet,
+da diese Methodik \emph{unsupervised} ist.
 
-Beim vorliegenden Kinect-Datensatz handelt es sich ebenfalls um eine große Datenmenge.
-Die einzelnen Records müssen daher automatisiert bearbeitet werden.
-Ziel der Verarbeitung ist es möglichst sinnvolle \emph{Cluster} zu erhalten.
+Ziel der Verarbeitung ist es also möglichst sinnvolle \emph{Cluster} zu erhalten.
 Um die Gemeinsamkeiten zweier Aufnahmen zu berechnen,
 wird eine geeignete Vergleichsfunktion benötigt.
 Die Wahl dieser Funktion ist wichtig für den Erfolg des \emph{Clusterings} \citep{warren_liao_clustering_2005}.
 Zu beachten ist zudem, dass die Bewegungsaufnahmen durch \ac{TSD} beschrieben werden.
 Bei der bloßen Anwendung herkömmlicher Distanzmetriken, wie der Euklidische-Distanz,
 ist die Aussagekraft des Vergleichs gering.
-Es kann vorkommen, dass verschiedene Personen die gleiche Bewegung unterschiedlich schnell,
+Wie bereits erwähnt kann es vorkommen, dass verschiedene Personen die gleiche Bewegung unterschiedlich schnell,
 oder zeitlich versetzt ausführen.
 Gegebenenfalls weisen die Datenreihen bei der gleichen Bewegung daher sogar eine unterschiedliche Anzahl an Frames auf.
 \autoref{fig:MetricComparison} zeigt ein exemplarisches Szenario.
@@ -216,17 +239,17 @@ Um dieses Problem zu lösen ist eine \emph{elastische Metrik} nötig,
 die besser mit zeitlichen Verschiebungen umgehen kann \citep{aghabozorgi_time-series_2015}.
 Das Clustering soll mithilfe von \emph{hierarchischem Clustering} durchgeführt werden,
 welches in \autoref{3-Clustering} beschrieben wird.
-Das Verfahren ist für die vorliegenden Daten gut geeignet,
+Das Verfahren ist für die vorliegenden Daten geeignet,
 da es erlaubt \ac{TSD} unterschiedlicher Länge zu clustern.
 Zudem muss die Anzahl der zu bildenden Cluster nicht im Voraus definiert werden,
 wie dies etwa bei \emph{K-Means} der Fall ist \citep{aghabozorgi_time-series_2015}.
 Es ist in diesem Kontext nicht zielführend die Clusteranzahl zuvor zu definieren,
 da die Arbeit darauf abzielt, mehr Erkenntnis über mögliche sinnvolle Cluster zu gewinnen.
-Statt die Anzahl vorzugeben, wird ein Threshold definiert der angibt,
+Statt die Anzahl vorzugeben, wird ein \emph{Threshold} definiert der angibt,
 ab wann zwei Cluster nicht mehr zusammengeführt werden sollen,
 weil die Differenz zwischen ihnen zu groß ist.
 Zur geeigneten Zuordung der Datenpunkte wird dabei \emph{\ac{DTW}} verwendet (\autoref{3-DTW}).
 Hier ist eine Mehrfachzuordnung von Punkten möglich.
-Diese können so verbunden werden, dass die Kosten minimal sind.
+Diese können so verbunden werden, dass die Kombinationskosten minimal sind.
 Dies erlaubt eine Zuordnung ähnlicher Muster in den Daten, auch wenn sie zeitlich verschoben sind.
-Dies ist gut für die vorliegende Problemstellung geeignet.
+Hierarchisches Clustering mit \ac{DTW} ist also zur Lösung des beschriebenen Problems geeignet.
