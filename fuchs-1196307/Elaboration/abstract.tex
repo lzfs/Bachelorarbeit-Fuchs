@@ -9,27 +9,22 @@
 \noindent
 Im Rahmen des \emph{HoPE-Projekts} wird das Verhalten von Menschen
 bei der Nutzung von \emph{Ambient Displays} analysiert.
-Dazu muss ein methodisches Rahmenwerk entwickelt werden,
-welches eine Evaluation von Sensordaten ermöglicht.
-Diese Bachelorarbeit ist ein Beitrag zu diesem Rahmenwerk.
 Tiefenkameras werden in der Forschung als eine mögliche Sensorik genutzt,
 um Bewegungsabläufe aufzunehmen.
-Solche Bewegungsdaten sind sogenannte Time-Series Data,
-wobei konkret Skelettdaten betrachtet werden.
-Ziel dieser Arbeit ist die Entwicklung eines Software-Tools,
-welches derartige Daten clustern kann.
-Damit soll geklärt werden,
-ob deterministische Algorithmen einen sinnvollen Beitrag bei der Analyse von Bewegungsdaten leisten können.
-Es wird \emph{hierarchisches Clustering}
-mithilfe des \emph{Dynamic Time Warping} Algorthmus zum Einsatz kommen.
-Neben der Begründung für die Wahl der Algorithmen,
-erfolgt zudem eine Beschreibung dieser.
-Des Weiteren wird die Konzeption und Implementierung des Tools dargestellt.
-Die Software wird dabei so generisch gestaltet,
-dass sie auf das Format verschiedener Datensätze angepasst werden kann.
-Auch mögliche Limitierungen werden beschrieben.
-Abschließend erfolgt ein Clustering von \emph{Kinect-Bewegungsdaten}.
+Konkret werden dazu Skelettdaten betrachtet.
+Eine Analyse der Daten ist manuell schwer umsetzbar.
+Daher muss ein methodisches Rahmenwerk entwickelt werden,
+welches eine Evaluation von Sensordaten ermöglicht.
+Diese Bachelorarbeit ist ein Beitrag zu diesem Rahmenwerk.
+Ziel ist die Entwicklung eines Java-Tools,
+welches derartige Daten ohne Vorwissen mithilfe deterministischer Algorithmen clustern kann.
+Es kommt \emph{hierarchisches Clustering}
+mithilfe des \emph{Dynamic Time Warping} Algorithmus zum Einsatz.
+Es soll geklärt werden,
+ob diese Algorithmen einen sinnvollen Beitrag zur Analyse von Bewegungsdaten leisten können.
+Nach der Implementierung erfolgt ein Clustering von \emph{Kinect-Bewegungsdaten}.
 Mithilfe einer Ground-Truth-Analyse und deskriptiven Statistiken
 wird die Qualität der gefundenen Cluster überprüft.
-Diese Evaluation bestätigt, dass das entwickelte Tool zum Clustering
-von Time-Series Data genutzt werden kann.
+Insbesondere hat hat sich dabei herausgestellt, dass ein geeigneter Threshold von großer Bedeutung ist.
+Die Evaluation bestätigt, dass die verwendeten Algorithmen zum Clustering
+von Time-Series Daten genutzt werden können.

@@ -16,14 +16,14 @@ indem Elemente anhand eines festgelegten Vorgehens in homogene Gruppen einsortie
 Dabei sollen die Unterschiede bei Elementen der gleichen Gruppe möglichst klein
 und bei Elementen verschiedener Gruppen möglichst groß sein \citep{aghabozorgi_time-series_2015, warren_liao_clustering_2005}.
 Bei \emph{n} Datenpunkten erzeugt ein \emph{Clustering} \emph{k} Partitionen des Datensatzes.
-Jede Partition entspricht dabei einem Cluster, dass mindestens ein Objekt enthält.
+Jede Partition entspricht dabei einem Cluster, dass mindestens ein Objekt enthält \citep{warren_liao_clustering_2005}.
 Beim \emph{Clustering} sind besonders die Wahl des Clustering-Algorithmus
 und der Methode zur Bestimmung der Ähnlichkeit von zwei Datenreihen von Bedeutung \citep{warren_liao_clustering_2005}.
 Letzteres wird durch \ac{DTW} gelöst.
 Das Verfahren wird in \autoref{3-DTW} beschrieben.
 Als Clustering-Vorgehen kann das sogenannte \emph{hierarchical Clustering} genutzt werden.
 Dieses funktioniert, indem Datenobjekte in einen Baum von Clustern eingeteilt werden.
-Beim agglomerativen Vorgehen wird ein \emph{bottom-up} Ansatz verfolgt.
+Beim agglomerativen Vorgehen wird ein \emph{bottom-up} Ansatz verfolgt \citep{warren_liao_clustering_2005}.
 Jedes Objekt ist daher zunächst ein eigenes Cluster.
 Dann werden schrittweise Cluster zusammengeführt,
 bis alle Objekte im selben Cluster sind,
@@ -33,7 +33,7 @@ die die geringste Differenz zueinander aufweisen.
 Die Terminierungsbedingung entspricht in diesem Kontext dem Überschreiten des vordefinierten Thresholds.
 
 Im Fall des Kinect-Datensatzes liegen die Daten als \ac{TSD} vor.
-\ac{TSD} zu clustern findet in vielen wissenschaftlichen Gebieten Anwendung, um Muster zu finden.
+\ac{TSD} zu clustern findet in vielen wissenschaftlichen Gebieten Anwendung, um Muster zu finden \citep{aghabozorgi_time-series_2015}.
 Das Vorgehen hilft dabei, wichtige Informationen aus großen Datensätzen zu extrahieren.
 \ac{TSD} sind dynamische Daten, weil sich die Attributwerte mit der Zeit verändern.
 Diese Sammlungen von Werten können aber auch als ein einziges Objekt betrachtet werden.

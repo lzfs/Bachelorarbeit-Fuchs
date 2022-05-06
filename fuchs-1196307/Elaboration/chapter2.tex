@@ -8,7 +8,7 @@ Zudem erfolgt abschließend eine ausführliche Problembeschreibung.
 
 \section{Modelle der Interaktion mit Wandbildschirmen}
 \label{2-ModelleInteraktion-Wandbildschirme}
-\citep{wouters_uncovering_2016} verweisen darauf, dass interaktive digitale Medien in der Öffentlichkeit immer präsenter sind.
+\citet{wouters_uncovering_2016} verweisen darauf, dass interaktive digitale Medien in der Öffentlichkeit immer präsenter sind.
 Deshalb wird es für Wandbildschirme immer schwieriger die Aufmerksamkeit von Passanten zu erregen
 und sie zur Interaktion zu animieren.
 Diese Herausforderungen können nicht einfach nur durch verbesserte Hardware gelöst werden.
@@ -43,7 +43,7 @@ dass sie Aufmerksamkeit erregen, sich aber gleichzeitig nicht aufdrängend in de
 
 Ein zweites Modell wird durch den bereits erwähnten \emph{Honeypot-Effekt} beschrieben.
 Er zeigt, dass Individuen unabhängig von Belohnung, Bestrafung oder sozialem Wettbewerb
-von der reinen Präsenz oder den Aktivitäten anderer beeinflusst werden.
+von der reinen Präsenz oder den Aktivitäten anderer beeinflusst werden \citep{wouters_uncovering_2016}..
 In der \ac{HCI} wird dies meist erkennbar, indem Passanten sich einem System nähern
 und überlegen, ob sie mit ihm interagieren sollen,
 nachdem sie anderen Menschen dabei zugesehen haben \citep{wouters_uncovering_2016}.
@@ -97,7 +97,7 @@ Dabei enthält jeder Record mehrere sogenannte Frames.
 Dabei handelt es sich um Momentaufnahmen der Kinect-Sensorik.
 Falls sich mehrere Menschen gleichzeitig im Sensorbereich befinden,
 erhält jede Person eine eindeutige Identifikationsnummer
-und der Record wird in mehrere Frames unterteilt.
+und der Record wird in mehrere Frames unterteilt \citep{temiz_konzeption_2022}.
 Dabei entspricht ein Frame der Momentaufnahme einer Person.
 Zu jedem Record liegen verschiedene Dateien vor,
 die jeweils den Zeitstempel in Kombination mit einem geeigneten Postfix als Dateinamen tragen.
@@ -210,7 +210,7 @@ Dies ist auch nicht Ziel der Untersuchungen.
 Stattdessen soll geprüft werden,
 ob mithilfe der Anwendung automatisch Bewegungsabläufe gefunden werden können.
 \emph{Deterministische Cluster-Algorithmen} sind hier geeignet,
-da diese Methodik \emph{unsupervised} ist.
+da diese Methodik \emph{unsupervised} ist \citep{aghabozorgi_time-series_2015}.
 
 Ziel der Verarbeitung ist es also möglichst sinnvolle \emph{Cluster} zu erhalten.
 Um die Gemeinsamkeiten zweier Aufnahmen zu berechnen,
@@ -218,7 +218,7 @@ wird eine geeignete Vergleichsfunktion benötigt.
 Die Wahl dieser Funktion ist wichtig für den Erfolg des \emph{Clusterings} \citep{warren_liao_clustering_2005}.
 Zu beachten ist zudem, dass die Bewegungsaufnahmen durch \ac{TSD} beschrieben werden.
 Bei der bloßen Anwendung herkömmlicher Distanzmetriken, wie der Euklidische-Distanz,
-ist die Aussagekraft des Vergleichs gering.
+ist die Aussagekraft des Vergleichs gering \citep{warren_liao_clustering_2005}.
 Wie bereits erwähnt kann es vorkommen, dass verschiedene Personen die gleiche Bewegung unterschiedlich schnell,
 oder zeitlich versetzt ausführen.
 Gegebenenfalls weisen die Datenreihen bei der gleichen Bewegung daher sogar eine unterschiedliche Anzahl an Frames auf.
