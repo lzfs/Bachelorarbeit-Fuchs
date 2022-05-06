@@ -10,29 +10,25 @@ Etwaige Ungereimtheiten und Probleme können so frühzeitig erkannt werden.
 Es soll ein System implementiert werden,
 welches Kinect-Bewegungsdaten mithilfe von hierarchischem Clustering
 und \ac{DTW} als Distanzmetrik gruppiert.
-Dieses Tool kann im Rahmen des HoPE-Projekts genutzt werden,
-um große Datensätze auf wiederkehrende Bewegungsabläufe bei der Interaktion mit Wandbildschirmen
-hin zu untersuchen.
 Es gibt sogenannte \emph{funktionale Anforderungen} und \emph{nicht-funktionale Anforderungen},
 die das System erfüllen muss.
 Letztere beinhalten beispielsweise Anforderungen zu Benutzbarkeit, Effizienz oder Portierbarkeit.
 Funktionale Anforderungen beschreiben hingegen die primären Funktionen des Systems.
+Im Austausch mit Mitarbeitern des HoPE-Projekts haben sich die folgenden Anforderungen ergeben.
 
 \subsection{Nicht-funktionale Anforderungen}
 \label{4-NichtFunktionaleAnforderungen}
-Bei der Wahl der Programmiersprache und möglichen verwendeten Frameworks
-existieren keine speziellen Vorgaben.
-Das Tool soll allerdings ohne großen Installationsaufwand nutzbar sein
+Das Tool soll ohne großen Installationsaufwand nutzbar sein
 und daher nach Möglichkeit eine stark verbreitete Programmiersprache nutzen.
-Bei der Implementierung fällt daher die Wahl auf Java in der Version 14.
-Dabei sollen auch keine externen Bibliotheken genutzt werden.
-An die Effizienz gibt es ebenfalls keine besonderen Anforderungen,
+Bei der Implementierung fällt deshalb die Wahl auf Java in der Version 14.
+Um weitere Installationen zu vermeiden sollen auch keine externen Bibliotheken genutzt werden.
+An die Effizienz gibt es keine besonderen Anforderungen,
 da die Auswertung der Daten nur einmalig erfolgt.
-Eine Echtzeitauswertung ist nicht geplant.
-Da zu lange Wartezeiten, aber die Nutzbarkeit des Tools einschränken,
-sollen berechnete Kosten in einer geeigneten Datenstruktur zwischengespeichert werden.
+Eine Echtzeitauswertung ist also nicht geplant.
+Zu lange Wartezeiten, schränken aber die Nutzbarkeit des Tools ein.
+Daher sollen berechnete Kosten in einer geeigneten Datenstruktur zwischengespeichert werden.
 So können im darauffolgenden Iterationsschritt Berechnungsschritte eingespart werden.
-Das Tool soll durch wenige Anpassungen auch auf Datensätze anderer Tiefenkameras angewandt werden können.
+Des Weiteren soll das Tool durch wenige Anpassungen auch auf Datensätze anderer Tiefenkameras angewandt werden können.
 Um dieses Ziel zu erreichen, wird die Software von Beginn an generisch entwickelt.
 Zu allen Bestandteilen des Tools existiert daher ein Interface.
 Bei Bedarf können so einfach neue Implementierungen,
@@ -91,6 +87,39 @@ die der Nutzer beim Start der Anwendung übergeben kann.
     \end{center}
 \end{table}
 
+\section{Teilsysteme}
+\label{4-Teilsysteme}
+\autoref{fig:Packages} kann das Paketdiagramm des Tools entnommen werden.
+Das Paket \emph{model} enthält die Interfaces für Cluster, Records und Frames.
+Außerdem jeweils geeignete Implementierungen dieser Interfaces für den Kinect-Datensatz.
+Bei Bedarf können hier bei späterer Verwendung der Software weitere Implementierungen
+für andere Datensätze ergänzt werden.
+Im \emph{utility}-Paket befinden sich Interfaces für Reader und Writer.
+Auch hier sind geeignete Implementierungen bereitgestellt.
+Konkret ein Reader für die Config-Datei, ein Reader für die Kinect-Daten
+und ein Writer für die gefundenen Cluster.
+Auch das Interface und die Implementierung für die Visualisierung befinden sich hier.
+Im Paket \emph{calculating} befinden sich alle Klassen die für das Clustern der Daten benötigt werden.
+Es ist weiter untergliedert in \emph{clustering} und \emph{metric}.
+Letzteres liefert die Vergleichsmetrik für unser Clusterverfahren.
+Wieder liegen geeignete Interfaces vor,
+sodass die Anwendung bei Bedarf um weitere Metriken oder Clustering-Ansätze erweitert werden kann.
+Bereitsgestellt werden initial eine Implementierung mit hierarchischem Clustering
+und \ac{DTW} als Metrik.
+Das Paket \emph{processor} ist von zentraler Bedeutung.
+Hier wird die Funktionalität des Tools zusammengeführt.
+Zunächst werden die benötigten Reader Instanzen initialisiert.
+Mit ihnen werden die Daten eingelesen.
+Anschließend wird das Clustering gestartet.
+Die Ergebnisse werden in der Ausgabedatei gespeichert und zusätzlich visualisiert.
+\begin{figure}[ht]
+    \begin{center}
+    \includegraphics[width=0.9\textwidth]{packages.png}
+    \end{center}
+    \caption{Paketdiagramm des Tools.}
+    \label{fig:Packages}
+\end{figure}
+
 \clearpage
 \section{Programmablauf}
 \label{4-Programmablauf}
@@ -125,36 +154,3 @@ Im Folgenden wird der Programmablauf beschrieben.
     \item Der \emph{Processor} nutzt die \emph{VisualizerImpl}, um alle Records der gefundenen Cluster zu visualisieren.
     \item Die Anwendung terminiert. 
 \end{enumerate}
-
-\section{Teilsysteme}
-\label{4-Teilsysteme}
-\autoref{fig:Packages} kann das Paketdiagramm des Tools entnommen werden.
-Das Paket \emph{model} enthält die Interfaces für Cluster, Records und Frames.
-Außerdem jeweils geeignete Implementierungen dieser Interfaces für den Kinect-Datensatz.
-Bei Bedarf können hier bei späterer Verwendung der Software weitere Implementierungen
-für andere Datensätze ergänzt werden.
-Im \emph{utility}-Paket befinden sich Interfaces für Reader und Writer.
-Auch hier sind geeignete Implementierungen bereitgestellt.
-Konkret ein Reader für die Config-Datei, ein Reader für die Kinect-Daten
-und ein Writer für die gefundenen Cluster.
-Auch das Interface und die Implementierung für die Visualisierung befinden sich hier.
-Im Paket \emph{calculating} befindet sich alles was für das Clustern der Daten benötigt wird.
-Es ist weiter untergliedert in \emph{clustering} und \emph{metric}.
-Letzteres liefert die Vergleichsmetrik für unser Clusterverfahren.
-Wieder liegen geeignete Interfaces vor,
-sodass die Anwendung bei Bedarf um weitere Metriken oder Clustering-Ansätze erweitert werden kann.
-Bereitsgestellt werden initial eine Implementierung mit hierarchischem Clustering
-und \ac{DTW} als Metrik.
-Das Paket \emph{processor} ist von zentraler Bedeutung.
-Hier wird die Funktionalität des Tools zusammengeführt.
-Zunächst werden die benötigten Reader Instanzen initialisiert.
-Mit ihnen werden die Daten eingelesen.
-Anschließend wird das Clustering gestartet.
-Die Ergebnisse werden geeignet in der Ausgabedatei gespeichert und visualisiert.
-\begin{figure}[ht]
-    \begin{center}
-    \includegraphics[width=0.9\textwidth]{packages.png}
-    \end{center}
-    \caption{Paketdiagramm des Tools.}
-    \label{fig:Packages}
-\end{figure}

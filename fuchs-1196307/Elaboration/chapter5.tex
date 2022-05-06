@@ -69,7 +69,7 @@ Das genaue Verhalten der Klassen \emph{HierarchicalClustering} und \emph{Dtw} wi
 Nach dem Ende der Berechnungen liegen die gefundenen \emph{ClusterImpls} in der \emph{clusterImpl-Liste} vor.
 Sie werden mit dem \emph{ClusterWriter} geeignet in einer Textdatei abgespeichert.
 Zudem erfolgt eine Visualiserung mithilfe der \emph{VisualizerImpl}.
-Die Klasse nutzt dazu einfache Java-AWT-Komponenten.
+Die Klasse nutzt dazu Java-AWT-Komponenten.
 Der Wahrheitswert \emph{flipVisualization} gibt dabei an,
 ob die Werte in x-Richtung gespiegelt werden sollen.
 Dies ist nötig, da bei der Kinect das Koordinatensystem aus Nutzersicht erstellt wird.
@@ -108,12 +108,12 @@ Dabei werden nur Cluster in Betracht gezogen deren \emph{consider-Wert} noch \em
 Außerdem darf es sich beim Vergleich nicht zweimal um das gleiche Cluster handeln.
 Mithilfe der \emph{calculatedCost-Map} wird geprüft, ob die Kosten für diese Kombination schon berechnet wurden.
 Falls nicht werden sie neu berechnet.
-Als Schlüssel dienst ein Objekt der \emph{ClusterKey-Klasse}.
+Als Schlüssel dient ein Objekt der \emph{ClusterKey-Klasse}.
 Deren \emph{equal-Methode} ist so definiert,
 dass \emph{new ClusterKey(clusterImpl1, clusterImpl2).equals(new ClusterKey(clusterImpl2, clusterImpl1)) == true} gilt.
 Somit wird auch der symmetrische Fall beachtet.
 Immer wenn eine Kombination gefunden wird, deren Kosten geringer sind als die bisherigen,
-werden die aktuelle Belegung der Minimalkosten und der Merge-Kandidaten angepasst.
+wird die aktuelle Belegung der Minimalkosten und der Merge-Kandidaten angepasst.
 Nach dem Vergleich aller Cluster, erfolgt die Kombination der beiden mit den geringsten Kombinationskosten.
 Dies ist in \autoref{lst:ClustMerge} zu sehen.
 Die Indizes der beiden Cluster mit den geringsten Kombinationskosten sind
