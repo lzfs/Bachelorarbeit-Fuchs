@@ -9,13 +9,16 @@ Zudem erfolgt abschließend eine ausführliche Problembeschreibung.
 \section{Modelle der Interaktion mit Wandbildschirmen}
 \label{2-ModelleInteraktion-Wandbildschirme}
 \citet{wouters_uncovering_2016} verweisen darauf, dass interaktive digitale Medien in der Öffentlichkeit immer präsenter sind.
-Deshalb wird es für Wandbildschirme immer schwieriger die Aufmerksamkeit von Passanten zu erregen
+Das anfängliche Interesse an der Technologie ist gesunken.
+Daher wird es für Wandbildschirme immer schwieriger, die Aufmerksamkeit von Passanten zu erregen
 und sie zur Interaktion zu animieren.
-Diese Herausforderungen können nicht einfach nur durch verbesserte Hardware gelöst werden.
-Stattdessen muss ein besseres Verständnis von Menschen und deren Technologienutzung geschaffen werden \citep{wouters_uncovering_2016}.
+Diese Herausforderungen können nicht allein durch verbesserte Hardware
+oder attraktiv gestaltete Hardware gelöst werden.
+Stattdessen muss ein besseres Verständnis von Menschen und deren Technologienutzung geschaffen werden,
+um diese Erkenntnisse bei der Gestaltung zukünftiger Wandbildschirme berücksichtigen zu können \citep{wouters_uncovering_2016}.
 \emph{Ambient Displays} sind große, interaktive Bildschirme im (halb-) öffentlichen Raum, mit denen Nutzer interagieren können.
 Es handelt sich meist um ansprechende Displays die Personen mit Informationen versorgen \citep{mankoff_heuristic_2003}.
-Eine Kategorisierung von Interaktionen mit solchen Wandbildschirmen kann gegebenenfalls das Verständnis des Nutzungsverhaltens verbessern.
+Eine Kategorisierung von Interaktionen mit solchen Bildschirmen kann gegebenenfalls das Verständnis des Nutzungsverhaltens verbessern.
 Dazu existieren verschiedenste \emph{Audience Behaviour-Interaktionsmodelle}.
 Das \emph{Audience Funnel Modell} ist ein weit verbreitetes Modell
 und der \emph{Honeypot-Effekt} ist besonders im Kontext des \emph{HoPE-Projekts} relevant.
@@ -31,7 +34,7 @@ Eine der Aufgaben eines Wandbildschirms ist es also Aufmerksamkeit auf sich zu z
 und den Nutzer zu motivieren mit dem System zu interagieren \citep{mai_audience_2018}.
 \citet{mai_audience_2018} verweisen darauf, dass \emph{Ambient Displays} in der Öffentlichkeit
 nicht undbedingt der zentrale Punkt der Aufmerksamkeit sind, da vorbeigehende Personen eigene intrinsische Ziele verfolgen.
-Die Herausforderung für Entwickler ist es die Systeme so zu gestalten,
+Die Herausforderung für Entwickler ist es, die Systeme so zu gestalten,
 dass sie Aufmerksamkeit erregen, sich aber gleichzeitig nicht aufdrängend in den Mittelpunkt stellen \citep{mai_audience_2018}.
 \begin{figure}[ht]
     \begin{center}
@@ -51,29 +54,28 @@ nachdem sie anderen Menschen dabei zugesehen haben \citep{wouters_uncovering_201
 Eine Einordnung der Bewegungsdaten in die Kategorien solcher Modelle
 und eine weiterführende Analyse der Bewegungen kann Aufschluss über das Verhalten von Menschen
 vor interaktiven Bildschirmen geben.
-Wie bereits erwähnt soll eine derartige Kategorisierung automatisiert werden.
+Wie bereits erwähnt, soll eine derartige Kategorisierung automatisiert werden.
 
 \section{Spezifikation der Kinect}
 \label{2-SpezifikationKinect}
 \citet{tolgyessy_evaluation_2021} verweisen darauf,
 dass der Xbox 360 Kinect-Sensor eine \glqq Revolution\grqq\ im Bereich der erschwinglichen 3D-Erkennungssensorik war.
-Ursprünglich war dieser für die Videospiel-Industrie gedacht.
-Schon bald wurde der Sensor aber auch für wissenschaftliche Experimente genutzt.
-In späteren Jahren folgten weitere Iterationen der Kinect \citep{tolgyessy_evaluation_2021}.
-Im vorliegenden Datensatz des \emph{HoPE-Projekts} kam die Kinect v2 für Xbox One zum Einsatz.
-Diese Sensorik stellt Farbbilder einer \ac{RGB} Kamera, Tiefendaten einer Tiefenkamera
+Ursprünglich war dieser ausschließlich für die Videospiel-Industrie gedacht.
+Schon bald wurde der Sensor aber auch für wissenschaftliche Experimente genutzt \citep{tolgyessy_evaluation_2021}.
+So kam auch im vorliegenden Datensatz des \emph{HoPE-Projekts} die Kinect v2 für Xbox One zum Einsatz.
+Die zugrunde liegende Sensorik stellt Farbbilder einer \ac{RGB} Kamera, Tiefendaten mithilfe einer Tiefenkamera
 und Audiodateien verschiedener Mikrofone zur Verfügung \citep{windows-developer-center_microsoft_corporation_human_2014}.
 Tiefenkameras ordnen jedem Punkt eines Bildes eine Entfernung zum Sensor zu.
 Dies hilft zuverlässige Ergebnisse bei der Erkennung von Menschen vor \emph{Ambient Displays} zu erzielen.
-\citet{li_time-flight_2014} fassen es wie folgt zusammen:
+\citet{li_time-flight_2014} stellen fest:
 \glqq Die kompakte Größe, die Benutzungsfreundlichkeit,
 die stark vereinfachte Hintergrund-Subtraktion im Vergleich zu anderer Sensorik, sowie die hohe Genauigkeit
 und die hohe Bildrate machen Tiefenkameras zu einer attraktiven Lösung für ein breites Spektrum an Anwendungen.\grqq\
 Die Kinect v2 verwendet dabei den Ansatz der kontinuierlichen Wellenintensitätsmodulation,
 der häufig bei \ac{ToF}-Tiefenkameras zum Einsatz kommt.
-Dabei wird das Licht einer Lichtquelle von Objekten im Sichfeld der Kamera zurückgestreut
+Dabei wird das Licht einer Lichtquelle von anderen Objekten im Sichtfeld der Kamera zurückgestreut
 und die Zeit zwischen der Emittierung und dem Wiedereintreffen des reflektierten Licht gemessen.
-Diese \glqq Flugzeit\grqq\ wird für jedes Pixel im Bild in einen Entfernungswert umgerechnet \citep{tolgyessy_evaluation_2021}.
+Im weiteren Verlauf wird diese \glqq Flugzeit\grqq\ für jedes Pixel im Bild in einen Entfernungswert umgerechnet \citep{tolgyessy_evaluation_2021}.
 Der Sensor kann Tiefenbilder mit einer Auflösung von 512 x 424 Pixeln
 und gewöhnliche Farbbilder mit 1920 x 1080 Pixeln aufnehmen \citep{marin_multi-camera_2019}.
 Bei der Kinect v2 können bis zu sechs Personen erfasst werden.
@@ -93,14 +95,13 @@ Im Rahmen des HoPE-Projekts wurden im Jahr 2017 Ambient Displays für 18 Wochen 
 Der entstandene Datensatz dient zur späteren Evaluation der zu implementierenden Anwendung.
 
 Eine Betrachtung des Datensatzes ergab, dass dieser 97.626 Records beinhaltet \citep{temiz_konzeption_2022}.
-Dabei enthält jeder Record mehrere sogenannte Frames.
-Dabei handelt es sich um Momentaufnahmen der Kinect-Sensorik.
+Dabei sind jedem Record mehrere sogenannte Frames zugeordnet.
 Falls sich mehrere Menschen gleichzeitig im Sensorbereich befinden,
 erhält jede Person eine eindeutige Identifikationsnummer
 und der Record wird in mehrere Frames unterteilt \citep{temiz_konzeption_2022}.
 Dabei entspricht ein Frame der Momentaufnahme einer Person.
-Zu jedem Record liegen verschiedene Dateien vor,
-die jeweils den Zeitstempel in Kombination mit einem geeigneten Postfix als Dateinamen tragen.
+Zu jedem Record liegen verschiedene Dateien vor.
+Sie tragen jeweils den Zeitstempel in Kombination mit einem geeigneten Postfix als Dateinamen.
 \autoref{tbl:AttributesDataset} zeigt die Attribute der Datei \emph{timestamp.txt}.
 Diese Attribute können im Kontext der Kategorisierung von Bewegungsdaten genutzt werden.
 Dazu kann eine Teilmenge der Werte verschiedener Records miteinander verglichen werden.
@@ -118,10 +119,10 @@ die über eine gewisse Zeit hinweg aufgenommen wurden.
 Oft in regelmäßigen Abständen \citep{ali_clustering_2019}.
 Insgesamt befinden sich im Datensatz 34.687.630 Frames \citep{temiz_konzeption_2022}.
 Diese Anzahl verdeutlicht erneut die Notwendigkeit eines Software-Tools zur Auswertung.
-Um aussagekräftige Ergebnisse zu erhalten lohnt es sich den Datensatz zu bereinigen
+Um aussagekräftige Ergebnisse zu erhalten, lohnt es sich den Datensatz zu bereinigen
 und für den jeweiligen Betrachtungsfall zu optimieren.
-So liefern beispielsweise Records mit weniger als zwei Sekunden Länge nur wenig Erkenntnisse über das Interaktionsverhalten.
-Sie müssen aussortiert werden.
+So liefern beispielsweise Records mit weniger als zwei Sekunden Länge nur wenig Erkenntnisse über das Interaktionsverhalten
+und sollten daher aussortiert werden.
 Je nach Fragestellung kann es zudem lohnenswert sein Records mit einer, zwei oder mehreren Personen
 separat zu betrachten.
 Auch in \autoref{chapter6} werden bereits gefilterte Teilmengen des gesamten Datensatzes zur Evaluation verwendet.
@@ -199,8 +200,8 @@ Hinzu kommt das bereits beschriebene Problem der großen Datenmenge.
 Im Folgenden sollen mögliche Lösungsansätze der beschriebenen Problematik diskutiert werden.
 
 Es gibt verschiedene Möglichkeiten sich der Kategorisierung von Bewegungsdaten zu nähern.
-So kann beispielsweise \emph{Maschine Learning} eingesetzt werden.
-Dieser Ansatz wird derzeit ebenfalls im Rahmen des HoPE-Projekts erforscht \citep{plischke_master_2022}.
+So kann beispielsweise der Ansatz des \emph{Maschine Learning} eingesetzt werden,
+welcher derzeit ebenfalls im Rahmen des HoPE-Projekts erforscht \citep{plischke_master_2022} wird.
 In dieser Bachelorarbeit werden hingegen \emph{deterministische Algorithmen} genutzt.
 Durch sie kann der Aufwand einer Kategorisierung verhältnismäßig gering gehalten werden.
 \citet{aghabozorgi_time-series_2015} verweisen darauf, dass die Verwendung von Methoden
@@ -212,10 +213,10 @@ ob mithilfe der Anwendung automatisch Bewegungsabläufe gefunden werden können.
 \emph{Deterministische Cluster-Algorithmen} sind hier geeignet,
 da diese Methodik \emph{unsupervised} ist \citep{aghabozorgi_time-series_2015}.
 
-Ziel der Verarbeitung ist es also möglichst sinnvolle \emph{Cluster} zu erhalten.
+Ziel der Verarbeitung ist es also, möglichst sinnvolle \emph{Cluster} zu erhalten.
 Um die Gemeinsamkeiten zweier Aufnahmen zu berechnen,
 wird eine geeignete Vergleichsfunktion benötigt.
-Die Wahl dieser Funktion ist wichtig für den Erfolg des \emph{Clusterings} \citep{warren_liao_clustering_2005}.
+Die Wahl dieser Funktion ist ausschlaggebend für den Erfolg des \emph{Clusterings} \citep{warren_liao_clustering_2005}.
 Zu beachten ist zudem, dass die Bewegungsaufnahmen durch \ac{TSD} beschrieben werden.
 Bei der bloßen Anwendung herkömmlicher Distanzmetriken, wie der Euklidische-Distanz,
 ist die Aussagekraft des Vergleichs gering \citep{warren_liao_clustering_2005}.
@@ -233,12 +234,12 @@ Gegebenenfalls weisen die Datenreihen bei der gleichen Bewegung daher sogar eine
 \end{figure}
 Die Kurven weisen ähnliche Segmente auf.
 Sie sind allerdings unterschiedlich lang und die Ähnlichkeiten treten zu unterschiedlichen Zeitpunkten auf.
-Der letzte Punkt der Reihe kann daher gar nicht zugordnet werden.
+Der letzte Punkt der Reihe kann daher gar keinem anderen Punkt zugordnet werden.
 Mit der bekannten euklidischen Distanz ist das Ergebnis hier nicht aussagekräftig.
 Um dieses Problem zu lösen ist eine \emph{elastische Metrik} nötig,
 die besser mit zeitlichen Verschiebungen umgehen kann \citep{aghabozorgi_time-series_2015}.
-Das Clustering soll mithilfe von \emph{hierarchischem Clustering} durchgeführt werden,
-welches in \autoref{3-Clustering} beschrieben wird.
+Das Clustering soll mithilfe von \emph{hierarchischem Clustering},
+welches in \autoref{3-Clustering} beschrieben wird, durchgeführt werden.
 Das Verfahren ist für die vorliegenden Daten geeignet,
 da es erlaubt \ac{TSD} unterschiedlicher Länge zu clustern.
 Zudem muss die Anzahl der zu bildenden Cluster nicht im Voraus definiert werden,

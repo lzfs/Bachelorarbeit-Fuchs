@@ -19,36 +19,36 @@ Im Austausch mit Mitarbeitern des HoPE-Projekts haben sich die folgenden Anforde
 \subsection{Nicht-funktionale Anforderungen}
 \label{4-NichtFunktionaleAnforderungen}
 Das Tool soll ohne großen Installationsaufwand nutzbar sein
-und daher nach Möglichkeit eine stark verbreitete Programmiersprache nutzen.
+und daher, nach Möglichkeit, eine stark verbreitete Programmiersprache nutzen.
 Bei der Implementierung fällt deshalb die Wahl auf Java in der Version 14.
 Um weitere Installationen zu vermeiden sollen auch keine externen Bibliotheken genutzt werden.
 An die Effizienz gibt es keine besonderen Anforderungen,
 da die Auswertung der Daten nur einmalig erfolgt.
 Eine Echtzeitauswertung ist also nicht geplant.
-Zu lange Wartezeiten, schränken aber die Nutzbarkeit des Tools ein.
+Zu lange Wartezeiten, schränken allerdings die Nutzbarkeit des Tools ein.
 Daher sollen berechnete Kosten in einer geeigneten Datenstruktur zwischengespeichert werden.
 So können im darauffolgenden Iterationsschritt Berechnungsschritte eingespart werden.
 Des Weiteren soll das Tool durch wenige Anpassungen auch auf Datensätze anderer Tiefenkameras angewandt werden können.
 Um dieses Ziel zu erreichen, wird die Software von Beginn an generisch entwickelt.
 Zu allen Bestandteilen des Tools existiert daher ein Interface.
-Bei Bedarf können so einfach neue Implementierungen,
+Bei Bedarf können so mit wenig Aufwand neue Implementierungen,
 die den Anforderungen anderer Datensätze entsprechen, ergänzt werden.
 
 \subsection{Funktionale Anforderungen}
 \label{4-FunktionaleAnforderungen}
 Die Anwendung sollte die folgenden Funktionalitäten anbieten.
-Unter anderem kümmert sie sich um den Input.
+Unter anderem ist sie für den Input zuständig.
 Ein Datensatz kann aus Textdateien eingelesen und in passenden Datenobjekten abgespeichert werden.
 Das Tool soll ein Clustering mittels hierarchischem Clustering wie in \autoref{3-Clustering} beschrieben anbieten.
 Dabei ist der Threshold für das Mergen von zwei Clustern vom Nutzer konfigurierbar.
 Als Distanzmetrik wird \ac{DTW} (\autoref{3-DTW}) genutzt.
-Dabei ist konfigurierbar, welche Attribute des Datensatzes für den Vergleich genutzt werden.
+Des Weiteren ist konfigurierbar, welche Attribute des Datensatzes für den Vergleich genutzt werden.
 Zur Berechnung der Distanz zwischen zwei Punkten wird die euklidische Distanz verwendet.
 Allerdings können hier weitere Funktionen ergänzt werden.
 Mit Hilfe eines Startparameters kann entschieden werden, welche dieser Funktionen für die Berechnung verwendet wird.
 Zudem besitzt das Tool Output-Funktionalitäten.
 Die gefundenen Cluster werden in einer Textdatei aufgelistet.
-Jedes Cluster erhält eine eindeutige Identifikationsnummer und eine Liste aller Records die zusammengeführt wurden.
+Jedes Cluster erhält eine eindeutige Identifikationsnummer und eine Liste aller Records, die zusammengeführt wurden.
 Für ein erleichtertes Verständnis der Cluster wird auch eine primitive Visualisierung der Cluster angeboten.
 Die starke Konfigurierbarkeit wird durch eine \emph{config-file} erreicht,
 die der Nutzer beim Start der Anwendung übergeben kann.
@@ -90,13 +90,13 @@ die der Nutzer beim Start der Anwendung übergeben kann.
 \section{Teilsysteme}
 \label{4-Teilsysteme}
 \autoref{fig:Packages} kann das Paketdiagramm des Tools entnommen werden.
-Das Paket \emph{model} enthält die Interfaces für Cluster, Records und Frames.
-Außerdem jeweils geeignete Implementierungen dieser Interfaces für den Kinect-Datensatz.
+Das Paket \emph{model} enthält sowohl die Interfaces für Cluster, Records und Frames,
+als auch jeweils geeignete Implementierungen für den Kinect-Datensatz.
 Bei Bedarf können hier bei späterer Verwendung der Software weitere Implementierungen
 für andere Datensätze ergänzt werden.
 Im \emph{utility}-Paket befinden sich Interfaces für Reader und Writer.
 Auch hier sind geeignete Implementierungen bereitgestellt.
-Konkret ein Reader für die Config-Datei, ein Reader für die Kinect-Daten
+Ein Reader für die Config-Datei, ein Reader für die Kinect-Daten
 und ein Writer für die gefundenen Cluster.
 Auch das Interface und die Implementierung für die Visualisierung befinden sich hier.
 Im Paket \emph{calculating} befinden sich alle Klassen die für das Clustern der Daten benötigt werden.
@@ -106,8 +106,8 @@ Wieder liegen geeignete Interfaces vor,
 sodass die Anwendung bei Bedarf um weitere Metriken oder Clustering-Ansätze erweitert werden kann.
 Bereitsgestellt werden initial eine Implementierung mit hierarchischem Clustering
 und \ac{DTW} als Metrik.
-Das Paket \emph{processor} ist von zentraler Bedeutung.
-Hier wird die Funktionalität des Tools zusammengeführt.
+Das Paket \emph{processor} ist von zentraler Bedeutung,
+denn hier wird die Funktionalität des Tools zusammengeführt.
 Zunächst werden die benötigten Reader Instanzen initialisiert.
 Mit ihnen werden die Daten eingelesen.
 Anschließend wird das Clustering gestartet.

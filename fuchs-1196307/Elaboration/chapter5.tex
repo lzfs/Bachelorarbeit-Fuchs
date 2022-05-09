@@ -25,7 +25,7 @@ Die grobe Struktur entspricht der aus \autoref{4-Teilsysteme}.
 Zum Start der Anwendung ist ein Aufruf der \emph{main-Methode} des \emph{Processor} nötig.
 Dieser initialisiert zunächst geeignete \emph{Reader}.
 Das \emph{Reader-Interface} wird von den Klassen \emph{ConfigReader} und \emph{DataReader} implementiert.
-Der \emph{ConfigReader} dient lediglich dazu die Werte der Config-Datei einzulesen.
+Der \emph{ConfigReader} dient lediglich dazu, die Werte der Config-Datei einzulesen.
 Dabei wird ein \emph{Properties-Objekt} zurückgeliefert,
 mit dem auf die jeweiligen Werte zugegriffen werden kann.
 Der \emph{DataReader} liest die Kinect-Daten ein.
@@ -37,8 +37,8 @@ Mit diesen Informationen können die Daten geeignet eingelesen und eine \emph{Re
 Jede \emph{RecordImpl} enthält dabei eine Liste von \emph{FrameImpls}.
 Diese Datentypen sind die entsprechenden Implementierungen der Interfaces \emph{Record} und \emph{Frame}.
 Sie können für Kinect-Daten genutzt werden.
-Eine \emph{FrameImpl} enthält jeweils eine Map mit ihren Attributen.
-Diese können mithilfe der \emph{getValue-Methode} abgerufen werden.
+Eine \emph{FrameImpl} enthält jeweils eine Map mit ihren Attributen,
+welche mithilfe der \emph{getValue-Methode} abgerufen werden können.
 Der letzte Datentyp ist das \emph{Cluster} und die zugehörige \emph{ClusterImpl}.
 Cluster bestehen aus beliebig vielen, aber mindestens einer \emph{RecordImpl}.
 Die Bestandteile werden in einer Liste gespeichert.
@@ -46,7 +46,7 @@ Hier werden die Methoden \emph{mergeWithCluster} und \emph{mergeWithRecord} ange
 Mit ihnen wird jeweils eine weitere Komponente in die \emph{ClusterImpl} integriert.
 \emph{ClusterImpls} haben außerdem eine eindeutige Identifikationsnummer und eine Liste der berechneten
 \emph{FrameImpl-Mittelwerte} aller Komponenten.
-Zudem besitzen sie, genau wie die \emph{RecordImpls}, einen Wahrheitswert der angibt,
+Zudem besitzen sie, genau wie die \emph{RecordImpls}, einen Wahrheitswert, der angibt,
 ob die \emph{ClusterImpl} in zukünftigen Kombinationsschritten weiterhin beachtet werden soll.
 Alle genannten Interfaces können bei Bedarf geeignet für andere \ac{TSD}-Datensätze implementiert werden.
 Nach dem Einlesen und Abspeichern der Daten startet der \emph{Processor} das Clustering.
@@ -95,19 +95,19 @@ und anschließend der Liste hinzugefügt werden.
 Des Weiteren werden die nötigen Variablen für die Berechnung deklariert.
 \autoref{lst:ClustInit} zeigt diese Schritte.
 Der eigentliche Berechnungsablauf wird in \autoref{lst:ClustCalc} gezeigt.
-Er befindet sich in einer Schleife die mindestens einmal ausgeführt wird.
-Sie läuft weiter, bis die geringsten gefundenen Kosten den Threshold übersteigen,
+Er befindet sich in einer Schleife, die mindestens einmal ausgeführt wird.
+Sie wird solange fortgesetzt, bis die geringsten gefundenen Kosten den Threshold übersteigen,
 oder nur noch ein einziges Cluster übrig ist.
 Die Merge-Kandidaten geben die Indizes der beiden Cluster mit den
 geringsten Kombinationskosten an.
 In jedem Durchlauf der while-Schleife werden die Werte der Kosten
 und die gewählten Merge-Kandidaten zurückgesetzt.
 Dazu werden standardmäßig das erste und zweite Cluster in der Liste und deren Kosten gewählt.
-Dann werden mittels der geschachtelten Schleifen paarweise die Cluster miteinander verglichen.
-Dabei werden nur Cluster in Betracht gezogen deren \emph{consider-Wert} noch \emph{true} ist.
+Im Anschluss werden mittels der geschachtelten Schleifen paarweise die Cluster miteinander verglichen.
+Dabei werden nur Cluster, deren \emph{consider-Wert} noch \emph{true} ist, in Betracht gezogen.
 Außerdem darf es sich beim Vergleich nicht zweimal um das gleiche Cluster handeln.
 Mithilfe der \emph{calculatedCost-Map} wird geprüft, ob die Kosten für diese Kombination schon berechnet wurden.
-Falls nicht werden sie neu berechnet.
+Falls nicht, werden sie neu berechnet.
 Als Schlüssel dient ein Objekt der \emph{ClusterKey-Klasse}.
 Deren \emph{equal-Methode} ist so definiert,
 dass \emph{new ClusterKey(clusterImpl1, clusterImpl2).equals(new ClusterKey(clusterImpl2, clusterImpl1)) == true} gilt.
@@ -119,7 +119,7 @@ Dies ist in \autoref{lst:ClustMerge} zu sehen.
 Die Indizes der beiden Cluster mit den geringsten Kombinationskosten sind
 in \emph{mergeCandidate1} und \emph{mergeCandidate2} abgelegt.
 Die zugehörigen Kosten sind in der Variablen \emph{currentMinimumCost} abgelegt.
-Sind diese immer noch geringer als der definierte Threshold können die Kandidaten zusammengeführt werden.
+Sind diese immer noch geringer als der definierte Threshold, können die Kandidaten zusammengeführt werden.
 Dazu wird \emph{mergeCandidate2} mit der Methode \emph{mergeWithCluster} in \emph{mergeCandidate1} integriert.
 Dabei wird der \emph{consider}-Wert des \emph{mergeCandidate2}-Clusters auf \emph{false} gesetzt,
 da es in künftigen Schritten nicht mehr als eigenständige Einheit betrachtet werden soll.
@@ -128,7 +128,7 @@ da die aktuellen Werte aufgrund der neuen Komponente nicht mehr gültig sind.
 Die Kosten mit \emph{cluster2} können ignoriert werden, da diese Cluster ohnehin nicht mehr betrachtet werden.
 In den oben gezeigten Clustering-Schritten wurden die Kosten mithilfe der \emph{calculateCost-Methode} berechnet.
 \autoref{lst:DtwCalc} zeigt diese.
-Für jedes der Attribute das für die Berechnung verwendet werden soll wird gemäß des \ac{DTW}-Algorithmus
+Für jedes der Attribute, das für die Berechnung verwendet werden soll, wird gemäß des \ac{DTW}-Algorithmus
 eine Kostenmatrix aufgestellt (\autoref{lst:DtwMatrix}).
 Für sie werden die minimalen Pfadkosten berechnet und zu den Gesamtkosten für diesen Attributvergleich addiert.
 Das Ergebnis wird am Ende durch die Anzahl der betrachteten Attribute geteilt,
@@ -151,7 +151,7 @@ Das Verfahren startet in der letzten Zelle der Matrix und sucht den Pfad mit den
 um die Zelle \emph{(0, 0)} zu erreichen.
 Dabei werden die in \autoref{3-DTW} beschriebenen Vorgaben eingehalten.
 Die Kosten des Pfades werden aufsummiert und anschließend durch die Anzahl der betretenen Zellen geteilt.
-Diese Division ist nötig, um im Falle von unterschiedlich großen Matrizen vergleichbare Ergebnisse zu erhalten.
+Diese Division ist nötig, um, im Falle von unterschiedlich großen Matrizen, vergleichbare Ergebnisse zu erhalten.
 \autoref{lst:DtwPath} veranschaulicht dieses Vorgehen.
 \begin{lstfloat}
 \begin{lstlisting}[language=Java, label={lst:ClustInit}, caption=Cluster-Methode: Initialisierung.]
@@ -340,7 +340,7 @@ Sie implementiert das Comparable-Interface und sorgt dafür,
 dass zwei Cluster zusammen als Key einer Map verwendet werden können.
 Dies spart viele Berechnungsschritte,
 da beinahe alle Werte im Vergleich zum vorherigen Iterationsschritt gleich bleiben.
-Lediglich jene Kosten an denen die neu zusammengeführten Cluster beteiligt waren,
+Lediglich jene Kosten, an denen die neu zusammengeführten Cluster beteiligt waren,
 sowie die Kosten mit dem neuen Cluster müssen neu berechnet werden.
 Zum anderen gibt es die Möglichkeit jeden dritten Frame der Records zu ignorieren.
 Dies geschieht, indem der Parameter \emph{skipFrames} in der config-Datei auf \emph{true} gesetzt wird.

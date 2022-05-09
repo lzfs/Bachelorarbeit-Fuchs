@@ -20,7 +20,7 @@ ob zusammengefasste Records tatsächlich einen hohen Grad an Übereinstimmung au
 
 \section{Einführende Bemerkungen}
 \label{6-Bemerkungen}
-Statt den gesamten in \autoref{2-StrukturDatensatz} beschriebenen Datensatz zu verwenden
+Statt den gesamten in \autoref{2-StrukturDatensatz} beschriebenen Datensatz zu verwenden,
 sollen geeignete Teilmengen genutzt werden.
 Zudem wurden die Daten zur Evaluation gefiltert bereitgestellt.
 Zu kurze oder fehlerhafte Records wurden aussortiert.
@@ -31,7 +31,7 @@ Dennoch sollte dem Nutzer bewusst sein,
 dass mit gefilterten Daten gegebenfalls aussagekräftigere Ergebnisse erzielbar sind.
 Gerade die separate Betrachtung von Records mit unterschiedlicher Personenzahl kann helfen,
 wiederkehrende Bewegungsmuster durch Clustering zu erkennen.
-Die Anzahl gibt dabei immer an wie viele Personen sich maximal
+Die Anzahl gibt dabei immer an, wie viele Personen sich maximal
 zu einem Zeitpunkt in der Aufnahme befinden.
 In der Evaluation werden nur Records mit ein bis drei Personen betrachtet.
 
@@ -47,7 +47,7 @@ muss ein anderer Wert gewählt werden.
 
 Die Ground-Truth-Daten wurden manuell mithilfe der Visualisierung erstellt.
 Zunächst werden drei Minimalbeispiele betrachtet.
-Dafür wurden für die Fälle eine bis drei Personen jeweils beliebig 25 Records gewählt.
+Dafür wurden für die Fälle, eine bis drei Personen, jeweils beliebig 25 Records gewählt.
 Diese wurden mithilfe des Visualizers und Kinect Studio visualisiert und manuell in Cluster eingeteilt.
 \autoref{fig:Clusters} zeigt jeweils die Visualisierung eines Repräsentanten der Cluster.
 \begin{figure}[ht]
@@ -64,7 +64,7 @@ Der Threshold wurde dabei jeweils so gewählt,
 dass genau so viele Cluster entstehen wie auch manuell erkannt wurden.
 Die Auswertung zeigt, dass die vom Tool berechneten Cluster genau mit den Ground-Truth Daten übereinstimmen.
 Diese Minimalbeispiele sind aber nur bedingt aussagekräftig,
-da lediglich eine kleine Teilmenge der tatsächlich vorhandenen Daten genutzt wird.
+da lediglich eine kleine Teilmenge der tatsächlich vorhandenen Daten genutzt wurde.
 Manche Muster treten dadurch gegebenfalls überhaupt nicht auf.
 In \autoref{6-GroundTruth} soll daher die Analyse auf mehr gefilterte Daten
 für ein bis drei Personen ausgeweitet werden.
@@ -80,10 +80,10 @@ ob häufig wiederkehrende Muster vom Tool korrekt erkannt werden.
 Im gefilterten Datensatz mit drei Personen befinden sich insgesamt 103 Records.
 Die manuelle Einteilung ergab,
 dass es sich bei vielen darin vorkommenden Bewegungsabläufen
-um spezielle Bewegungen handelt, die nicht häufiger auftreten.
+um spezielle Bewegungen, die nicht häufiger auftreten, handelt.
 Sie sollen im Folgenden nicht aufgeführt werden.
 Allerdings wurde ein eindeutiges Cluster identifiziert.
-\autoref{fig:3PersClust1} zeigt einen Repräsentanten dieses Clustes.
+\autoref{fig:3PersClust1} zeigt einen Repräsentanten dieses Clusters.
 \begin{figure}[ht]
     \begin{center}
     \includegraphics[width=0.15\textwidth]{representation3PersCluster1.png}
@@ -91,11 +91,10 @@ Allerdings wurde ein eindeutiges Cluster identifiziert.
     \caption{Repräsentant des nicht trivialen Clusters mit drei Personen.}
     \label{fig:3PersClust1}
 \end{figure}
-Es handelt sich dabei um drei Personen die nebeneinander durch den Sensorbereich laufen.
+Es handelt sich dabei um drei Personen, die nebeneinander durch den Sensorbereich laufen.
 Die selben Erkenntnisse lieferte auch das Minimalbeispiel aus \autoref{6-Bemerkungen}.
 Grund hierfür kann sein, dass die Datenmenge mit circa 100 Records immer noch gering ist.
-Anschließend wurde überprüft, ob diese häufig auftretende Bewegung auch
-vom Tool korrekt erkannt wird.
+Anschließend wurde überprüft, ob auch das Tool diese häufig auftretende Bewegung korrekt erkannt hat.
 Die Ergebnisse der Berechnungen stimmen mit dem manuell gefundenen Cluster überein.
 Im Wesentlichen wird nur ein nicht-triviales Cluster gefunden
 und zwar das oben beschriebene.
@@ -117,7 +116,7 @@ Zum einen handelt es sich um den Fall, dass zwei Personen durch den Aufnahmebere
 Dies ist die analoge Bewegung zum gefundenen Cluster bei drei Personen.
 Der zweite Fall zeigt, wie sich zwei Personen dem Sensor nähern.
 In Szenario drei bewegt sich eine Person zur Kamera,
-während eine Andere lediglich durch das Bild läuft.
+während eine andere lediglich durch das Bild läuft.
 Im letzten Fall laufen zwei Personen gemeinsam zum oberen Bildrand.
 Alle Szenarien werden durch das Tool gefunden.
 Bei dieser großen Menge an Records fällt auf,
@@ -128,7 +127,7 @@ da andere Szenarien noch eine höhere Ähnlichkeit aufweisen.
 Das Tool kann für Datensätze mit Ein- bis Zweitausend Records effizient eingesetzt werden.
 Auf einem heute typischen Mittelklasse-Heimrechner werden innerhalb weniger Minuten Ergebnisse geliefert.
 Ab einigen Tausend Records nimmt die Bearbeitungszeit zu,
-sodass unter Umständen mit mehreren Stunden Wartezeit zu rechnen ist.
+sodass, unter Umständen, mit mehreren Stunden Wartezeit zu rechnen ist.
 Die meisten Hierarchischen Clustering-Verfahren werden den Komplexitätsklassen
 \emph{O(n²)} oder \emph{O(n³)} zugeordnet.
 Das implementierte Tool fällt in die Klasse \emph{O(n²)},
@@ -158,11 +157,11 @@ und zum Schreiben der Ergebnisse wurde hier ignoriert.
 \end{table}
 Diese Limitierung muss beachtet werden,
 falls in Zukunft noch größere Datenmengen geclustert werden müssen.
-Dann muss entweder ein leistungsstärkerer Rechner eingesetzt werden,
+In diesem Fall muss entweder ein leistungsstärkerer Rechner eingesetzt,
 oder das Tool weiter optimiert werden.
-Beispielweise kann über Parallelisierung nachgedacht werden
-oder eine effizientere Version des Clustering-Verfahrens implementiert werden.
-\citet{patel_study_2015} stellen einige mögliche Varianten vor.
+Mögliche Optionen sind Parallelisierung
+oder die Implementierung einer effizienteren Version des Clustering-Verfahrens.
+\citet{patel_study_2015} stellen einige Möglichkeiten vor.
 
 Insgesamt befinden sich 3523 Records mit einer Person im gefilterten Datensatz.
 Ab einer gewissen Menge treten allerdings kaum noch neue Bewegungsmuster auf.
@@ -190,7 +189,7 @@ Dies verdeutlicht erneut, dass eine sinnvolle Suche nach Clustern möglich ist,
 diese aber dennoch manuell betrachtet werden müssen.
 Dabei sollte auch mit verschiedenen Thresholds experimentiert werden.
 
-Die Auswertung des gesamten Datensatzes bestätigt also was die Minimalbeispiele bereits vermuten liesen.
+Die Auswertung des gesamten Datensatzes bestätigt demnach die Vermutung der Minimalbeispiele.
 Das Tool kann erfolgreich genutzt werden, um sinnvolle Cluster auf den Kinect-Bewegungsdaten zu finden.
 Im folgenden Abschnitt soll abschließend die Güte der gefundenen Cluster an einigen Beispielen
 überprüft werden.
@@ -202,7 +201,7 @@ ob ein Zusammenhang zwischen den Record-Bestandteilen eines Clusters besteht.
 Der Grad der Übereinstimmung liefert Informationen zur Ähnlichkeit.
 Konkret werden nun für die Komponenten einiger Cluster
 die Standardabweichung, der Mittelwert, das Maximum und das Minimum für die x-Laufwege berechnet
-und tabellarisch dargestellt werden.
+und tabellarisch dargestellt.
 In der letzten Zeile ist jeweils die Standardabweichung aller darüberstehenden Werte aufgeführt.
 Hier werden teilweise die Minimalbeispiele aus \autoref{6-GroundTruth} mit veränderten Thresholds wieder aufgegriffen.
 Auch diese Daten befinden sich im \emph{Evaluation}-Verzeichnis des Code-Repositories.
@@ -266,7 +265,7 @@ werden die Werte in \autoref{tbl:ClustTwoPersHighThreshold} geliefert.
       Standardabweichung & 0.14 & 0.29 & 0.16 & 0.09 \\
       \hline
     \end{tabular}
-    \caption{Deskriptive Statistiken für das Cluster mit drei Pers.}
+    \caption{Deskriptive Statistiken für das Cluster mit drei Personen.}
     \label{tbl:ClustThreePers}
   \end{center}
 \end{table}
@@ -320,7 +319,7 @@ werden die Werte in \autoref{tbl:ClustTwoPersHighThreshold} geliefert.
         Standardabweichung & 0.16 & 0.24 & 0.16 & 0.08 \\
         \hline
        \end{tabular}
-    \caption{Deskriptive Statistiken für das Cluster mit zwei Pers.}
+    \caption{Deskriptive Statistiken für das Cluster mit zwei Personen.}
     \label{tbl:ClustTwoPers}
   \end{center}
 \end{table}
@@ -402,5 +401,5 @@ Dieser Fall wurde lediglich aufgrund des zu hohen Thresholds einsortiert.
 Dies betont einerseits erneut die bedeutende Rolle eines geeigneten Thresholds
 und andererseits, dass die Bestimmung der Güte mittels deskriptiver Statistiken möglich ist.
 Die Records der Cluster der beiden ersten Beispiele weisen eine hohe Ähnlichkeit auf.
-Mithilfe des entwickelten Tools ist also ein sinnvolles Clustering möglich.
+Mithilfe des entwickelten Tools ist folglich ein sinnvolles Clustering möglich.
 Beim letzten Cluster sind durch einen hohen Threshold hingegen zu viele Records zusammengeführt worden.
