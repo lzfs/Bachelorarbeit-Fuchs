@@ -10,8 +10,8 @@ Zudem erfolgt abschließend eine ausführliche Problembeschreibung.
 \label{2-ModelleInteraktion-Wandbildschirme}
 \citet{wouters_uncovering_2016} verweisen darauf, dass interaktive digitale Medien in der Öffentlichkeit immer präsenter sind.
 Das anfängliche Interesse an der Technologie ist gesunken.
-Daher wird es für Wandbildschirme immer schwieriger, die Aufmerksamkeit von Passanten zu erregen
-und sie zur Interaktion zu animieren.
+Für Wandbildschirme, die versuchen, die Aufmerksamkeit von Passanten zu erregen
+und sie zur Interaktion zu animieren, wird dies immer schwieriger.
 Diese Herausforderungen können nicht allein durch verbesserte Hardware
 oder attraktiv gestaltete Hardware gelöst werden.
 Stattdessen muss ein besseres Verständnis von Menschen und deren Technologienutzung geschaffen werden,
@@ -21,11 +21,11 @@ Es handelt sich meist um ansprechende Displays die Personen mit Informationen ve
 Eine Kategorisierung von Interaktionen mit solchen Bildschirmen kann gegebenenfalls das Verständnis des Nutzungsverhaltens verbessern.
 Dazu existieren verschiedenste \emph{Audience Behaviour-Interaktionsmodelle}.
 Das \emph{Audience Funnel Modell} ist ein weit verbreitetes Modell
-und der \emph{Honeypot-Effekt} ist besonders im Kontext des \emph{HoPE-Projekts} relevant.
+und der \emph{Honeypot-Effekt} ist im Kontext des \emph{HoPE-Projekts} relevant.
 Daher sollen diese beiden im Folgenden näher beschrieben werden.
 
 Das \emph{Audience Funnel Modell} \citep{wouters_uncovering_2016, mai_audience_2018} beschreibt,
-wie Menschen sich um ein großes öffentliches Display versammeln
+wie Menschen sich um große halb-öffentliche oder öffentliche Displays versammeln
 und von Beobachtern zu Interagierenden mit dem System, und anschließend wieder zu Beobachtern werden.
 Menschen neigen dazu verschiedene Phasen der Interaktivität zu durchlaufen,
 bevor sie direkt mit dem System interagieren \citep{wouters_uncovering_2016, mai_audience_2018}.
@@ -33,8 +33,8 @@ Die einzelnen Phasen des \emph{Audience Funnel} werden in \autoref{fig:AudienceF
 Eine der Aufgaben eines Wandbildschirms ist es also Aufmerksamkeit auf sich zu ziehen
 und den Nutzer zu motivieren mit dem System zu interagieren \citep{mai_audience_2018}.
 \citet{mai_audience_2018} verweisen darauf, dass \emph{Ambient Displays} in der Öffentlichkeit
-nicht undbedingt der zentrale Punkt der Aufmerksamkeit sind, da vorbeigehende Personen eigene intrinsische Ziele verfolgen.
-Die Herausforderung für Entwickler ist es, die Systeme so zu gestalten,
+nicht undbedingt der zentrale Punkt der Aufmerksamkeit sind, da vorbeigehende Personen eigene intrinsische Ziele verfolgen \citep{mai_audience_2018}.
+Die Herausforderung für Entwickler ist es, die Inhalte auf den Systemen so relevant zu gestalten,
 dass sie Aufmerksamkeit erregen, sich aber gleichzeitig nicht aufdrängend in den Mittelpunkt stellen \citep{mai_audience_2018}.
 \begin{figure}[ht]
     \begin{center}
@@ -58,10 +58,8 @@ Wie bereits erwähnt, soll eine derartige Kategorisierung automatisiert werden.
 
 \section{Spezifikation der Kinect}
 \label{2-SpezifikationKinect}
-\citet{tolgyessy_evaluation_2021} verweisen darauf,
-dass der Xbox 360 Kinect-Sensor eine \glqq Revolution\grqq\ im Bereich der erschwinglichen 3D-Erkennungssensorik war.
-Ursprünglich war dieser ausschließlich für die Videospiel-Industrie gedacht.
-Schon bald wurde der Sensor aber auch für wissenschaftliche Experimente genutzt \citep{tolgyessy_evaluation_2021}.
+Ursprünglich war der Xbox 360 Kinect-Sensor ausschließlich für die Videospiel-Industrie gedacht.
+Schon bald wurde dieser aber auch für wissenschaftliche Experimente genutzt \citep{tolgyessy_evaluation_2021}.
 So kam auch im vorliegenden Datensatz des \emph{HoPE-Projekts} die Kinect v2 für Xbox One zum Einsatz.
 Die zugrunde liegende Sensorik stellt Farbbilder einer \ac{RGB} Kamera, Tiefendaten mithilfe einer Tiefenkamera
 und Audiodateien verschiedener Mikrofone zur Verfügung \citep{windows-developer-center_microsoft_corporation_human_2014}.
@@ -77,7 +75,7 @@ Dabei wird das Licht einer Lichtquelle von anderen Objekten im Sichtfeld der Kam
 und die Zeit zwischen der Emittierung und dem Wiedereintreffen des reflektierten Licht gemessen.
 Im weiteren Verlauf wird diese \glqq Flugzeit\grqq\ für jedes Pixel im Bild in einen Entfernungswert umgerechnet \citep{tolgyessy_evaluation_2021}.
 Der Sensor kann Tiefenbilder mit einer Auflösung von 512 x 424 Pixeln
-und gewöhnliche Farbbilder mit 1920 x 1080 Pixeln aufnehmen \citep{marin_multi-camera_2019}.
+und Farbbilder mit 1920 x 1080 Pixeln aufnehmen \citep{marin_multi-camera_2019}.
 Bei der Kinect v2 können bis zu sechs Personen erfasst werden.
 Dabei wird die Lage von 25 Skelettpunkten, sowie verschiedene Gesichtsattribute erfasst \citep{windows-developer-center_microsoft_corporation_human_2014}.
 \autoref{fig:KinectBodyJoints} zeigt eine Übersicht dieser Punkte. 
@@ -91,15 +89,15 @@ Dabei wird die Lage von 25 Skelettpunkten, sowie verschiedene Gesichtsattribute 
 
 \section{Struktur des vorliegenden Datensatzes}
 \label{2-StrukturDatensatz}
-Im Rahmen des HoPE-Projekts wurden im Jahr 2017 Ambient Displays für 18 Wochen mit Kinect v2 Systemen ausgestattet.
-Der entstandene Datensatz dient zur späteren Evaluation der zu implementierenden Anwendung.
+Im Rahmen eines Feldeinsatzes wurden im Jahr 2017 Ambient Displays für 18 Wochen mit Kinect v2 Systemen ausgestattet \citep{schwarzer_spontaneous_2021}.
+Der dabei entstandene Datensatz dient zur späteren Evaluation der zu implementierenden Anwendung.
 
 Eine Betrachtung des Datensatzes ergab, dass dieser 97.626 Records beinhaltet \citep{temiz_konzeption_2022}.
-Dabei sind jedem Record mehrere sogenannte Frames zugeordnet.
-Falls sich mehrere Menschen gleichzeitig im Sensorbereich befinden,
-erhält jede Person eine eindeutige Identifikationsnummer
-und der Record wird in mehrere Frames unterteilt \citep{temiz_konzeption_2022}.
-Dabei entspricht ein Frame der Momentaufnahme einer Person.
+Dabei sind jedem Record mehrere sogenannte Frames zugeordnet,
+welche der Momentaufnahme eines Menschen entsprechen.
+Jede Person erhält eine eindeutige Identifikationsnummer.
+Falls sich mehr als eine Person gleichzeitig im Sensorbereich befindet,
+erfolgt eine weitere Unterteilung des Records in Frames \citep{temiz_konzeption_2022}.
 Zu jedem Record liegen verschiedene Dateien vor.
 Sie tragen jeweils den Zeitstempel in Kombination mit einem geeigneten Postfix als Dateinamen.
 \autoref{tbl:AttributesDataset} zeigt die Attribute der Datei \emph{timestamp.txt}.
@@ -111,21 +109,26 @@ Ein exemplarischer Frame aus dem Datensatz kann \autoref{fig:FrameExample} entno
 Da die Anordnung und das Vorhandensein dieser Attribute je nach Version des Datensatzes abweichen kann,
 sollen diese in der Implementierung manuell konfigurierbar sein.
 Selbes gilt für das Trennzeichen.
+Das Tool kann deshalb auch eingesetzt werden,
+falls verschiedene Versionen des Datensatzes ausgeliefert wurden.
 Die Datei \emph{timestamp$\_$bodies.txt} enthält für jeden Frame die Position aller 25 Skelettpunkte.
 \emph{timestamp.xef} kann genutzt werden, um die Aufnahme in der Anwendung Kinect Studio zu visualisieren.
 Letztlich sind die Einträge sogenannte \emph{\ac{TSD}}.
 Bei diesem Datentyp handelt es sich um geordnete Sequenzen von Datenpunkten,
-die über eine gewisse Zeit hinweg aufgenommen wurden.
-Oft in regelmäßigen Abständen \citep{ali_clustering_2019}.
+die, oft in regelmäßigen Abständen, über eine gewisse Zeit hinweg aufgenommen wurden \citep{ali_clustering_2019}.
 Insgesamt befinden sich im Datensatz 34.687.630 Frames \citep{temiz_konzeption_2022}.
-Diese Anzahl verdeutlicht erneut die Notwendigkeit eines Software-Tools zur Auswertung.
-Um aussagekräftige Ergebnisse zu erhalten, lohnt es sich den Datensatz zu bereinigen
-und für den jeweiligen Betrachtungsfall zu optimieren.
-So liefern beispielsweise Records mit weniger als zwei Sekunden Länge nur wenig Erkenntnisse über das Interaktionsverhalten
-und sollten daher aussortiert werden.
-Je nach Fragestellung kann es zudem lohnenswert sein Records mit einer, zwei oder mehreren Personen
-separat zu betrachten.
-Auch in \autoref{chapter6} werden bereits gefilterte Teilmengen des gesamten Datensatzes zur Evaluation verwendet.
+Diese Anzahl verdeutlicht die Notwendigkeit eines Software-Tools zur Auswertung.
+Für diese Bachelorarbeit wurde eine vorselektierte Version des Datensatzes bereitgestellt,
+welche auch in \autoref{chapter6} zum Einsatz kommt.
+Dieser Datensatz kam durch folgende Regeln zustande:
+\begin{enumerate}
+  \item Nur Aufzeichnungen von Werktagen werden beachtet.
+  \item Nur Aufzeichnungen zwischen 07:00 Uhr und 17:59 Uhr werden beachtet.
+  \item Nur Aufzeichnungen mit mindestens 63 Frames pro Aufzeichnung werden beachtet.
+  \item Nur Aufzeichnungen mit Personen, die Mindestmaß an Aufmerksamkeit zeigen, werden beachtet.
+  \item Aufzeichnungen mit 100 Prozent Engagement werden nicht beachtet, da manche dieser Fälle durch die Kinect falsch erkannt wurden.
+  \item Aufzeichnungen mit großen Sprüngen auf den Achsen werden nicht beachtet.
+\end{enumerate}
 Hier ist anzumerken, dass das zu entwickelnde Tool auch mit anderen Datensätzen funktionieren soll.
 So sollen bei Bedarf zum Beispiel auch Daten anderer Tiefenkameras geclustert werden können.
 \begin{table}[ht]
@@ -134,43 +137,43 @@ So sollen bei Bedarf zum Beispiel auch Daten anderer Tiefenkameras geclustert we
       \hline
       Attributname & Beschreibung \\
       \hline \hline
-      Zeitstempel & Zeitpunkt der Aufnahme \\
+      Zeitstempel & Zeitpunkt der Aufnahme. \\
       \hline
-      KinectId & Skelett-Identifikationsnummer des Frameworks  \\
+      KinectId & Skelett-Identifikationsnummer des Frameworks.  \\
       \hline
-      RecordId & Identifikationsnummer des Records \\
+      RecordId & Identifikationsnummer des Records. \\
       \hline
-      BodyIndex & Identifikationsnummer der Person \\
+      BodyIndex & Identifikationsnummer der Person. \\
       \hline
-      BodyCount & Anzahl der erfassten Personen \\
+      BodyCount & Anzahl der erfassten Personen. \\
       \hline
-      Happy & Person ist glücklich \\
+      Happy & Person ist glücklich. \\
       \hline
-      Engaged & Person zeigt Interesse \\
+      Engaged & Person zeigt Interesse. \\
       \hline
-      WearingGlasses & Person trägt eine Brille \\
+      WearingGlasses & Person trägt eine Brille. \\
       \hline
-      LeftEyeClosed & Person hat das linke Auge geschlossen \\
+      LeftEyeClosed & Person hat das linke Auge geschlossen. \\
       \hline
-      RightEyeClosed & Person hat das rechte Auge geschlossen \\
+      RightEyeClosed & Person hat das rechte Auge geschlossen. \\
       \hline
-      MouthOpen & Person hat den Mund geöffnet \\
+      MouthOpen & Person hat den Mund geöffnet. \\
       \hline
-      MouthMoved & Person bewegt den Mund\\
+      MouthMoved & Person bewegt den Mund. \\
       \hline
-      LookingAway & Person schaut nicht zur Kinect \\
+      LookingAway & Person schaut nicht zur Kinect. \\
       \hline
-      Body.HandLeftState & Zustand der linken Hand \\
+      Body.HandLeftState & Zustand der linken Hand. \\
       \hline
-      Body.HandRightState & Zusand der rechten Hand \\
+      Body.HandRightState & Zusand der rechten Hand. \\
       \hline
-      x & x-Koordinate des Skelettpunkts SpineShoulder \\
+      x & x-Koordinate des Skelettpunkts SpineShoulder. \\
       \hline
-      y & y-Koordinate des Skelettpunkts SpineShoulder \\
+      y & y-Koordinate des Skelettpunkts SpineShoulder. \\
       \hline
-      z & z-Koordinate des Skelettpunkts SpineShoulder \\
+      z & z-Koordinate des Skelettpunkts SpineShoulder. \\
       \hline
-      Distance & Distanz zwischen Kinect und Skelettpunkt SpineShoulder \\
+      Distance & Distanz zwischen Kinect und SpineShoulder (in Metern). \\
       \hline
     \end{tabular}
     \caption{Attribute des Datensatzes.}
@@ -199,21 +202,20 @@ Diese Tatsachen machen eine manuelle Kategorisierung oft schwierig.
 Hinzu kommt das bereits beschriebene Problem der großen Datenmenge.
 Im Folgenden sollen mögliche Lösungsansätze der beschriebenen Problematik diskutiert werden.
 
-Es gibt verschiedene Möglichkeiten sich der Kategorisierung von Bewegungsdaten zu nähern.
+Es gibt verschiedene Möglichkeiten sich der Kategorisierung von Bewegungsdaten zu nähern \citet{aghabozorgi_time-series_2015}.
 So kann beispielsweise der Ansatz des \emph{Maschine Learning} eingesetzt werden,
 welcher derzeit ebenfalls im Rahmen des HoPE-Projekts erforscht \citep{plischke_master_2022} wird.
 In dieser Bachelorarbeit werden hingegen \emph{deterministische Algorithmen} genutzt.
-Durch sie kann der Aufwand einer Kategorisierung verhältnismäßig gering gehalten werden.
 \citet{aghabozorgi_time-series_2015} verweisen darauf, dass die Verwendung von Methoden
-wie Maschine Learning (\emph{supervised}), im Falle von großen Datensätzen zu Problemen führen kann.
-Es ist kaum möglich Trainingsdaten zur Verfügung zu stellen, die alle möglichen Szenarien enthalten.
+wie Maschine Learning (\emph{supervised}), im Falle von großen Datensätzen, zu Problemen führen kann.
+Es ist nicht möglich Trainingsdaten, die alle möglichen Szenarien abdecken, zur Verfügung zu stellen.
 Dies ist auch nicht Ziel der Untersuchungen.
 Stattdessen soll geprüft werden,
-ob mithilfe der Anwendung automatisch Bewegungsabläufe gefunden werden können.
+ob mithilfe der Anwendung Bewegungsabläufe automatisiert gefunden werden können.
 \emph{Deterministische Cluster-Algorithmen} sind hier geeignet,
-da diese Methodik \emph{unsupervised} ist \citep{aghabozorgi_time-series_2015}.
+da diese keine zuvor definierten Klassen benötigen \citep{aghabozorgi_time-series_2015}.
 
-Ziel der Verarbeitung ist es also, möglichst sinnvolle \emph{Cluster} zu erhalten.
+Ziel der Verarbeitung ist es, möglichst sinnvolle \emph{Cluster} zu erhalten.
 Um die Gemeinsamkeiten zweier Aufnahmen zu berechnen,
 wird eine geeignete Vergleichsfunktion benötigt.
 Die Wahl dieser Funktion ist ausschlaggebend für den Erfolg des \emph{Clusterings} \citep{warren_liao_clustering_2005}.
@@ -222,8 +224,8 @@ Bei der bloßen Anwendung herkömmlicher Distanzmetriken, wie der Euklidische-Di
 ist die Aussagekraft des Vergleichs gering \citep{warren_liao_clustering_2005}.
 Wie bereits erwähnt kann es vorkommen, dass verschiedene Personen die gleiche Bewegung unterschiedlich schnell,
 oder zeitlich versetzt ausführen.
-Gegebenenfalls weisen die Datenreihen bei der gleichen Bewegung daher sogar eine unterschiedliche Anzahl an Frames auf.
-\autoref{fig:MetricComparison} zeigt ein exemplarisches Szenario.
+Gegebenenfalls weisen die Datenreihen gleicher Bewegungen daher sogar eine unterschiedliche Anzahl an Frames auf.
+Dies wird in \autoref{fig:MetricComparison} veranschaulicht.
 \begin{figure}[ht]
     \begin{center}
     \includegraphics[width=0.45\textwidth]{EuclidianMetric.png}
@@ -233,11 +235,19 @@ Gegebenenfalls weisen die Datenreihen bei der gleichen Bewegung daher sogar eine
     \label{fig:MetricComparison}
 \end{figure}
 Die Kurven weisen ähnliche Segmente auf.
-Sie sind allerdings unterschiedlich lang und die Ähnlichkeiten treten zu unterschiedlichen Zeitpunkten auf.
+Diese Ähnlichkeiten treten allerdings zu unterschiedlichen Zeitpunkten auf.
+Zudem sind die Datenreihen unterschiedlich lang.
 Der letzte Punkt der Reihe kann daher gar keinem anderen Punkt zugordnet werden.
-Mit der bekannten euklidischen Distanz ist das Ergebnis hier nicht aussagekräftig.
+Bei der bloßen Anwendung der bekannten euklidischen Distanz,
+ohne Zuordnung der Punkte, ist das Ergebnis hier gegebenenfalls nicht aussagekräftig.
 Um dieses Problem zu lösen ist eine \emph{elastische Metrik} nötig,
 die besser mit zeitlichen Verschiebungen umgehen kann \citep{aghabozorgi_time-series_2015}.
+Dazu wird \emph{\ac{DTW}} verwendet (\autoref{3-DTW}).
+Hier ist eine Mehrfachzuordnung von Punkten möglich.
+Dies erlaubt eine Zuordnung ähnlicher Muster in den Daten, auch wenn sie zeitlich verschoben sind \citet{mohammadzade_dynamic_2021}.
+Diese können so verbunden werden, dass die Kombinationskosten minimal sind.
+Es gibt also keine andere Zuordnung der Punkte,
+sodass die Summe der Differenzen zwischen ihnen geringer ist.
 Das Clustering soll mithilfe von \emph{hierarchischem Clustering},
 welches in \autoref{3-Clustering} beschrieben wird, durchgeführt werden.
 Das Verfahren ist für die vorliegenden Daten geeignet,
@@ -249,8 +259,4 @@ da die Arbeit darauf abzielt, mehr Erkenntnis über mögliche sinnvolle Cluster 
 Statt die Anzahl vorzugeben, wird ein \emph{Threshold} definiert der angibt,
 ab wann zwei Cluster nicht mehr zusammengeführt werden sollen,
 weil die Differenz zwischen ihnen zu groß ist.
-Zur geeigneten Zuordung der Datenpunkte wird dabei \emph{\ac{DTW}} verwendet (\autoref{3-DTW}).
-Hier ist eine Mehrfachzuordnung von Punkten möglich.
-Diese können so verbunden werden, dass die Kombinationskosten minimal sind.
-Dies erlaubt eine Zuordnung ähnlicher Muster in den Daten, auch wenn sie zeitlich verschoben sind.
 Hierarchisches Clustering mit \ac{DTW} ist also zur Lösung des beschriebenen Problems geeignet.

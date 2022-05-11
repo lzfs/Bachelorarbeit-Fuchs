@@ -15,6 +15,7 @@ die das System erfüllen muss.
 Letztere beinhalten beispielsweise Anforderungen zu Benutzbarkeit, Effizienz oder Portierbarkeit.
 Funktionale Anforderungen beschreiben hingegen die primären Funktionen des Systems.
 Im Austausch mit Mitarbeitern des HoPE-Projekts haben sich die folgenden Anforderungen ergeben.
+Die Anforderungen sind im Wesentlichen durch Diskussionen im Projektkontext entstanden.
 
 \subsection{Nicht-funktionale Anforderungen}
 \label{4-NichtFunktionaleAnforderungen}
@@ -33,24 +34,29 @@ Um dieses Ziel zu erreichen, wird die Software von Beginn an generisch entwickel
 Zu allen Bestandteilen des Tools existiert daher ein Interface.
 Bei Bedarf können so mit wenig Aufwand neue Implementierungen,
 die den Anforderungen anderer Datensätze entsprechen, ergänzt werden.
+Zudem werden die Informationen zur Struktur des Datensatzes,
+durch eine konfigurierbare Datei an das Tool herangetragen.
 
 \subsection{Funktionale Anforderungen}
 \label{4-FunktionaleAnforderungen}
 Die Anwendung sollte die folgenden Funktionalitäten anbieten.
 Unter anderem ist sie für den Input zuständig.
-Ein Datensatz kann aus Textdateien eingelesen und in passenden Datenobjekten abgespeichert werden.
+Ein Datensatz kann aus Dateien eingelesen und in passenden Datenobjekten abgespeichert werden.
+Als Input-Dateiformat werden Textdateien unterstützt.
+Die Unterstützung weiterer Dateiformate, wie CSV, kann bei Bedarf ergänzt werden.
 Das Tool soll ein Clustering mittels hierarchischem Clustering wie in \autoref{3-Clustering} beschrieben anbieten.
-Dabei ist der Threshold für das Mergen von zwei Clustern vom Nutzer konfigurierbar.
+Dabei ist der Schwellwert für das Zusammenführen von zwei Clustern vom Nutzer konfigurierbar.
 Als Distanzmetrik wird \ac{DTW} (\autoref{3-DTW}) genutzt.
 Des Weiteren ist konfigurierbar, welche Attribute des Datensatzes für den Vergleich genutzt werden.
+Beispielsweise können Laufwege betrachtet werden.
 Zur Berechnung der Distanz zwischen zwei Punkten wird die euklidische Distanz verwendet.
-Allerdings können hier weitere Funktionen ergänzt werden.
-Mit Hilfe eines Startparameters kann entschieden werden, welche dieser Funktionen für die Berechnung verwendet wird.
-Zudem besitzt das Tool Output-Funktionalitäten.
+Allerdings können in der \ac*{DTW}-Implementierung weitere Funktionen ergänzt werden.
+Mithilfe eines Startparameters kann entschieden werden, welche dieser Funktionen für die Berechnung verwendet wird.
+Zudem wird der Output durch das Tool umgesetzt.
 Die gefundenen Cluster werden in einer Textdatei aufgelistet.
 Jedes Cluster erhält eine eindeutige Identifikationsnummer und eine Liste aller Records, die zusammengeführt wurden.
 Für ein erleichtertes Verständnis der Cluster wird auch eine primitive Visualisierung der Cluster angeboten.
-Die starke Konfigurierbarkeit wird durch eine \emph{config-file} erreicht,
+Die Konfigurierbarkeit wird durch eine \emph{config-file} erreicht,
 die der Nutzer beim Start der Anwendung übergeben kann.
 \autoref{tbl:AttributesConfig} zeigt deren Attribute.
 \begin{table}[ht]
@@ -75,11 +81,11 @@ die der Nutzer beim Start der Anwendung übergeben kann.
             \hline
             distanceFunction & Bezeichnung der genutzten Distanzfunktion. \\
             \hline
-            flipVisualization & Wahrheitswert, ob die Visualisierung gespiegelt wird. \\
+            flipVisualization & Spiegelung der Visualisierung. \\
             \hline
             attributeForBodyIdentification & Bezeichnung des Körperidentifikationsparameters. \\
             \hline
-            skipFrames & Wahrheitswert, ob jeder dritte Frame ignoriert wird. \\
+            skipFrames & Performanzsteigerung durch ignorieren jedes 3. Frames. \\
             \hline
         \end{tabular}
         \caption{Attribute der Configuration-Datei.}
@@ -114,7 +120,7 @@ Anschließend wird das Clustering gestartet.
 Die Ergebnisse werden in der Ausgabedatei gespeichert und zusätzlich visualisiert.
 \begin{figure}[ht]
     \begin{center}
-    \includegraphics[width=0.9\textwidth]{packages.png}
+    \includegraphics[width=\textwidth]{packages.png}
     \end{center}
     \caption{Paketdiagramm des Tools.}
     \label{fig:Packages}
@@ -125,28 +131,26 @@ Die Ergebnisse werden in der Ausgabedatei gespeichert und zusätzlich visualisie
 \label{4-Programmablauf}
 Im Folgenden wird der Programmablauf beschrieben.
 \begin{enumerate}
-    \item Der Nutzer startet den \emph{Clustering-Processor}
+    \item Der Nutzer startet den \emph{Processor}
     und gibt als Startparameter den Pfad der \emph{config-Datei} an.
     \item Der \emph{Processor} nutzt den \emph{Config-Reader}, um die Werte der \emph{Konfigurationdatei} auszulesen
     und speichert diese ab.
     \item Der \emph{Processor} nutzt den \emph{DataReader}, um den Datensatz einzulesen
     und legt die Informationen in geeigneten Objekten ab.
-    Beim Kinect-Datensatz sind das die Implementierungen \emph{RecordImpl} und \emph{FrameImpl}
-    der entsprechenden Interfaces.
+    Für den Kinect-Datensatz sind die Implementierungen \emph{RecordImpl} und \emph{FrameImpl}
+    bereitgestellt.
     \item Der \emph{Processor} startet das Clustering durch den Aufruf der \emph{cluster-Methode}
     eines \emph{HierarchicalClustering-Objekts}.
     Zu beginn entspricht jeder Record einem eigenen Cluster.
-    Die \emph{recordToCluster-Methode} ermöglicht eine Transformation.
+    Die \emph{recordToCluster-Methode} ermöglicht eine Transformation von Records zu Clustern.
     \item Das Clustering nutzt ein \emph{\ac{DTW}-Objekt},
-    um paarweise die Kosten zweier Cluster zu berechnen.
-    \item Die beiden Cluster mit den geringsten Kosten werden zusammengeführt.
+    um paarweise die geringsten Kombinationskosten zweier Cluster zu berechnen.
+    \item Die beiden Cluster mit den geringsten Kombinationskosten werden zusammengeführt.
     Konkret wird eines der Cluster in das andere integriert.
-    Dadurch entsteht eine Kombination beider Cluster.
-    Beim integrierten wird ein boolescher Wert auf \emph{false} gesetzt,
-    damit das Cluster in späteren Berechnungsschritten nicht mehr beachtet wird.
-    Dabei wird jeweils das Mittel der Attributwerte berechnet und abgelegt.
-    Zudem werden die Cluster-Bestandteile abgespeichert.
-    Bei allen Komponenten wird ebenfalls der boolesche Wert auf \emph{false} gesetzt,
+    Durch diese Kombination entsteht ein neues Cluster.
+    Für alle Attribute werden die Wertereihen für das neue Cluster aus denen der alten Cluster berechnet und abgespeichert.
+    Zudem werden alle Bestandteile des neuen Clusters abgespeichert.
+    Bei allen Komponenten wird zudem ein boolescher Wert auf \emph{false} gesetzt,
     damit sie bei zukünftigen Vergleichen nicht mehr berücksichtigt werden.
     \item Schritte 5 und 6 werden so lange wiederholt, bis die geringsten Kosten den vom Nutzer definierten Threshold übersteigen.
     \item Der \emph{Processor} nutzt den \emph{Cluster-Writer}, um alle Cluster der \emph{clusters-Liste}
