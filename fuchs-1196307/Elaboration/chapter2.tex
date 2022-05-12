@@ -16,23 +16,23 @@ Diese Herausforderungen können nicht allein durch verbesserte Hardware
 oder attraktiv gestaltete Hardware gelöst werden.
 Stattdessen muss ein besseres Verständnis von Menschen und deren Technologienutzung geschaffen werden,
 um diese Erkenntnisse bei der Gestaltung zukünftiger Wandbildschirme berücksichtigen zu können \citep{wouters_uncovering_2016}.
-\emph{Ambient Displays} sind große, interaktive Bildschirme im (halb-) öffentlichen Raum, mit denen Nutzer interagieren können.
+Ambient Displays sind große, interaktive Bildschirme im (halb-) öffentlichen Raum, mit denen Nutzer interagieren können.
 Es handelt sich meist um ansprechende Displays die Personen mit Informationen versorgen \citep{mankoff_heuristic_2003}.
 Eine Kategorisierung von Interaktionen mit solchen Bildschirmen kann gegebenenfalls das Verständnis des Nutzungsverhaltens verbessern.
 Dazu existieren verschiedenste \emph{Audience Behaviour-Interaktionsmodelle}.
 Das \emph{Audience Funnel Modell} ist ein weit verbreitetes Modell
-und der \emph{Honeypot-Effekt} ist im Kontext des \emph{HoPE-Projekts} relevant.
+und der \emph{Honeypot-Effekt} ist im Kontext des HoPE-Projekts relevant.
 Daher sollen diese beiden im Folgenden näher beschrieben werden.
 
-Das \emph{Audience Funnel Modell} \citep{wouters_uncovering_2016, mai_audience_2018} beschreibt,
+Das Audience Funnel Modell \citep{wouters_uncovering_2016, mai_audience_2018} beschreibt,
 wie Menschen sich um große halb-öffentliche oder öffentliche Displays versammeln
 und von Beobachtern zu Interagierenden mit dem System, und anschließend wieder zu Beobachtern werden.
 Menschen neigen dazu verschiedene Phasen der Interaktivität zu durchlaufen,
 bevor sie direkt mit dem System interagieren \citep{wouters_uncovering_2016, mai_audience_2018}.
-Die einzelnen Phasen des \emph{Audience Funnel} werden in \autoref{fig:AudienceFunnelModel} gezeigt.
+Die einzelnen Phasen des Audience Funnel werden in \autoref{fig:AudienceFunnelModel} gezeigt.
 Eine der Aufgaben eines Wandbildschirms ist es also Aufmerksamkeit auf sich zu ziehen
 und den Nutzer zu motivieren mit dem System zu interagieren \citep{mai_audience_2018}.
-\citet{mai_audience_2018} verweisen darauf, dass \emph{Ambient Displays} in der Öffentlichkeit
+\citet{mai_audience_2018} verweisen darauf, dass Ambient Displays in der Öffentlichkeit
 nicht undbedingt der zentrale Punkt der Aufmerksamkeit sind, da vorbeigehende Personen eigene intrinsische Ziele verfolgen \citep{mai_audience_2018}.
 Die Herausforderung für Entwickler ist es, die Inhalte auf den Systemen so relevant zu gestalten,
 dass sie Aufmerksamkeit erregen, sich aber gleichzeitig nicht aufdrängend in den Mittelpunkt stellen \citep{mai_audience_2018}.
@@ -44,7 +44,7 @@ dass sie Aufmerksamkeit erregen, sich aber gleichzeitig nicht aufdrängend in de
     \label{fig:AudienceFunnelModel}
   \end{figure}
 
-Ein zweites Modell wird durch den bereits erwähnten \emph{Honeypot-Effekt} beschrieben.
+Ein zweites Modell wird durch den bereits erwähnten Honeypot-Effekt beschrieben.
 Er zeigt, dass Individuen unabhängig von Belohnung, Bestrafung oder sozialem Wettbewerb
 von der reinen Präsenz oder den Aktivitäten anderer beeinflusst werden \citep{wouters_uncovering_2016}..
 In der \ac{HCI} wird dies meist erkennbar, indem Passanten sich einem System nähern
@@ -60,11 +60,11 @@ Wie bereits erwähnt, soll eine derartige Kategorisierung automatisiert werden.
 \label{2-SpezifikationKinect}
 Ursprünglich war der Xbox 360 Kinect-Sensor ausschließlich für die Videospiel-Industrie gedacht.
 Schon bald wurde dieser aber auch für wissenschaftliche Experimente genutzt \citep{tolgyessy_evaluation_2021}.
-So kam auch im vorliegenden Datensatz des \emph{HoPE-Projekts} die Kinect v2 für Xbox One zum Einsatz.
+So kam auch im vorliegenden Datensatz des HoPE-Projekts die Kinect v2 für Xbox One zum Einsatz.
 Die zugrunde liegende Sensorik stellt Farbbilder einer \ac{RGB} Kamera, Tiefendaten mithilfe einer Tiefenkamera
 und Audiodateien verschiedener Mikrofone zur Verfügung \citep{windows-developer-center_microsoft_corporation_human_2014}.
 Tiefenkameras ordnen jedem Punkt eines Bildes eine Entfernung zum Sensor zu.
-Dies hilft zuverlässige Ergebnisse bei der Erkennung von Menschen vor \emph{Ambient Displays} zu erzielen.
+Dies hilft zuverlässige Ergebnisse bei der Erkennung von Menschen vor Ambient Displays zu erzielen.
 \citet{li_time-flight_2014} stellen fest:
 \glqq Die kompakte Größe, die Benutzungsfreundlichkeit,
 die stark vereinfachte Hintergrund-Subtraktion im Vergleich zu anderer Sensorik, sowie die hohe Genauigkeit
@@ -113,7 +113,7 @@ Das Tool kann deshalb auch eingesetzt werden,
 falls verschiedene Versionen des Datensatzes ausgeliefert wurden.
 Die Datei \emph{timestamp$\_$bodies.txt} enthält für jeden Frame die Position aller 25 Skelettpunkte.
 \emph{timestamp.xef} kann genutzt werden, um die Aufnahme in der Anwendung Kinect Studio zu visualisieren.
-Letztlich sind die Einträge sogenannte \emph{\ac{TSD}}.
+Letztlich sind die Einträge sogenannte \ac{TSD}.
 Bei diesem Datentyp handelt es sich um geordnete Sequenzen von Datenpunkten,
 die, oft in regelmäßigen Abständen, über eine gewisse Zeit hinweg aufgenommen wurden \citep{ali_clustering_2019}.
 Insgesamt befinden sich im Datensatz 34.687.630 Frames \citep{temiz_konzeption_2022}.
@@ -212,7 +212,7 @@ Es ist nicht möglich Trainingsdaten, die alle möglichen Szenarien abdecken, zu
 Dies ist auch nicht Ziel der Untersuchungen.
 Stattdessen soll geprüft werden,
 ob mithilfe der Anwendung Bewegungsabläufe automatisiert gefunden werden können.
-\emph{Deterministische Cluster-Algorithmen} sind hier geeignet,
+Deterministische Cluster-Algorithmen sind hier geeignet,
 da diese keine zuvor definierten Klassen benötigen \citep{aghabozorgi_time-series_2015}.
 
 Ziel der Verarbeitung ist es, möglichst sinnvolle \emph{Cluster} zu erhalten.
@@ -242,13 +242,13 @@ Bei der bloßen Anwendung der bekannten euklidischen Distanz,
 ohne Zuordnung der Punkte, ist das Ergebnis hier gegebenenfalls nicht aussagekräftig.
 Um dieses Problem zu lösen ist eine \emph{elastische Metrik} nötig,
 die besser mit zeitlichen Verschiebungen umgehen kann \citep{aghabozorgi_time-series_2015}.
-Dazu wird \emph{\ac{DTW}} verwendet (\autoref{3-DTW}).
+Dazu wird \ac{DTW} verwendet (\autoref{3-DTW}).
 Hier ist eine Mehrfachzuordnung von Punkten möglich.
 Dies erlaubt eine Zuordnung ähnlicher Muster in den Daten, auch wenn sie zeitlich verschoben sind \citet{mohammadzade_dynamic_2021}.
 Diese können so verbunden werden, dass die Kombinationskosten minimal sind.
 Es gibt also keine andere Zuordnung der Punkte,
 sodass die Summe der Differenzen zwischen ihnen geringer ist.
-Das Clustering soll mithilfe von \emph{hierarchischem Clustering},
+Das Clustering soll mithilfe von hierarchischem Clustering,
 welches in \autoref{3-Clustering} beschrieben wird, durchgeführt werden.
 Das Verfahren ist für die vorliegenden Daten geeignet,
 da es erlaubt \ac{TSD} unterschiedlicher Länge zu clustern.

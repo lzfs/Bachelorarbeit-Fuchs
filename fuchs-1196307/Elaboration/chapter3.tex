@@ -9,19 +9,19 @@ Abschließend wird auf zu beachtende Besonderheiten des Kinect-Datensatzes einge
 
 \section{Hierarchisches Time-Series Clustering}
 \label{3-Clustering}
-\emph{Clustering} kann genutzt werden, um große Datensätze zu kategorisieren,
+Clustering kann genutzt werden, um große Datensätze zu kategorisieren,
 wenn vorab keine Informationen über die Kategorien vorliegen \citep{aghabozorgi_time-series_2015}.
 Ziel ist es, eine Struktur in den vorliegenden Daten zu finden,
 indem Elemente anhand eines festgelegten Vorgehens in homogene Gruppen einsortiert werden.
 Dabei sollen die Unterschiede bei Elementen der gleichen Gruppe möglichst klein
 und bei Elementen verschiedener Gruppen möglichst groß sein \citep{aghabozorgi_time-series_2015, warren_liao_clustering_2005}.
-Bei \emph{n} Datenpunkten erzeugt ein \emph{Clustering} \emph{k} Partitionen des Datensatzes.
+Bei \emph{n} Datenpunkten erzeugt ein Clustering \emph{k} Partitionen des Datensatzes.
 Jede Partition entspricht dabei einem Cluster das mindestens ein Objekt enthält \citep{warren_liao_clustering_2005}.
 Beim \emph{Clustering} sind besonders die Wahl des Clustering-Algorithmus
 und der Methode zur Bestimmung der Ähnlichkeit von zwei Datenreihen von Bedeutung \citep{warren_liao_clustering_2005}.
 Letzteres wird durch \ac{DTW} gelöst.
 Das Verfahren wird in \autoref{3-DTW} beschrieben.
-Als Clustering-Vorgehen kann das sogenannte \emph{hierarchical Clustering} genutzt werden.
+Als Clustering-Vorgehen kann das sogenannte hierarchische Clustering genutzt werden.
 Dabei werden Datenobjekte in einem Cluster-Baum eingeordnet.
 Beim agglomerativen Vorgehen wird ein \emph{bottom-up} Ansatz verfolgt \citep{warren_liao_clustering_2005}.
 Jedes Objekt ist daher zunächst ein eigenes Cluster.
@@ -45,7 +45,7 @@ Dort müssen Datenreihen für den Vergleich nicht zwangsweise die gleiche Länge
 
 \section{Dynamic Time Warping Algorithmus}
 \label{3-DTW}
-Der \emph{\ac{DTW}} Algorithmus kann als Distanz-Metrik beim hierarchischen Clustern genutzt werden.
+Der \ac{DTW} Algorithmus kann als Distanz-Metrik beim hierarchischen Clustern genutzt werden.
 Hier sind \emph{one-to-many} oder \emph{one-to-none} Beziehungen zwischen Datenpunkten möglich.
 Das Vorgehen wird daher auch als eine \emph{elastische Metrik} bezeichnet.
 Diese kann mit zeitlichen Verschiebungen und unterschiedlich langen Datenreihen umgehen \citep{aghabozorgi_time-series_2015}.
@@ -71,11 +71,11 @@ zwischen zwei Punkten \emph{$q_{i}$} und \emph{$r_{j}$} enthält.
 Hierfür wird im Normalfall die euklidische Distanz genutzt \citep{warren_liao_clustering_2005}.
 Allerdings sind je nach Problemstellung auch andere Funktionen denkbar.
 In der Zelle \emph{(1, 1)} enthält die Matrix den Wert 0.
-Für die übrigen Zellen der ersten Spalte und Zeile wird jeweils der Wert unendlich angenommen.
+Für die übrigen Zellen der ersten Spalte und Zeile wird jeweils der Wert {\glqq unendlich\grqq} angenommen.
 Das Verfahren kann auf einfache Weise auf mehrdimensionale \ac{TSD} angepasst werden.
 In diesem Fall sind die zu minimierenden Kosten die Summe
 der Distanzen zwischen den korrespondierenden Werten der beiden Datenreihen \citep{mohammadzade_dynamic_2021}.
-Ein \emph{Warping Pfad} \emph{W = $w_{1}, w_{2}, ... , w_{k}, ... , w_{K}$},
+Ein \emph{Warping Path} \emph{W = $w_{1}, w_{2}, ... , w_{k}, ... , w_{K}$},
 ist eine Reihe von Matrixzellen, die drei Bedingungen erfüllen:
 \begin{itemize}
     \item Grenzbedingungen
@@ -121,7 +121,7 @@ wird für jedes Attribut eine eigene Matrix erstellt und der Warping Path berech
 Die Kosten der Pfade werden aufsummiert und durch die Anzahl der Attribute dividiert.
 Damit kann auch im mehrdimensionalen Fall ein Vergleich erfolgen.
 Die mittlere Wertereihe wird in diesem Fall für jedes Attribut neu berechnet.
-Es sollte ein \emph{Threshold t} definiert werden,
+Es sollte ein Threshold \emph{t} definiert werden,
 der angibt, ab wann die Kosten zu groß sind, um zwei Datenreihen zu einem neuen Cluster zusammenzuführen.
 Ein sinnvoller Wert hängt dabei vom vorliegenden Datensatz ab.
 Sei dieser Threshold im Folgenden als \emph{t = 2} definiert.

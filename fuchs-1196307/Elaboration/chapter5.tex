@@ -28,45 +28,45 @@ Das \emph{Reader-Interface} wird von den Klassen \emph{ConfigReader} und \emph{D
 Der \emph{ConfigReader} dient lediglich dazu, die Werte der Config-Datei einzulesen.
 Dabei wird ein \emph{Properties-Objekt} zurückgeliefert,
 mit dem auf die jeweiligen Werte zugegriffen werden kann.
-Der \emph{DataReader} liest die Kinect-Daten ein.
+Der DataReader liest die Kinect-Daten ein.
 Ihm wird zunächst übermittelt, welche Attribute vorhanden sind,
 durch welches Zeichen sie voneinander abgetrennt sind
-und ob \emph{Frames} übersprungen werden sollen,
+und ob Frames übersprungen werden sollen,
 um die Performanz zu verbessern.
 Mit diesen Informationen können die Daten geeignet eingelesen und eine \emph{RecordImpl-Liste} zurückgeliefert werden.
 Jede \emph{RecordImpl} enthält dabei eine Liste von \emph{FrameImpls}.
 Diese Datentypen sind die entsprechenden Implementierungen der Interfaces \emph{Record} und \emph{Frame}.
 Sie können für Kinect-Daten genutzt werden.
-Eine \emph{FrameImpl} enthält jeweils eine Map mit ihren Attributen,
+Eine FrameImpl enthält jeweils eine Map mit ihren Attributen,
 welche mithilfe der \emph{getValue-Methode} abgerufen werden können.
-Der letzte Datentyp ist das \emph{Cluster} und die zugehörige \emph{ClusterImpl}.
-Cluster bestehen aus beliebig vielen, aber mindestens einer \emph{RecordImpl}.
+Der letzte Datentyp ist das Cluster und die zugehörige \emph{ClusterImpl}.
+Cluster bestehen aus beliebig vielen, aber mindestens einer RecordImpl.
 Die Bestandteile werden in einer Liste gespeichert.
 Hier werden die Methoden \emph{mergeWithCluster} und \emph{mergeWithRecord} angeboten.
-Mit ihnen wird jeweils eine weitere Komponente in die \emph{ClusterImpl} integriert.
-\emph{ClusterImpls} haben außerdem eine eindeutige Identifikationsnummer und eine Liste der berechneten
+Mit ihnen wird jeweils eine weitere Komponente in die ClusterImpl integriert.
+ClusterImpls haben außerdem eine eindeutige Identifikationsnummer und eine Liste der berechneten
 \emph{FrameImpl-Mittelwerte} aller Komponenten.
-Zudem besitzen sie, genau wie die \emph{RecordImpls}, einen Wahrheitswert, der angibt,
-ob die \emph{ClusterImpl} in zukünftigen Kombinationsschritten weiterhin beachtet werden soll.
+Zudem besitzen sie, genau wie die RecordImpls, einen Wahrheitswert, der angibt,
+ob die ClusterImpl in zukünftigen Kombinationsschritten weiterhin beachtet werden soll.
 Alle genannten Interfaces können bei Bedarf geeignet für andere \ac{TSD}-Datensätze implementiert werden.
-Nach dem Einlesen und Abspeichern der Daten startet der \emph{Processor} das Clustering.
+Nach dem Einlesen und Abspeichern der Daten startet der Processor das Clustering.
 Dazu wird eine Instanz von \emph{HierarchicalClustering}, einer Implementierung von \emph{ClusterAlgorithm}, erstellt.
 Das Objekt erhält dafür alle wichtigen Informationen,
-wie die initialen \emph{RecordImpls}, den Threshold und die Attribute vom \emph{Processor}.
-Da jede \emph{ClusterImpl} am Anfang aus einer einzigen \emph{RecordImpl} besteht,
+wie die initialen RecordImpls, den Threshold und die Attribute vom Processor.
+Da jede ClusterImpl am Anfang aus einer einzigen RecordImpl besteht,
 wird die Methode \emph{recordToCluster} angeboten.
-Mit ihr kann jeder der initialen \emph{RecordImpls} transformiert
+Mit ihr kann jeder der initialen RecordImpls transformiert
 und anschließend in der \emph{clusterImpl-Liste} abgelegt werden.
 Die \emph{cluster-Methode} kümmert sich um den eigentlichen Cluster-Vorgang.
 Dabei nutzt sie zur Berechnung von Kosten eine Instanz der \emph{Dtw-Klasse}.
 Sie implementiert das \emph{Metric-Interface} und bietet daher die nötigen Methoden,
-um die Kosten zwischen zwei \emph{RecordImpls}, beziehungsweise deren \emph{FrameImpl-Listen} zu berechnen.
+um die Kosten zwischen zwei RecordImpls, beziehungsweise deren \emph{FrameImpl-Listen} zu berechnen.
 Dabei kommt der in \autoref{3-DTW} beschriebene \ac{DTW}-Algorithmus zum Einsatz.
-Um auch eine \emph{ClusterImpl} mit einer \emph{RecordImpls} vergleichen zu können bietet die Klasse zudem entsprechende
+Um auch eine ClusterImpl mit einer RecordImpls vergleichen zu können bietet die Klasse zudem entsprechende
 \emph{calculateMedianFrames-Methoden}, die aus mehreren \emph{FrameImpl-Listen} eine neue erzeugt,
 indem die Werte mithilfe von \ac{DTW} kombiniert werden.
-Das genaue Verhalten der Klassen \emph{HierarchicalClustering} und \emph{Dtw} wird in \autoref{5-Codebeschreibung} näher betrachtet.
-Nach dem Ende der Berechnungen liegen die gefundenen \emph{ClusterImpls} in der \emph{clusterImpl-Liste} vor.
+Das genaue Verhalten der Klassen HierarchicalClustering und \emph{Dtw} wird in \autoref{5-Codebeschreibung} näher betrachtet.
+Nach dem Ende der Berechnungen liegen die gefundenen ClusterImpls in der \emph{clusterImpl-Liste} vor.
 Sie werden mit dem \emph{ClusterWriter} geeignet in einer Textdatei abgespeichert.
 Zudem erfolgt eine Visualiserung mithilfe der \emph{VisualizerImpl}.
 Die Klasse nutzt dazu Java-AWT-Komponenten.
@@ -75,7 +75,7 @@ ob die Werte in x-Richtung gespiegelt werden sollen.
 Dies ist nötig, da bei der Kinect das Koordinatensystem aus Nutzersicht erstellt wird.
 In der Visualiserung führt dies dazu, dass die aufgezeichneten Bewegungen spiegelverkehrt erscheinen.
 Der String \emph{attributeForBodyIdentification} dient dazu,
-die unterschiedlichen Personen im \emph{Record} korrekt darzustellen.
+die unterschiedlichen Personen im Record korrekt darzustellen.
 
 \section{Codebeschreibung}
 \label{5-Codebeschreibung}
@@ -351,7 +351,7 @@ Es ist zu erwähnen, dass es dabei zu einem Informationsverlust kommt.
 Diese Option sollte daher nur bei Bedarf genutzt,
 wenn ansonsten beispielsweise der Zeitaufwand für die Berechnung zu hoch ist.
 
-Zudem wurde abweichend zur Konzeption ein primitiver \emph{Visualizer} ergänzt,
+Zudem wurde abweichend zur Konzeption ein primitiver Visualizer ergänzt,
 da sonst die Analyse der Cluster manuell über Kinect Studio erfolgen muss.
 Er stellt die Laufwege der gefundenen Cluster aus der Vogelperspektive dar.
 Für jedes Cluster wird ein Verzeichnis erstellt.

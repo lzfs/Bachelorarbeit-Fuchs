@@ -133,16 +133,16 @@ Im Folgenden wird der Programmablauf beschrieben.
 \begin{enumerate}
     \item Der Nutzer startet den \emph{Processor}
     und gibt als Startparameter den Pfad der \emph{config-Datei} an.
-    \item Der \emph{Processor} nutzt den \emph{Config-Reader}, um die Werte der \emph{Konfigurationdatei} auszulesen
+    \item Der Processor nutzt den \emph{Config-Reader}, um die Werte der Konfigurationdatei auszulesen
     und speichert diese ab.
-    \item Der \emph{Processor} nutzt den \emph{DataReader}, um den Datensatz einzulesen
+    \item Der Processor nutzt den \emph{DataReader}, um den Datensatz einzulesen
     und legt die Informationen in geeigneten Objekten ab.
     Für den Kinect-Datensatz sind die Implementierungen \emph{RecordImpl} und \emph{FrameImpl}
     bereitgestellt.
-    \item Der \emph{Processor} startet das Clustering durch den Aufruf der \emph{cluster-Methode}
+    \item Der Processor startet das Clustering durch den Aufruf der cluster-Methode
     eines \emph{HierarchicalClustering-Objekts}.
     Zu beginn entspricht jeder Record einem eigenen Cluster.
-    Die \emph{recordToCluster-Methode} ermöglicht eine Transformation von Records zu Clustern.
+    Die recordToCluster-Methode ermöglicht eine Transformation von Records zu Clustern.
     \item Das Clustering nutzt ein \emph{\ac{DTW}-Objekt},
     um paarweise die geringsten Kombinationskosten zweier Cluster zu berechnen.
     \item Die beiden Cluster mit den geringsten Kombinationskosten werden zusammengeführt.
@@ -153,8 +153,8 @@ Im Folgenden wird der Programmablauf beschrieben.
     Bei allen Komponenten wird zudem ein boolescher Wert auf \emph{false} gesetzt,
     damit sie bei zukünftigen Vergleichen nicht mehr berücksichtigt werden.
     \item Schritte 5 und 6 werden so lange wiederholt, bis die geringsten Kosten den vom Nutzer definierten Threshold übersteigen.
-    \item Der \emph{Processor} nutzt den \emph{Cluster-Writer}, um alle Cluster der \emph{clusters-Liste}
+    \item Der Processor nutzt den \emph{Cluster-Writer}, um alle Cluster der clusters-Liste
     in eine Ausgabedatei zu schreiben.
-    \item Der \emph{Processor} nutzt die \emph{VisualizerImpl}, um alle Records der gefundenen Cluster zu visualisieren.
+    \item Der Processor nutzt die \emph{VisualizerImpl}, um alle Records der gefundenen Cluster zu visualisieren.
     \item Die Anwendung terminiert. 
 \end{enumerate}
