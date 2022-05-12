@@ -20,10 +20,10 @@ ob zusammengefasste Records tatsächlich einen hohen Grad an Übereinstimmung au
 
 \section{Einführende Bemerkungen}
 \label{6-Bemerkungen}
-Statt den gesamten in \autoref{2-StrukturDatensatz} beschriebenen Datensatz zu verwenden,
+Statt den gesamten, in \autoref{2-StrukturDatensatz} beschriebenen, Datensatz zu verwenden,
 sollen geeignete Teilmengen genutzt werden.
-Zudem wurden die Daten zur Evaluation gefiltert bereitgestellt.
-Zu kurze oder fehlerhafte Records wurden aussortiert.
+Es wurde eine gefilterte Version des Datensatzes bereitgestellt.
+Zu kurze oder fehlerhafte Records wurden aussortiert (\autoref{2-StrukturDatensatz}).
 Außerdem erfolgte eine Sortierung nach Personenzahl.
 Das Filtern der Daten gehört nicht zu den Anforderungen an das entwickelte Tool
 und wird daher nicht in dieser Arbeit betrachtet.
@@ -79,7 +79,7 @@ dass beim Clustering von Bewegungsdaten, mithilfe von Laufwegen,
 der Zweck des Gehens offen bleibt \citep{monastero_traces_2018}.
 Dieser kann durch manuelle Interpretation bestimmt werden,
 wobei die gefundenen Cluster unterstützend eingesetzt werden können.
-Zur Automatisierung derartiger Interpretationen ist weitere Forschung notwendig. 
+Zur Automatisierung derartiger Interpretationen ist weitere Forschung notwendig.
 
 \section{Ground-Truth-Analyse}
 \label{6-GroundTruth}
@@ -87,7 +87,7 @@ Im gefilterten Datensatz mit drei Personen befinden sich insgesamt 103 Records.
 Die manuelle Einteilung ergab,
 dass es sich bei vielen darin vorkommenden Bewegungsabläufen
 um spezielle Bewegungen, die nicht häufiger auftreten, handelt.
-Sie sollen im Folgenden nicht aufgeführt werden.
+Sie werden im Folgenden nicht aufgeführt.
 Allerdings wurde ein eindeutiges Cluster identifiziert.
 \autoref{fig:3PersClust1} zeigt einen Repräsentanten dieses Clusters.
 \begin{figure}[ht]
@@ -162,15 +162,14 @@ und zum Schreiben der Ergebnisse wurde hier ignoriert.
   \end{center}
 \end{table}
 Diese Limitierung muss beachtet werden,
-falls in Zukunft noch größere Datenmengen geclustert werden müssen.
+falls in Zukunft noch umfangreichere Datenmengen geclustert werden müssen.
 In diesem Fall muss entweder ein leistungsstärkerer Rechner eingesetzt,
 oder das Tool weiter optimiert werden.
 Mögliche Optionen sind Parallelisierung
-oder die Implementierung einer effizienteren Version des Clustering-Verfahrens.
-\citet{patel_study_2015} stellen einige Möglichkeiten vor.
+oder die Implementierung einer effizienteren Version des Clustering-Verfahrens \citep{patel_study_2015}.
 
 Insgesamt befinden sich 3523 Records mit einer Person im gefilterten Datensatz.
-Ab einer gewissen Menge treten allerdings kaum noch neue Bewegungsmuster auf.
+Allerdings wiederholen sich die Bewegungsmuster oft.
 Deshalb soll die Analyse im Folgenden auf eine Teilmenge mit 1000 beliebigen Records eingeschränkt werden.
 Erneut wird überprüft, ob wiederkehrende Bewegungen korrekt erkannt werden.
 \autoref{fig:1PersClusters} zeigt jeweils einen Repräsentanten der manuell erkannten Muster.

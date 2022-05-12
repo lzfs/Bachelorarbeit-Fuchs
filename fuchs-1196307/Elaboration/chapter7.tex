@@ -5,24 +5,28 @@ bei der Nutzung von interaktiven Wandbildschirmen analysiert.
 Dazu muss ein methodisches Rahmenwerk entwickelt werden, welches eine auf Sensordaten-basierende,
 automatische und zeitlich uneingeschränkte Evaluation von Ambient Displays ermöglicht \citep{unibw_honeypot-effekt_2021}.
 Bewegungsdaten von Tiefenkameras können genutzt werden,
-um das Verhalten von Menschen vor Wandbildschirmen aufzuzeichnen.
+um das Verhalten von Menschen vor Wandbildschirmen zu analysieren.
 Es kann versucht werden, ob sich Kategorien identifizieren lassen,
 die etwas über das Verhalten von Menschen vor Wandbildschirmen aussagen.
 Bei großen Datensätzen ist eine manuelle Identifikation nicht möglich.
 Daher ist eine Automatisierung notwendig.
 Diese Bachelorarbeit ist ein Beitrag zum Rahmenwerk für die Evaluation.
 Wesentliches Ziel war die Implementierung eines Systems zur Kategorisierung von vorliegenden \emph{Kinect-Bewegungsdaten}.
-Es wurde versucht, das Problem mithilfe von deterministischen Algorithmen zu lösen.
+Das Problem wurde mithilfe von deterministischen Algorithmen gelöst.
 Konkret kam \emph{hierarchisches Clustering} mithilfe des \emph{\ac{DTW}} Algorithmus zum Einsatz,
 da diese Algorithmen für den Umgang mit \ac{TSD} geeignet sind.
 In der Evaluation wurde die Praxistauglichkeit des Tools überprüft.
 Dazu wurden gefilterte Teilmengen des vorliegenden Datensatzes geclustert.
-Die Rolle eines geeigneten Thresholds ist dabei besonders hervorzuheben.
+Dabei hat sich gezeigt, dass die Rolle eines geeigneten Thresholds von Bedeutung ist.
 Die durchgeführte Ground-Truth-Analyse bestätigt, dass ein sinnvolles Clustering möglich ist.
 Die deskriptiven Statistiken belegen zudem, dass die Qualität der gefunden Cluster hoch ist.
 Mit den genutzten Algorithmen lassen sich Bewegungsdaten also ohne Vorwissen clustern.
-In zukünftigen Arbeiten kann unter anderem versucht werden die Effizienz des Tools weiter zu erhöhen,
-um die Nutzbarkeit bei großen Datensätzen weiter zu steigern.
+Zu erwähnen ist allerdings, dass beim Clustering von Bewegungsdaten
+der Zweck der Bewegung offen bleibt \citep{monastero_traces_2018}.
+Dieser kann durch manuelle Interpretation bestimmt werden.
+Zur Automatisierung dieses Schritts ist weitere Forschung notwendig.
+In zukünftigen Arbeiten kann außerdem versucht werden die Effizienz des Tools weiter zu erhöhen,
+um die Nutzbarkeit bei großen Datensätzen zu steigern.
 Zudem ist der Einsatz anderer Distanzfunktionen denkbar.
 Abhängig von den Daten können mit anderen Funktionen gegebenenfalls die Ergebnisse verbessert werden.
-Vor allem können aber in zukünftigen Forschungsarbeiten mithilfe der Anwendung weitere Datenanalysen stattfinden.
+Des Weiteren können in künftigen Forschungsarbeiten, mithilfe der Anwendung, weitere Datenanalysen stattfinden.

@@ -328,6 +328,7 @@ Diese Division ist nötig, um, im Falle von unterschiedlich großen Matrizen, ve
 \section{Abweichungen zur Konzeption}
 \label{5-AbweichungenKonzeption}
 Alle im folgenden genannten Punkte waren in der ursprünglichen Konzeption nicht vorgesehen.
+Die Notwendigkeit der Anpassungen wird zudem begründet.
 
 An die Performanz der Anwendung wurden keine besonderen Anforderungen gestellt
 (\autoref{4-NichtFunktionaleAnforderungen}).
@@ -347,7 +348,8 @@ Dies geschieht, indem der Parameter \emph{skipFrames} in der config-Datei auf \e
 Damit ist in der Regel weiterhin ein sinnvolles Clustering möglich,
 wobei die Anzahl der Berechnungsschritte reduziert werden kann.
 Es ist zu erwähnen, dass es dabei zu einem Informationsverlust kommt.
-Diese Option sollte daher nur bei Bedarf genutzt werden.
+Diese Option sollte daher nur bei Bedarf genutzt,
+wenn ansonsten beispielsweise der Zeitaufwand für die Berechnung zu hoch ist.
 
 Zudem wurde abweichend zur Konzeption ein primitiver \emph{Visualizer} ergänzt,
 da sonst die Analyse der Cluster manuell über Kinect Studio erfolgen muss.
