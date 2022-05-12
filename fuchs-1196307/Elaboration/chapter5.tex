@@ -96,7 +96,7 @@ Des Weiteren werden die nötigen Variablen für die Berechnung deklariert.
 \autoref{lst:ClustInit} zeigt diese Schritte.
 Der eigentliche Berechnungsablauf wird in \autoref{lst:ClustCalc} gezeigt.
 Er befindet sich in einer Schleife, die mindestens einmal ausgeführt wird.
-Sie wird solange fortgesetzt, bis die geringsten gefundenen Kosten den Threshold übersteigen,
+Sie wird so lange fortgesetzt, bis die geringsten gefundenen Kosten den Threshold übersteigen,
 oder nur noch ein einziges Cluster übrig ist.
 Die Merge-Kandidaten geben die Indizes der beiden Cluster mit den
 geringsten Kombinationskosten an.
@@ -333,14 +333,14 @@ Die Notwendigkeit der Anpassungen wird zudem begründet.
 An die Performanz der Anwendung wurden keine besonderen Anforderungen gestellt
 (\autoref{4-NichtFunktionaleAnforderungen}).
 Es zeigte sich aber schnell, dass bereits Datensätze mit einigen Hundert Records zu langen Bearbeitungszeiten führen.
-Daher werden zwei Konzepte umgesetzt die sich diesem Problem annehmen.
+Daher werden zwei Konzepte umgesetzt, die sich diesem Problem annehmen.
 Zum einen werden die berechneten Kosten in einer Map abgespeichert,
 um wiederholte Berechnungen in darauffolgenden Schritten zu vermeiden.
 Als Key der jeweiligen Map-Einträge dient ein Objekt der Klasse ClusterKey.
 Sie implementiert das Comparable-Interface und sorgt dafür,
 dass zwei Cluster zusammen als Key einer Map verwendet werden können.
 Dies spart viele Berechnungsschritte,
-da beinahe alle Werte im Vergleich zum vorherigen Iterationsschritt gleich bleiben.
+da beinahe alle Werte im Vergleich zum vorherigen Iterationsschritt gleichbleiben.
 Lediglich jene Kosten, an denen die neu zusammengeführten Cluster beteiligt waren,
 sowie die Kosten mit dem neuen Cluster müssen neu berechnet werden.
 Zum anderen gibt es die Möglichkeit jeden dritten Frame der Records zu ignorieren.

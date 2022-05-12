@@ -28,7 +28,7 @@ Außerdem erfolgte eine Sortierung nach Personenzahl.
 Das Filtern der Daten gehört nicht zu den Anforderungen an das entwickelte Tool
 und wird daher nicht in dieser Arbeit betrachtet.
 Dennoch sollte dem Nutzer bewusst sein,
-dass mit gefilterten Daten gegebenfalls aussagekräftigere Ergebnisse erzielbar sind.
+dass mit gefilterten Daten gegebenenfalls aussagekräftigere Ergebnisse erzielbar sind.
 Gerade die separate Betrachtung von Records mit unterschiedlicher Personenzahl kann helfen,
 wiederkehrende Bewegungsmuster durch Clustering zu erkennen.
 Die Anzahl gibt dabei immer an, wie viele Personen sich maximal
@@ -39,7 +39,7 @@ Ebenfalls zu erwähnen ist die Bedeutung eines geeigneten Threshold-Wertes für 
 Dieser kann je nach vorliegenden Daten, verwendeten Attributen und Zielstellung variieren.
 Häufig ist daher ein {\glqq Herantasten\grqq} nötig.
 In den später beschriebenen Szenarien war beispielsweise auffällig,
-dass der Threshold bei Records mit einer Person deutlich niedriger war,
+dass der Threshold bei Records mit einer Person deutlich niedriger war
 als bei Records mit mehreren Personen.
 Abhängig davon wie viele Cluster am Ende erwünscht sind
 und wie stark die Cluster-Bestandteile voneinander abweichen dürfen,
@@ -65,13 +65,13 @@ dass genau so viele Cluster entstehen wie auch manuell erkannt wurden.
 Die Auswertung zeigt, dass die vom Tool berechneten Cluster genau mit den Ground-Truth-Daten übereinstimmen.
 Diese Minimalbeispiele sind aber nur bedingt aussagekräftig,
 da lediglich eine kleine Teilmenge der tatsächlich vorhandenen Daten genutzt wurde.
-Manche Muster treten dadurch gegebenfalls überhaupt nicht auf.
+Manche Muster treten dadurch gegebenenfalls überhaupt nicht auf.
 In \autoref{6-GroundTruth} soll daher die Analyse auf mehr gefilterte Daten
 für ein bis drei Personen ausgeweitet werden.
 Aufgrund der Vielzahl der Daten ist das manuelle Clustering allerdings nicht so
 zuverlässig möglich wie in den oben beschriebenen Minimalbeispielen.
 Die Daten wurden aber nach bestem Wissen auf die wichtigsten Bewegungen hin untersucht.
-Spezielle Bewegungen die nur einmalig auftreten wurden ignoriert.
+Spezielle Bewegungen, die nur einmalig auftreten, wurden ignoriert.
 Ziel ist es zu überprüfen,
 ob häufig wiederkehrende Muster vom Tool korrekt erkannt werden.
 Abschließend bleibt zu erwähnen,
@@ -98,11 +98,11 @@ Allerdings wurde ein eindeutiges Cluster identifiziert.
     \label{fig:3PersClust1}
 \end{figure}
 Es handelt sich dabei um drei Personen, die nebeneinander durch den Sensorbereich laufen.
-Die selben Erkenntnisse lieferte auch das Minimalbeispiel aus \autoref{6-Bemerkungen}.
+Dieselben Erkenntnisse lieferte auch das Minimalbeispiel aus \autoref{6-Bemerkungen}.
 Grund hierfür kann sein, dass die Datenmenge mit circa 100 Records immer noch gering ist.
 Anschließend wurde überprüft, ob auch das Tool diese häufig auftretende Bewegung korrekt erkannt hat.
 Die Ergebnisse der Berechnungen stimmen mit dem manuell gefundenen Cluster überein.
-Im Wesentlichen wird nur ein nicht-triviales Cluster gefunden
+Im Wesentlichen wird nur ein nicht-triviales Cluster gefunden,
 und zwar das oben beschriebene.
 
 Die Teilmenge aller Records mit zwei Personen enthält 513 Records.
@@ -163,7 +163,7 @@ und zum Schreiben der Ergebnisse wurde hier ignoriert.
 \end{table}
 Diese Limitierung muss beachtet werden,
 falls in Zukunft noch umfangreichere Datenmengen geclustert werden müssen.
-In diesem Fall muss entweder ein leistungsstärkerer Rechner eingesetzt,
+In diesem Fall muss entweder ein leistungsstärkerer Rechner eingesetzt
 oder das Tool weiter optimiert werden.
 Mögliche Optionen sind Parallelisierung
 oder die Implementierung einer effizienteren Version des Clustering-Verfahrens \citep{patel_study_2015}.
@@ -185,7 +185,7 @@ während sie sich im zweiten Szenario unmittelbar vor der Kamera befindet.
 Bild drei zeigt ein direktes Zugehen auf den Bildschirm.
 Im vierten und sechsten Fall steht die Person an verschiedenen Positionen beinahe still.
 Szenario fünf zeigt, wie eine Person nach vorne läuft,
-sich umdreht und wieder zurück läuft.
+sich umdreht und wieder zurückläuft.
 All diese Fälle können durch das Tool erkannt werden.
 Zu erwähnen ist allerdings, dass manche Cluster bei hohen Thresholds bereits in andere Gruppen integriert werden.
 So kann etwa das fünfte Szenario nur bei niedrigeren Thresholds erkannt werden,
