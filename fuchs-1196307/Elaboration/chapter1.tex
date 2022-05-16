@@ -1,7 +1,7 @@
 \chapter{Einleitung}
 \label{chapter1}
 Von September 2021 bis August 2024 forschen die Hochschule für angewandte Wissenschaften Hamburg
-und die Universität der Bundeswehr München im Rahmen des \emph{HoPE-Projekts} unter anderem am Verhalten
+und die Universität der Bundeswehr München im Rahmen des \emph{HoPE-Projekts} am Verhalten
 von Menschen bei der Nutzung von großen, interaktiven Wandbildschirmen.
 Im Zuge des Projekt wird unter anderem der \emph{Honeypot-Effekt} erforscht \citep{unibw_honeypot-effekt_2021}.
 Dieser beschreibt im Bereich der \ac{HCI} wie Menschen, die mit einem System interagieren,
@@ -12,7 +12,7 @@ Dabei muss auch der Aspekt der Datenerhebung und -analyse weiter ausgebaut werde
 Hierzu muss ein methodisches Rahmenwerk entwickelt werden, welches eine auf Sensordaten-basierende,
 automatische und zeitlich uneingeschränkte Evaluation von Ambient Displays ermöglicht \citep{unibw_honeypot-effekt_2021}.
 Die Sensordaten werden von Body-Tracking-Kameras bereitgestellt.
-Es liegt ein Datensatz vor, bei dem Wandbildschirme mit Microsoft Kinect v2 Kameras ausgestattet wurden.
+Es liegt ein Datensatz vor, für den Wandbildschirme mit Microsoft Kinect v2 Kameras ausgestattet wurden.
 Diese zeichnen die Interaktion von Nutzern mit den Displays auf,
 wodurch das Nutzerverhalten zu einem späteren Zeitpunkt ausgewertet werden kann.
 Die Daten liegen als \emph{\ac{TSD}} vor.
@@ -20,13 +20,13 @@ Dabei handelt es sich um geordnete Sequenzen von Datenpunkten,
 die über eine gewisse Zeit hinweg aufgenommen werden \citep{ali_clustering_2019}.
 Da sich die Attributwerte mit der Zeit verändern, spricht man von dynamischen Daten.
 \ac{TSD} enthalten oft wichtige Informationen, die durch eine Analyse entdeckt werden können \citep{ali_clustering_2019}.
-Anhand dieser Informationen können die Daten gruppiert werden.
+Mit ihrer Hilfe können die Daten gruppiert werden.
 Dabei stellt sich die Frage, ob Kategorien identifizierbar sind,
 die etwas über das Verhalten von Menschen vor Wandbildschirmen aussagen.
 Wiederkehrende Bewegungsabläufe treten teilweise zu unterschiedlichen Zeitpunkten in den Aufnahmen auf.
 Zudem kann sich die Ausführung bei verschiedenen Personen unterscheiden.
 Dies erschwert eine manuelle Kategorisierung.
-Bei großen Datensätzen ist eine manuelle Evaluation zur Beantwortung der Frage ohnehin nicht möglich.
+Bei großen Datensätzen ist ein manuelles Vorgehen im Allgemeinen ohnehin nicht möglich.
 Daher muss eine automatisierte Sortierung angeboten werden.
 In dieser Bachelorarbeit wird eine mögliche Herangehensweise zur Lösung des Problems mittels deterministischer Algorithmen betrachtet.
 Wesentliches Ziel ist die Implementierung eines Systems zur Kategorisierung der vorliegenden \emph{Kinect-Bewegungsdaten}.
@@ -39,16 +39,16 @@ Es werden mögliche Modelle der Interaktion mit Wandbildschirmen vorgestellt.
 Außerdem werden die Grundzüge der Kinect Kamera und des vorliegenden Datensatzes dargestellt.
 Abschließend erfolgt eine tiefergehende Erläuterung der Problemstellung.
 \autoref{chapter3} widmet sich dem Hierarchischen Clustering und dem \ac{DTW}-Algorithmus.
-Gründe für die Wahl dieser Algorithmen werden hier erwähnt.
+Hier werden Gründe für die Wahl dieser Algorithmen erwähnt.
 Nach einer ausführlichen Beschreibung der Funktionsweise
 wird das Vorgehen an einem Beispiel veranschaulicht.
 Am Ende wird auf verwandte Literatur
 und den Einsatz im Kontext von Kinect-Bewegungsdaten eingegangen.
 \autoref{chapter4} behandelt die Konzeption des Software-Tools.
 Dafür werden die Anforderungen betrachtet,
-bevor im Rest des Kapitels auf den geplanten Programmablauf,
+bevor im Rest des Kapitels auf den Programmablauf,
 sowie nötige Teilsysteme eingegangen wird.
-Anschließend erfolgt die eigentliche Implementierung der Anwendung.
+Anschließend erfolgt die Implementierung der Anwendung.
 In \autoref{chapter5} wird deren Aufbau beleuchtet.
 Außerdem werden zentrale Ausschnitte des Codes
 und Abweichungen zur Konzeption beschrieben.

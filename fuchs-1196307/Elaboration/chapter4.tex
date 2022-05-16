@@ -8,14 +8,12 @@ Etwaige Ungereimtheiten und Probleme können so frühzeitig erkannt werden.
 \section{Anforderungsanalyse}
 \label{4-Anforderungsanalyse}
 Es soll ein System implementiert werden,
-welches Kinect-Bewegungsdaten mithilfe von hierarchischem Clustering
-und \ac{DTW} als Distanzmetrik gruppiert.
+welches Kinect-Bewegungsdaten mithilfe von hierarchischem Clustering und \ac{DTW} gruppiert.
 Es gibt sogenannte \emph{funktionale Anforderungen} und \emph{nicht-funktionale Anforderungen},
 die das System erfüllen muss.
 Letztere beinhalten beispielsweise Anforderungen zu Benutzbarkeit, Effizienz oder Portierbarkeit.
 Funktionale Anforderungen beschreiben hingegen die primären Funktionen des Systems.
-Im Austausch mit Mitarbeitern des HoPE-Projekts haben sich die folgenden Anforderungen ergeben.
-Die Anforderungen sind im Wesentlichen durch Diskussionen im Projektkontext entstanden.
+Die folgenden Anforderungen sind im Wesentlichen durch Diskussionen im Projektkontext entstanden.
 
 \subsection{Nicht-funktionale Anforderungen}
 \label{4-NichtFunktionaleAnforderungen}
@@ -43,7 +41,7 @@ Die Anwendung sollte die folgenden Funktionalitäten anbieten.
 Unter anderem ist sie für den Input zuständig.
 Ein Datensatz kann aus Dateien eingelesen und in passenden Datenobjekten abgespeichert werden.
 Als Input-Dateiformat werden Textdateien unterstützt.
-Die Unterstützung weiterer Dateiformate, wie CSV, kann bei Bedarf ergänzt werden.
+Die Unterstützung weiterer Dateiformate, wie CSV, muss bei Bedarf ergänzt werden.
 Das Tool soll ein Clustering mittels hierarchischem Clustering wie in \autoref{3-Clustering} beschrieben anbieten.
 Dabei ist der Schwellwert für das Zusammenführen von zwei Clustern vom Nutzer konfigurierbar.
 Als Distanzmetrik wird \ac{DTW} (\autoref{3-DTW}) genutzt.
@@ -98,8 +96,7 @@ die der Nutzer beim Start der Anwendung übergeben kann.
 \autoref{fig:Packages} kann das Paketdiagramm des Tools entnommen werden.
 Das Paket \emph{model} enthält sowohl die Interfaces für Cluster, Records und Frames,
 als auch jeweils geeignete Implementierungen für den Kinect-Datensatz.
-Bei Bedarf können hier bei späterer Verwendung der Software weitere Implementierungen
-für andere Datensätze ergänzt werden.
+Bei Bedarf können hier weitere Implementierungen für andere Datensätze ergänzt werden.
 Im \emph{utility}-Paket befinden sich Interfaces für Reader und Writer.
 Auch hier sind geeignete Implementierungen bereitgestellt.
 Ein Reader für die Config-Datei, ein Reader für die Kinect-Daten
@@ -150,9 +147,10 @@ Im Folgenden wird der Programmablauf beschrieben.
     Durch diese Kombination entsteht ein neues Cluster.
     Für alle Attribute werden die Wertereihen für das neue Cluster, aus denen der alten Cluster berechnet und abgespeichert.
     Zudem werden alle Bestandteile des neuen Clusters abgespeichert.
-    Bei allen Komponenten wird zudem ein boolescher Wert auf \emph{false} gesetzt,
+    Bei allen Komponenten wird ein boolescher Wert auf \emph{false} gesetzt,
     damit sie bei zukünftigen Vergleichen nicht mehr berücksichtigt werden.
-    \item Schritte 5 und 6 werden so lange wiederholt, bis die geringsten Kosten den vom Nutzer definierten Threshold übersteigen.
+    \item Schritte 5 und 6 werden so lange wiederholt, bis die geringsten Kosten den vom Nutzer definierten Threshold übersteigen
+    oder nur noch ein Cluster übrig ist.
     \item Der Processor nutzt den \emph{Cluster-Writer}, um alle Cluster der clusters-Liste
     in eine Ausgabedatei zu schreiben.
     \item Der Processor nutzt die \emph{VisualizerImpl}, um alle Records der gefundenen Cluster zu visualisieren.

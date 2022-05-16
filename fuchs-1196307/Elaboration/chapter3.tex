@@ -1,4 +1,4 @@
-\chapter{Clustering von Bewegungsdaten mittels Dynamic Time Warping}
+\chapter{Clustering von Bewegungsdaten}
 \label{chapter3}
 
 Nach den einführenden Bemerkungen in \autoref{chapter1} und \autoref{chapter2} werden nun
@@ -23,25 +23,23 @@ Letzteres wird durch \ac{DTW} gelöst.
 Das Verfahren wird in \autoref{3-DTW} beschrieben.
 Als Clustering-Vorgehen kann das sogenannte hierarchische Clustering genutzt werden.
 Dabei werden Datenobjekte in einem Cluster-Baum eingeordnet.
-Beim agglomerativen Vorgehen wird ein \emph{bottom-up} Ansatz verfolgt \citep{warren_liao_clustering_2005}.
+Es wird ein \emph{bottom-up} Ansatz verfolgt \citep{warren_liao_clustering_2005}.
 Jedes Objekt ist daher zunächst ein eigenes Cluster.
 Dann werden schrittweise Cluster zusammengeführt,
 bis alle Objekte im selben Cluster sind,
 oder eine zuvor definierte Terminierungsbedingung erfüllt ist \citep{warren_liao_clustering_2005}.
 In jedem Iterationsschritt werden dabei die beiden Cluster zusammengeführt,
 welche die geringste Differenz zueinander aufweisen.
+Die Bestimmung der Differenz wird in \autoref{3-DTW} erläutert.
 Die Terminierungsbedingung entspricht in diesem Kontext dem Überschreiten des vordefinierten Thresholds.
 
-Im Fall des Kinect-Datensatzes liegen die Daten als \ac{TSD} vor.
-\ac{TSD} zu clustern findet in vielen wissenschaftlichen Gebieten Anwendung, um Muster zu finden \citep{aghabozorgi_time-series_2015}.
+Das Clustering von \ac{TSD} findet in vielen wissenschaftlichen Gebieten Anwendung, um Muster zu finden \citep{aghabozorgi_time-series_2015}.
 Das Vorgehen hilft dabei, wichtige Informationen aus großen Datensätzen zu extrahieren.
 Das Kategorisieren von \ac{TSD}-Objekten kann bei der Detektion relevanter Muster helfen \citep{aghabozorgi_time-series_2015}.
 Die meisten bestehenden Cluster-Algorithmen können auf diesen Datentypen zugeschnitten werden.
 So auch das hierarchische Clustering.
 Wie bereits erwähnt, ist der größte Unterschied, dass die Distanz-/ Ähnlichkeitsmetrik angepasst werden muss,
 um sinnvoll bei \ac{TSD} genutzt werden zu können.
-Dafür kann \ac{DTW} zum Einsatz kommen.
-Dort müssen Datenreihen für den Vergleich nicht zwangsweise die gleiche Länge besitzen \citep{warren_liao_clustering_2005}.
 
 \section{Dynamic Time Warping Algorithmus}
 \label{3-DTW}
@@ -88,7 +86,7 @@ Aufgrund der Kontinuität sind nur Schritte in angrenzende Zellen erlaubt.
 Zuletzt führt die Monotoniebedingung dazu, dass der Warping Path sich monoton in der Zeit bewegt.
 Rücksprünge in vorherige Zellen sind daher nicht möglich.
 
-Mit Hilfe von dynamischer Programmierung können die Matrixeinträge von \emph{$M_{(1, 1)}$} ausgehend berechnet werden,
+Die Matrixeinträge können von \emph{$M_{(1, 1)}$} ausgehend berechnet werden,
 indem wiederholt die folgende Gleichung ausgewertet wird:
 \emph{$ M_{(i, j)} = d(q_{i}, r_{j}) + min $ \{$M_{(i - 1, j - 1)}, M_{(i - 1, j)}, M_{(i, j - 1)} $\}}.
 Sie definiert den kumulativen Abstand als die Summe aus dem Abstand des aktuellen Elementes
@@ -99,7 +97,7 @@ Er kann mit \emph{$d_{DTW} = min(\frac{\sum_{k = 1}^{K}w_{k}}{K})$} berechnet we
 Wobei es sich bei der Division durch \emph{K} um eine Normalisierung handelt.
 
 
-\section{Veranschaulichendes Beispiel zu hierarchischem Clustering mittels Dynamic Time Warping}
+\section{Beispiel zum hierarchischem Clustering mittels Dynamic Time Warping}
 \label{3-Example}
 Zur Veranschaulichung soll nun das Vorgehen mit vier beliebigen Datenreihen durchgeführt werden.
 Seien \emph{$R_{1}$ = (0, 1, 1, 2, 2, 1, 1)}, \emph{$R_{2}$ = (0, 1, 1, 1, 2, 2, 1, 1)},
@@ -158,7 +156,7 @@ wird kein neues Cluster mehr gebildet und die Berechnung terminiert.
          $\infty$ & 8 & 2 & 2 & 2 & 2 & 2 & 0 & \textbf{0} \\
          \hline
         \end{tabular}
-        \caption{Kostenmatrix mit hervorgehobenem Warping Pfad.}
+        \caption{Kostenmatrix mit hervorgehobenem Warping Path.}
         \label{tbl:ExampleMatrix}
     \end{center}
 \end{table}
@@ -250,8 +248,8 @@ um automatisiert Bewegungsabläufe mit Vorlagen zu vergleichen und diese somit z
 Im Kontext der Interaktion mit Wandbildschirmen können unterschiedliche Eingabewerte interessant sein.
 In dieser Bachelorarbeit sollen die Attribute für den Vergleich, daher nicht bei der Implementierung festgelegt werden.
 Stattdessen sollen sie frei konfigurierbar sein,
-damit der Anwender das Clustering je nach Fragestellung mit verschiedenen Attributen durchführen kann.
-Keines der in der Literatur gezeigten Systeme liefert eine derartige Funktionalität.
+damit der Anwender das Clustering, je nach Fragestellung, mit verschiedenen Attributen durchführen kann.
+Keines der in der Literatur gezeigten Systeme bietet eine derartige Funktionalität.
 \citet{mohammadzade_dynamic_2021} nutzen \ac{TSD}-Informationen für eine Überwachung von alltäglichen menschlichen Aktivitäten.
 Jede Aktion wird durch eine mehrdimensionale Time-Series repräsentiert,
 wobei eine Dimension jeweils der Position eines Skelettpunkts im Verlauf der Zeit entspricht.
@@ -278,14 +276,13 @@ Ein Versuch im Kontext von Bewegungsdaten erfolgt in \citet{hautamaki_time-serie
 
 \section{Einsatz im Kontext von Kinect-Bewegungsdaten}
 \label{3-Einsatz}
-Wie bereits erwähnt handelt es sich bei den vorliegenden Kinect-Daten um \ac{TSD}.
 \citet{warren_liao_clustering_2005} und \citet{aghabozorgi_time-series_2015} weisen darauf hin,
 dass besonders die verwendete Distanzmetrik entscheidend ist,
-um diesen Datentyp sinnvoll in Kategorien einteilen zu können.
+um \ac{TSD} sinnvoll in Kategorien einteilen zu können.
 Die vorgestellten Arbeiten in \autoref{3-RelatedWork} zeigen,
-dass hierarchisches Clustering in Kombination mit \ac{DTW} ein vielversprechender Ansatz sein kann.
+dass hierarchisches Clustering in Kombination mit \ac{DTW} ein vielversprechender Ansatz ist.
 Da die Daten in Textdateien vorliegen, ist eine Komponente im System nötig,
-die diese Informationen ausliest und in geeigneten Objekten der genutzten Programmiersprache abspeichert.
+die diese Informationen ausliest und in geeigneten Objekten abspeichert.
 Von besonderer Bedeutung ist zudem die Wahl geeigneter Attribute.
 Die Daten enthalten viele Werte, die mehr oder weniger interessant für die Kategorisierung sein können.
 Welche Werte für eine Analyse relevant sind, muss im Einzelfall überprüft werden.
@@ -295,8 +292,7 @@ Der zu definierende Threshold kann je nach Daten unterschiedlich ausfallen
 und sollte daher ebenfalls von Nutzer konfiguriert werden können.
 Abschließend ist die große Menge der Daten zu erwähnen.
 \citet{aghabozorgi_time-series_2015} weisen darauf hin,
-dass \ac{DTW} weniger performant ist als herkömmliche Metriken wie die euklidische Distanz.
+dass \ac{DTW} weniger performant ist als herkömmliche Metriken.
 Gegebenenfalls müssen die Daten vor der Nutzung geeignet gefiltert werden.
-Diese Filterung ist allerdings nicht Bestandteil dieser Bachelorarbeit,
-da sie deren Rahmen sprengen würde.
+Diese Filterung ist allerdings nicht Bestandteil dieser Bachelorarbeit.
 Für die Evaluation in \autoref{chapter6} wurden bereits gefilterte Daten bereitgestellt.

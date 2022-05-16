@@ -11,18 +11,18 @@ Zudem erfolgt abschließend eine ausführliche Problembeschreibung.
 \citet{wouters_uncovering_2016} verweisen darauf, dass interaktive digitale Medien in der Öffentlichkeit immer präsenter sind.
 Das anfängliche Interesse an der Technologie ist gesunken.
 Für Wandbildschirme, die versuchen, die Aufmerksamkeit von Passanten zu erregen
-und sie zur Interaktion zu animieren, wird dies immer schwieriger.
+und sie zur Interaktion zu animieren, wird dies immer schwieriger \citep{wouters_uncovering_2016}.
 Diese Herausforderungen können nicht allein durch verbesserte Hardware
 oder attraktiv gestaltete Hardware gelöst werden.
 Stattdessen muss ein besseres Verständnis von Menschen und deren Technologienutzung geschaffen werden,
 um diese Erkenntnisse bei der Gestaltung zukünftiger Wandbildschirme berücksichtigen zu können \citep{wouters_uncovering_2016}.
 Ambient Displays sind große, interaktive Bildschirme im (halb-) öffentlichen Raum, mit denen Nutzer interagieren können.
 Es handelt sich meist um ansprechende Displays die Personen mit Informationen versorgen \citep{mankoff_heuristic_2003}.
-Eine Kategorisierung von Interaktionen mit solchen Bildschirmen kann gegebenenfalls das Verständnis des Nutzungsverhaltens verbessern.
+Eine Kategorisierung von Interaktionen mit solchen Bildschirmen kann das Verständnis des Nutzungsverhaltens verbessern.
 Dazu existieren verschiedenste \emph{Audience Behaviour-Interaktionsmodelle}.
 Das \emph{Audience Funnel Modell} ist ein weit verbreitetes Modell
 und der \emph{Honeypot-Effekt} ist im Kontext des HoPE-Projekts relevant.
-Daher sollen diese beiden im Folgenden näher beschrieben werden.
+Daher sollen diese beiden Modelle im Folgenden näher beschrieben werden.
 
 Das Audience Funnel Modell \citep{wouters_uncovering_2016, mai_audience_2018} beschreibt,
 wie Menschen sich um große halb-öffentliche oder öffentliche Displays versammeln
@@ -30,10 +30,10 @@ und von Beobachtern zu Interagierenden mit dem System, und anschließend wieder 
 Menschen neigen dazu verschiedene Phasen der Interaktivität zu durchlaufen,
 bevor sie direkt mit dem System interagieren \citep{wouters_uncovering_2016, mai_audience_2018}.
 Die einzelnen Phasen des Audience Funnel werden in \autoref{fig:AudienceFunnelModel} gezeigt.
-Eine der Aufgaben eines Wandbildschirms ist es also Aufmerksamkeit auf sich zu ziehen
+Eine der Aufgaben eines Wandbildschirms kann es sein, Aufmerksamkeit auf sich zu ziehen
 und den Nutzer zu motivieren mit dem System zu interagieren \citep{mai_audience_2018}.
-\citet{mai_audience_2018} verweisen darauf, dass Ambient Displays in der Öffentlichkeit
-nicht unbedingt der zentrale Punkt der Aufmerksamkeit sind, da vorbeigehende Personen eigene intrinsische Ziele verfolgen \citep{mai_audience_2018}.
+\citet{mai_audience_2018} verweisen aber darauf, dass Ambient Displays in der Öffentlichkeit
+nicht unbedingt der zentrale Punkt der Aufmerksamkeit sind, da vorbeigehende Personen eigene intrinsische Ziele verfolgen.
 Die Herausforderung für Entwickler ist es, die Inhalte auf den Systemen so relevant zu gestalten,
 dass sie Aufmerksamkeit erregen, sich aber gleichzeitig nicht aufdrängend in den Mittelpunkt stellen \citep{mai_audience_2018}.
 \begin{figure}[ht]
@@ -46,17 +46,17 @@ dass sie Aufmerksamkeit erregen, sich aber gleichzeitig nicht aufdrängend in de
 
 Ein zweites Modell wird durch den bereits erwähnten Honeypot-Effekt beschrieben.
 Er zeigt, dass Individuen unabhängig von Belohnung, Bestrafung oder sozialem Wettbewerb
-von der reinen Präsenz oder den Aktivitäten anderer beeinflusst werden \citep{wouters_uncovering_2016}..
+von der reinen Präsenz oder den Aktivitäten anderer beeinflusst werden \citep{wouters_uncovering_2016}.
 In der \ac{HCI} wird dies meist erkennbar, indem Passanten sich einem System nähern
 und überlegen, ob sie mit ihm interagieren sollen,
 nachdem sie anderen Menschen dabei zugesehen haben \citep{wouters_uncovering_2016}.
 
-Eine Einordnung der Bewegungsdaten in die Kategorien solcher Modelle
+Eine Einordnung von Bewegungsdaten in die Kategorien solcher Modelle
 und eine weiterführende Analyse der Bewegungen kann Aufschluss über das Verhalten von Menschen
 vor interaktiven Bildschirmen geben.
 Wie bereits erwähnt, soll eine derartige Kategorisierung automatisiert werden.
 
-\section{Spezifikation der Kinect}
+\section{Spezifikation der Microsoft Kinect}
 \label{2-SpezifikationKinect}
 Ursprünglich war der Xbox 360 Kinect-Sensor ausschließlich für die Videospiel-Industrie gedacht.
 Schon bald wurde dieser aber auch für wissenschaftliche Experimente genutzt \citep{tolgyessy_evaluation_2021}.
@@ -73,7 +73,7 @@ Die Kinect v2 verwendet dabei den Ansatz der kontinuierlichen Wellenintensitäts
 der häufig bei \ac{ToF}-Tiefenkameras zum Einsatz kommt.
 Dabei wird das Licht einer Lichtquelle von anderen Objekten im Sichtfeld der Kamera zurückgestreut
 und die Zeit zwischen der Emittierung und dem Wiedereintreffen des reflektierten Lichtes gemessen.
-Im weiteren Verlauf wird diese \glqq Flugzeit\grqq\ für jedes Pixel im Bild in einen Entfernungswert umgerechnet \citep{tolgyessy_evaluation_2021}.
+Diese \glqq Flugzeit\grqq\ wird für jedes Pixel im Bild in einen Entfernungswert umgerechnet \citep{tolgyessy_evaluation_2021}.
 Der Sensor kann Tiefenbilder mit einer Auflösung von 512 x 424 Pixeln
 und Farbbilder mit 1920 x 1080 Pixeln aufnehmen \citep{marin_multi-camera_2019}.
 Bei der Kinect v2 können bis zu sechs Personen erfasst werden.
@@ -89,7 +89,7 @@ Dabei wird die Lage von 25 Skelettpunkten, sowie verschiedene Gesichtsattribute 
 
 \section{Struktur des vorliegenden Datensatzes}
 \label{2-StrukturDatensatz}
-Im Rahmen eines Feldeinsatzes wurden im agilen Umfeld eines Software-Unternehmens Ambient Displays installiert.
+Im Rahmen eines Feldeinsatzes wurden, im agilen Umfeld eines Software-Unternehmens, Ambient Displays installiert.
 Mitarbeiter konnten dort auf Hilfsanwendungen zur Softwareentwicklung, wie \emph{Jira} oder \emph{Confluence}, zugreifen \citep{schwarzer_spontaneous_2021}.
 Die Bildschirme wurden mit Kinect v2 Systemen ausgestattet,
 um die Bewegungen der Vorbeigehenden aufzuzeichnen \citep{schwarzer_spontaneous_2021}.
@@ -123,6 +123,7 @@ Insgesamt befinden sich im Datensatz 34.687.630 Frames \citep{temiz_konzeption_2
 Diese Anzahl verdeutlicht die Notwendigkeit eines Software-Tools zur Auswertung.
 Für diese Bachelorarbeit wurde eine vorselektierte Version des Datensatzes bereitgestellt,
 welche auch in \autoref{chapter6} zum Einsatz kommt.
+\clearpage
 Dieser Datensatz kam durch folgende Regeln zustande:
 \begin{enumerate}
   \item Nur Aufzeichnungen von Werktagen werden beachtet.
@@ -133,7 +134,7 @@ Dieser Datensatz kam durch folgende Regeln zustande:
   \item Aufzeichnungen mit großen Sprüngen auf den Achsen werden nicht beachtet.
 \end{enumerate}
 Hier ist anzumerken, dass das zu entwickelnde Tool auch mit anderen Datensätzen funktionieren soll.
-So sollen bei Bedarf zum Beispiel auch Daten anderer Tiefenkameras geclustert werden können.
+So sollen bei Bedarf auch Daten anderer Tiefenkameras geclustert werden können.
 \begin{table}[ht]
   \begin{center}
     \begin{tabular}{ |c|c| } 
@@ -197,24 +198,23 @@ So sollen bei Bedarf zum Beispiel auch Daten anderer Tiefenkameras geclustert we
 \clearpage
 \section{Problembeschreibung}
 \label{2-Problembeschreibung}
-Wesentliches Ziel ist die Kategorisierung von Bewegungsdaten.
-Da die Bewegungen von verschiedenen Personen ausgeführt werden,
+Da die Bewegungen im Datensatz von verschiedenen Personen ausgeführt werden,
 kann es sein, dass gegebenenfalls auch gleiche Bewegungshandlungen voneinander abweichen.
 Zudem kann es vorkommen, dass die Bewegungen zu unterschiedlichen Zeitpunkten in den Records auftreten.
 Diese Tatsachen machen eine manuelle Kategorisierung oft schwierig.
 Hinzu kommt das bereits beschriebene Problem der großen Datenmenge.
-Im Folgenden sollen mögliche Lösungsansätze der beschriebenen Problematik diskutiert werden.
+Im Folgenden werden mögliche Lösungsansätze der beschriebenen Problematik diskutiert.
 
-Es gibt verschiedene Möglichkeiten sich der Kategorisierung von Bewegungsdaten zu nähern \citet{aghabozorgi_time-series_2015}.
-So kann beispielsweise der Ansatz des \emph{Maschine Learning} eingesetzt werden,
+Es gibt verschiedene Möglichkeiten sich der Kategorisierung von Bewegungsdaten zu nähern \citep{aghabozorgi_time-series_2015}.
+So kann beispielsweise der Ansatz des \emph{Maschine Learnings} eingesetzt werden,
 welcher derzeit ebenfalls im Rahmen des HoPE-Projekts erforscht \citep{plischke_master_2022} wird.
 In dieser Bachelorarbeit werden hingegen \emph{deterministische Algorithmen} genutzt.
 \citet{aghabozorgi_time-series_2015} verweisen darauf, dass die Verwendung von Methoden
 wie Maschine Learning (\emph{supervised}), im Falle von großen Datensätzen, zu Problemen führen kann.
 Es ist nicht möglich Trainingsdaten, die alle möglichen Szenarien abdecken, zur Verfügung zu stellen.
 Dies ist auch nicht Ziel der Untersuchungen.
-Stattdessen soll geprüft werden,
-ob mithilfe der Anwendung Bewegungsabläufe automatisiert, gefunden werden können.
+Stattdessen stellt sich die Frage,
+ob mithilfe der Anwendung automatisiert Bewegungsabläufe gefunden werden können.
 Deterministische Cluster-Algorithmen sind hier geeignet,
 da diese keine zuvor definierten Klassen benötigen \citep{aghabozorgi_time-series_2015}.
 
@@ -242,15 +242,15 @@ Diese Ähnlichkeiten treten allerdings zu unterschiedlichen Zeitpunkten auf.
 Zudem sind die Datenreihen unterschiedlich lang.
 Der letzte Punkt der Reihe kann daher gar keinem anderen Punkt zugordnet werden.
 Bei der bloßen Anwendung der bekannten euklidischen Distanz,
-ohne Zuordnung der Punkte, ist das Ergebnis hier gegebenenfalls nicht aussagekräftig.
+ohne Zuordnung der Punkte, ist das Ergebnis hier nicht aussagekräftig.
 Um dieses Problem zu lösen ist eine \emph{elastische Metrik} nötig,
 die besser mit zeitlichen Verschiebungen umgehen kann \citep{aghabozorgi_time-series_2015}.
 Dazu wird \ac{DTW} verwendet (\autoref{3-DTW}).
 Hier ist eine Mehrfachzuordnung von Punkten möglich.
-Dies erlaubt eine Zuordnung ähnlicher Muster in den Daten, auch wenn sie zeitlich verschoben sind \citet{mohammadzade_dynamic_2021}.
+Dies erlaubt eine Zuordnung ähnlicher Muster in den Daten, auch wenn sie zeitlich verschoben sind \citep{mohammadzade_dynamic_2021}.
 Diese können so verbunden werden, dass die Kombinationskosten minimal sind.
 Es gibt also keine andere Zuordnung der Punkte,
-sodass die Summe der Differenzen zwischen ihnen geringer ist.
+sodass die Summe der Differenzen zwischen ihnen geringer wäre.
 Das Clustering soll mithilfe von hierarchischem Clustering,
 welches in \autoref{3-Clustering} beschrieben wird, durchgeführt werden.
 Das Verfahren ist für die vorliegenden Daten geeignet,
@@ -258,8 +258,8 @@ da es erlaubt \ac{TSD} unterschiedlicher Länge zu clustern.
 Zudem muss die Anzahl der zu bildenden Cluster nicht im Voraus definiert werden,
 wie dies etwa bei \emph{K-Means} der Fall ist \citep{aghabozorgi_time-series_2015}.
 Es ist in diesem Kontext nicht zielführend die Clusteranzahl zuvor zu definieren,
-da die Arbeit darauf abzielt, mehr Erkenntnis über mögliche sinnvolle Cluster zu gewinnen.
-Statt die Anzahl vorzugeben, wird ein \emph{Threshold} definiert der angibt,
+da die Arbeit darauf abzielt, mehr Erkenntnis über mögliche Cluster zu gewinnen.
+Statt die Anzahl vorzugeben, wird ein \emph{Threshold} definiert, der angibt,
 ab wann zwei Cluster nicht mehr zusammengeführt werden sollen,
 weil die Differenz zwischen ihnen zu groß ist.
 Hierarchisches Clustering mit \ac{DTW} ist also zur Lösung des beschriebenen Problems geeignet.

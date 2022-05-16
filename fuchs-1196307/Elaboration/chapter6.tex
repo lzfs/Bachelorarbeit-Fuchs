@@ -31,8 +31,6 @@ Dennoch sollte dem Nutzer bewusst sein,
 dass mit gefilterten Daten gegebenenfalls aussagekräftigere Ergebnisse erzielbar sind.
 Gerade die separate Betrachtung von Records mit unterschiedlicher Personenzahl kann helfen,
 wiederkehrende Bewegungsmuster durch Clustering zu erkennen.
-Die Anzahl gibt dabei immer an, wie viele Personen sich maximal
-zu einem Zeitpunkt in der Aufnahme befinden.
 In der Evaluation werden nur Records mit ein bis drei Personen betrachtet.
 
 Ebenfalls zu erwähnen ist die Bedeutung eines geeigneten Threshold-Wertes für ein erfolgreiches Clustering.
@@ -66,14 +64,14 @@ Die Auswertung zeigt, dass die vom Tool berechneten Cluster genau mit den Ground
 Diese Minimalbeispiele sind aber nur bedingt aussagekräftig,
 da lediglich eine kleine Teilmenge der tatsächlich vorhandenen Daten genutzt wurde.
 Manche Muster treten dadurch gegebenenfalls überhaupt nicht auf.
-In \autoref{6-GroundTruth} soll daher die Analyse auf mehr gefilterte Daten
-für ein bis drei Personen ausgeweitet werden.
+In \autoref{6-GroundTruth} soll die Analyse daher auf größere Mengen gefilterter Daten,
+für ein bis drei Personen, ausgeweitet werden.
 Aufgrund der Vielzahl der Daten ist das manuelle Clustering allerdings nicht so
 zuverlässig möglich wie in den oben beschriebenen Minimalbeispielen.
-Die Daten wurden aber nach bestem Wissen auf die wichtigsten Bewegungen hin untersucht.
+Die Daten wurden aber nach bestem Wissen, auf die wichtigsten Bewegungen hin, untersucht.
 Spezielle Bewegungen, die nur einmalig auftreten, wurden ignoriert.
 Ziel ist es zu überprüfen,
-ob häufig wiederkehrende Muster vom Tool korrekt erkannt werden.
+ob häufig wiederkehrende Muster korrekt vom Tool erkannt werden.
 Abschließend bleibt zu erwähnen,
 dass beim Clustering von Bewegungsdaten, mithilfe von Laufwegen,
 der Zweck des Gehens offen bleibt \citep{monastero_traces_2018}.
@@ -134,7 +132,7 @@ Das Tool kann für Datensätze mit Ein- bis Zweitausend Records effizient einges
 Auf einem heute typischen Mittelklasse-Heimrechner werden innerhalb weniger Minuten Ergebnisse geliefert.
 Ab einigen Tausend Records nimmt die Bearbeitungszeit zu,
 sodass, unter Umständen, mit mehreren Stunden Wartezeit zu rechnen ist.
-Die meisten Hierarchischen Clustering-Verfahren werden den Komplexitätsklassen
+Die meisten hierarchischen Clustering-Verfahren werden den Komplexitätsklassen
 \emph{O(n²)} oder \emph{O(n³)} zugeordnet.
 Das implementierte Tool fällt in die Klasse \emph{O(n²)},
 wie die Zeitmessungen aus \autoref{tbl:CalcTime} belegen.
@@ -195,20 +193,20 @@ diese aber dennoch manuell betrachtet werden müssen.
 Dabei sollte auch mit verschiedenen Thresholds experimentiert werden.
 
 Die Auswertung des gesamten Datensatzes bestätigt demnach die Vermutung der Minimalbeispiele.
-Das Tool kann erfolgreich genutzt werden, um sinnvolle Cluster auf den Kinect-Bewegungsdaten zu finden.
+Das Tool kann genutzt werden, um sinnvolle Cluster in den Kinect-Bewegungsdaten zu finden.
 Im folgenden Abschnitt soll abschließend die Güte der gefundenen Cluster an einigen Beispielen
 überprüft werden.
 
 \section{Statistische Analyse}
 \label{6-Statistical}
 Abschließend soll mithilfe von deskriptiven Statistiken überprüft werden,
-ob ein Zusammenhang zwischen den Record-Bestandteilen eines Clusters besteht.
+ob ein qualitativer Zusammenhang zwischen den Record-Bestandteilen eines Clusters besteht.
 Der Grad der Übereinstimmung liefert Informationen zur Ähnlichkeit.
 Konkret werden nun für die Komponenten einiger Cluster
 die Standardabweichung, der Mittelwert, das Maximum und das Minimum für die x-Laufwege berechnet
 und tabellarisch dargestellt.
 In der letzten Zeile ist jeweils die Standardabweichung aller darüberstehenden Werte aufgeführt.
-Hier werden teilweise die Minimalbeispiele aus \autoref{6-GroundTruth} mit veränderten Thresholds wieder aufgegriffen.
+Hier werden teilweise die Minimalbeispiele aus \autoref{6-GroundTruth}, mit veränderten Thresholds, wieder aufgegriffen.
 Auch diese Daten befinden sich im Evaluation-Verzeichnis des Code-Repositories.
 Zunächst wird das erste Cluster mit drei Personen betrachtet (\autoref{fig:Clusters}).
 Die Ergebnisse werden in \autoref{tbl:ClustThreePers} dargestellt

@@ -1,6 +1,6 @@
 \chapter{Implementierung}
 \label{chapter5}
-Wie bereits erwähnt erfolgt die Implementierung in Java.
+Wie bereits erwähnt erfolgt die Implementierung mit Java.
 Damit für die Nutzung keine weiteren Installationen nötig sind,
 werden nur die Java-Standardbibliotheken zur Umsetzung genutzt.
 Der gesamte Source Code kann unter \href{https://github.com/lzfs/tsprocessor}{github.com/lzfs/tsprocessor}
@@ -131,7 +131,7 @@ In den oben gezeigten Clustering-Schritten wurden die Kosten mithilfe der \emph{
 Für jedes der Attribute, das für die Berechnung verwendet werden soll, wird gemäß des \ac{DTW}-Algorithmus
 eine Kostenmatrix aufgestellt (\autoref{lst:DtwMatrix}).
 Für sie werden die minimalen Pfadkosten berechnet und zu den Gesamtkosten für diesen Attributvergleich addiert.
-Das Ergebnis wird am Ende durch die Anzahl der betrachteten Attribute geteilt,
+Das Ergebnis wird am Ende durch die Anzahl der betrachteten Attribute dividiert,
 um auch vergleichbare Werte zu erhalten, wenn die Anzahl von Attributen variiert.
 Die Methode \emph{buildCostMatrix} liefert die passende Kostenmatrix für ein gemeinsames Attribut
 zweier Frame-Listen gemäß des \ac{DTW}-Algorithmus.
@@ -328,12 +328,12 @@ Diese Division ist nötig, um, im Falle von unterschiedlich großen Matrizen, ve
 \section{Abweichungen zur Konzeption}
 \label{5-AbweichungenKonzeption}
 Alle im folgenden genannten Punkte waren in der ursprünglichen Konzeption nicht vorgesehen.
-Die Notwendigkeit der Anpassungen wird zudem begründet.
+Die Notwendigkeit der Anpassungen wird im Folgenden begründet.
 
 An die Performanz der Anwendung wurden keine besonderen Anforderungen gestellt
 (\autoref{4-NichtFunktionaleAnforderungen}).
 Es zeigte sich aber schnell, dass bereits Datensätze mit einigen Hundert Records zu langen Bearbeitungszeiten führen.
-Daher werden zwei Konzepte umgesetzt, die sich diesem Problem annehmen.
+Daher wurden zwei Konzepte umgesetzt, die sich diesem Problem annehmen.
 Zum einen werden die berechneten Kosten in einer Map abgespeichert,
 um wiederholte Berechnungen in darauffolgenden Schritten zu vermeiden.
 Als Key der jeweiligen Map-Einträge dient ein Objekt der Klasse ClusterKey.
